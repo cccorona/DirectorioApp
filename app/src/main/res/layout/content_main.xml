@@ -12,45 +12,229 @@
 
 
     <LinearLayout
-        android:background="#655443"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="#FFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <GridLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:paddingTop="30dp"
+            android:layout_height="wrap_content">
+            <GridLayout
+                android:columnCount="3"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
-                android:layout_gravity="center"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                card_view:cardCornerRadius="4dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/categoria_card_view"
+                    android:padding="0dp"
+                    android:layout_margin="0dp"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    card_view:cardCornerRadius="4dp">
 
-                    <ImageView
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_menu_gallery"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
-
-                    <TextView
-                        android:text="Categoria"
-                        style="@style/MainTextStyleOption"
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/categoria"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:text="Categoria"
+                            style="@style/MainTextStyleOption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    card_view:cardCornerRadius="4dp">
 
-        </GridLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/buscar"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="Buscar"
+                            style="@style/MainTextStyleOption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/promociones"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="Promociones"
+                            style="@style/MainTextStyleOption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/avisos"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:text="Avisos de\n ocasión"
+                            style="@style/MainTextStyleOption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/emergencia"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:id="@+id/textView2"
+                            style="@style/MainTextStyleOption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Emergencias" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/noticias"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:id="@+id/textView3"
+                            style="@style/MainTextStyleOption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Noticias" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+
+
+
+
+
+            </GridLayout>
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@drawable/fondo"
+                android:layout_width="200dp"
+                android:layout_height="200dp" />
+
+
+        </RelativeLayout>
+
 
 
     </LinearLayout>
