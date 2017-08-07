@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "245709829535",
+    "firebase_url": "https://anunciosapp-9e8b8.firebaseio.com",
+    "project_id": "anunciosapp-9e8b8",
+    "storage_bucket": "anunciosapp-9e8b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245709829535:android:120610956ec324b9",
+        "android_client_info": {
+          "package_name": "mx.com.cesarcorona.directorio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245709829535-jc4hvglacun6ah6pmjnuakh7hrv15ncs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_MNGcss--wnWCPWv9OfJBzPThEigdCD4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

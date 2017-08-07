@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity{
 
 
         public static final String TAG = SplashActivity.class.getSimpleName();
-        private static final long SPLASH_SCREEN_DELAY = 3000;
+        private static final long SPLASH_SCREEN_DELAY = 1000;
 
 
         @Override
