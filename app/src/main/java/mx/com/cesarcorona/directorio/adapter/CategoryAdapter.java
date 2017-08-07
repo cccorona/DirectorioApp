@@ -21,6 +21,17 @@ public class CategoryAdapter extends BaseAdapter {
 
     private LinkedList<Categoria> allCategories;
     private Context context;
+    private CategorySelectedListener categorySelectedListener;
+
+
+    public interface CategorySelectedListener{
+        void OnCategoryClicked(Categoria categoria);
+    }
+
+    public void setCategorySelectedListener(CategorySelectedListener categorySelectedListener) {
+        this.categorySelectedListener = categorySelectedListener;
+    }
+
 
 
     public CategoryAdapter(LinkedList<Categoria> allCategories, Context context) {
@@ -44,11 +55,19 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View rootView = inflater.inflate(R.layout.category_element_layout,viewGroup,false);
+        final View rootView = inflater.inflate(R.layout.category_element_layout,viewGroup,false);
         TextView title = (TextView) rootView.findViewById(R.id.category_title);
         title.setText(allCategories.get(i).getDisplay_title());
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(categorySelectedListener != null){
+                    categorySelectedListener.OnCategoryClicked(allCategories.get(i));
+                }
+            }
+        });
         return  rootView;
     }
 }

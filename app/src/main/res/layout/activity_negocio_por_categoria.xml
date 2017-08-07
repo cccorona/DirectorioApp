@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    tools:context="mx.com.cesarcorona.directorio.activities.CategoriaActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/categoria_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:padding="0dp"
+                app:cardElevation="20dp"
+                card_view:cardCornerRadius="4dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MainTextStyleOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Banner Promocional" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#009900"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Abiertos"
+                android:textColor="#FFF"
+                android:textSize="18dp" />
+
+
+            <mx.com.cesarcorona.directorio.custom.ExpandableGridView
+                android:visibility="visible"
+                android:id="@+id/opened_negocios_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:isScrollContainer="false"
+                android:numColumns="3"
+                android:padding="10dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp">
+
+            </mx.com.cesarcorona.directorio.custom.ExpandableGridView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#CE081C"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Cerrados"
+                android:textColor="#FFF"
+                android:textSize="18dp" />
+
+
+            <mx.com.cesarcorona.directorio.custom.ExpandableGridView
+                android:id="@+id/close_negocios_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:isScrollContainer="false"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:padding="10dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"></mx.com.cesarcorona.directorio.custom.ExpandableGridView>
+
+
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

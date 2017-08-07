@@ -1,6 +1,7 @@
 package mx.com.cesarcorona.directorio.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.GridView;
@@ -18,10 +19,12 @@ import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.adapter.CategoryAdapter;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
 
-public class CategoriaActivity extends AppCompatActivity {
+public class CategoriaActivity extends AppCompatActivity implements CategoryAdapter.CategorySelectedListener{
 
     public static String CATEGORY_REFERENCE ="categorias";
     public static String TAG = CategoriaActivity.class.getSimpleName();
+    public static String ITEM_SELECTED ="categoria";
+
 
     private DatabaseReference mDatabase;
     private LinkedList<Categoria> allCategories;
@@ -47,10 +50,12 @@ public class CategoriaActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot categoriaSnap : dataSnapshot.getChildren()) {
                     Categoria categoria = categoriaSnap.getValue(Categoria.class);
+                    categoria.setDataBaseReference(categoriaSnap.getKey());
                     allCategories.add(categoria);
                 }
 
                 categoryAdapter = new CategoryAdapter(allCategories,CategoriaActivity.this);
+                categoryAdapter.setCategorySelectedListener(CategoriaActivity.this);
                 categoriesGrid.setAdapter(categoryAdapter);
                 hidepDialog();
             }
@@ -80,5 +85,14 @@ public class CategoriaActivity extends AppCompatActivity {
     private void hidepDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    @Override
+    public void OnCategoryClicked(Categoria categoria) {
+        Bundle extras = new Bundle();
+        extras.putSerializable(ITEM_SELECTED,categoria);
+        Intent negociosPorCategoriaIntent = new Intent(CategoriaActivity.this,NegocioPorCategoriaActivity.class);
+        negociosPorCategoriaIntent.putExtras(extras);
+        startActivity(negociosPorCategoriaIntent);
     }
 }

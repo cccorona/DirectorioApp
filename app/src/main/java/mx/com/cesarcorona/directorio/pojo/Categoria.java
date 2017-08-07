@@ -1,5 +1,7 @@
 package mx.com.cesarcorona.directorio.pojo;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,9 @@ public class Categoria implements Serializable {
     private String display_title;
     private String type;
     private String url_icon;
+    @Exclude
+    private String dataBaseReference;
+
 
     public Categoria(String display_title, String type, String url_icon) {
         this.display_title = display_title;
@@ -43,5 +48,13 @@ public class Categoria implements Serializable {
 
     public void setUrl_icon(String url_icon) {
         this.url_icon = url_icon;
+    }
+
+    public String getDataBaseReference() {
+        return dataBaseReference;
+    }
+
+    public void setDataBaseReference(String dataBaseReference) {
+        this.dataBaseReference = dataBaseReference;
     }
 }
