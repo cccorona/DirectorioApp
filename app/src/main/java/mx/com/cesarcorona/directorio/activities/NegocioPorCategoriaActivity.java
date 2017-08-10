@@ -1,6 +1,7 @@
 package mx.com.cesarcorona.directorio.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -27,7 +28,7 @@ import mx.com.cesarcorona.directorio.pojo.Negocio;
 public class NegocioPorCategoriaActivity extends AppCompatActivity implements NegocioPorCategoriaAdapter.NegocioSelectedListener {
 
 
-    public static String CATEGORY_REFERENCE ="negocios";
+    public static String NEGOCIOS_REFERENCE ="negocios";
     public static String TAG = NegocioPorCategoriaActivity.class.getSimpleName();
     public static String ITEM_SELECTED ="categoria";
     public static int ELEMENT_SIZE = 120;
@@ -52,7 +53,7 @@ public class NegocioPorCategoriaActivity extends AppCompatActivity implements Ne
 
     private void initialize(){
         categoriaSelected = (Categoria) getIntent().getExtras().getSerializable(ITEM_SELECTED);
-        mDatabase = FirebaseDatabase.getInstance().getReference(CategoriaActivity.CATEGORY_REFERENCE +"/" +categoriaSelected.getDataBaseReference()+"/"+CATEGORY_REFERENCE);
+        mDatabase = FirebaseDatabase.getInstance().getReference( NEGOCIOS_REFERENCE +"/" +categoriaSelected.getDataBaseReference());
         openNegociosGrid = (ExpandableGridView) findViewById(R.id.opened_negocios_grid_view);
         closedNegociosGrid = (ExpandableGridView) findViewById(R.id.close_negocios_grid_view);
         allNegocios = new LinkedList<>();
@@ -86,9 +87,11 @@ public class NegocioPorCategoriaActivity extends AppCompatActivity implements Ne
                 negocioPorCategoriaAdapterClosed.setNegocioSelectedListener(NegocioPorCategoriaActivity.this);
                 negocioPorCategoriaAdapterOpen.setNegocioSelectedListener(NegocioPorCategoriaActivity.this);
                 openNegociosGrid.setAdapter(negocioPorCategoriaAdapterOpen);
+                openNegociosGrid.setExpanded(true);
                 openNegociosGrid.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, allNegocios.size() * ELEMENT_SIZE));
                 //openNegociosGrid.setMinimumHeight(allNegocios.size() * ELEMENT_SIZE);
                 closedNegociosGrid.setAdapter(negocioPorCategoriaAdapterClosed);
+                closedNegociosGrid.setExpanded(true);
                // closedNegociosGrid.setMinimumHeight(allNegocios.size() * ELEMENT_SIZE);
                 closedNegociosGrid.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, allNegocios.size() * ELEMENT_SIZE));
 
@@ -108,6 +111,10 @@ public class NegocioPorCategoriaActivity extends AppCompatActivity implements Ne
 
     @Override
     public void OnNegocioClicked(Negocio negocio) {
-
+        Intent negocioDetailIntent = new Intent(NegocioPorCategoriaActivity.this,NegocioDetailActivity.class);
+        Bundle extras = new Bundle();
+        extras.putSerializable(NegocioDetailActivity.KEY_NEGOCIO,negocio);
+        negocioDetailIntent.putExtras(extras);
+        startActivity(negocioDetailIntent);
     }
 }

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mx.com.cesarcorona.directorio">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAfSA8OvL3vq33Gpzi-IZ94gjD5m-X4Cjg" />
 
         <activity
             android:name=".MainActivity"
@@ -26,7 +32,12 @@
         </activity>
         <activity android:name=".activities.CategoriaActivity" />
         <activity android:name=".activities.NegocioPorCategoriaActivity" />
-        <activity android:name=".activities.NegocioDetailActivity"></activity>
+        <activity android:name=".activities.NegocioDetailActivity" />
+
+        <service
+            android:name=".service.MyLocationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

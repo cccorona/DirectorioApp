@@ -29,11 +29,14 @@ public class Negocio implements Serializable {
     private HashMap<String,String> url_promos;
     private String web;
     private String whatsapp;
+    private String phone;
+    private String twitter;
+    private String entregaADomicilio;
 
     @Exclude
     private String negocioDataBaseReference;
 
-    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String negocioDataBaseReference) {
+    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String phone, String twitter, String entregaADomicilio) {
         this.close_time = close_time;
         this.descripcion = descripcion;
         this.display_title = display_title;
@@ -48,7 +51,9 @@ public class Negocio implements Serializable {
         this.url_promos = url_promos;
         this.web = web;
         this.whatsapp = whatsapp;
-        this.negocioDataBaseReference = negocioDataBaseReference;
+        this.phone = phone;
+        this.twitter = twitter;
+        this.entregaADomicilio = entregaADomicilio;
     }
 
     public Negocio() {
@@ -172,5 +177,30 @@ public class Negocio implements Serializable {
 
     public void setNegocioDataBaseReference(String negocioDataBaseReference) {
         this.negocioDataBaseReference = negocioDataBaseReference;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getEntregaADomicilio() {
+        return entregaADomicilio;
+    }
+
+    public void setEntregaADomicilio(String entregaADomicilio) {
+        this.entregaADomicilio = entregaADomicilio;
     }
 }

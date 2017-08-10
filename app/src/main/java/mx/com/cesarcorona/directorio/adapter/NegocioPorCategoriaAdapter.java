@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 
@@ -57,6 +60,7 @@ public class NegocioPorCategoriaAdapter  extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         final View rootView = inflater.inflate(R.layout.negocio_item_layout,viewGroup,false);
         TextView title = (TextView) rootView.findViewById(R.id.negocio_title);
+        ImageView negocioIcon = (ImageView) rootView.findViewById(R.id.category_icon);
         title.setText(allNegocios.get(i).getDisplay_title());
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +70,8 @@ public class NegocioPorCategoriaAdapter  extends BaseAdapter {
                 }
             }
         });
+
+        Picasso.with(context).load(allNegocios.get(i).getUrl_logo()).resize(50,50).centerInside().into(negocioIcon);
         return  rootView;
     }
 }
