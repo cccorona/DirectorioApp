@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    xmlns:card_view="http://schemas.android.com/tools"
+
+    tools:context="mx.com.cesarcorona.directorio.activities.NegocioDetailActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <FrameLayout
+            android:background="#FFF"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/nombre_negocio"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="#BB000000"
+                    android:gravity="center"
+                    android:text="Nombre del negocio"
+                    android:padding="7dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/horario_negocio"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="#BB000000"
+                    android:gravity="center"
+                    android:text="09:00 AM - 05:30 PM"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </FrameLayout>
+        <TextView
+            android:id="@+id/open_status_negocio"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorCerrado"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:text="Cerrado"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/domicilio_status_negocio"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorEntrega"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:text="Entrega a domicilio"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/categoria_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardElevation="10dp"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/negocio_descripcion"
+                    android:textAlignment="center"
+                    android:padding="3dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Esta es una descripcion del negocio."
+                    android:lines="2"
+                    style="@style/MainTextStyleOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_phone_1055012"
+                    android:id="@+id/phone_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Telefono:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/phone_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="556810-1453"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_whatsapp_287675"
+                    android:id="@+id/whats_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="WhatsApp:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/whats_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="556810-1453"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_twitter_287618"
+                    android:id="@+id/twitter_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Twitter:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/twiter_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="\@ceccorona"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_mail_287559"
+                    android:id="@+id/web_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Web:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/web_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="contacto@cesrcorona.com.mx"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+        <com.daimajia.slider.library.SliderLayout
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:id="@+id/slider"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            />
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

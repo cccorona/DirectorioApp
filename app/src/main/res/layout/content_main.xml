@@ -166,7 +166,7 @@
 
                         <ImageView
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/emergencia"
+                            android:src="@drawable/cerca_de_mi"
                             android:layout_width="60dp"
                             android:layout_height="60dp" />
 
@@ -176,7 +176,7 @@
                             style="@style/MainTextStyleOption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Emergencias" />
+                            android:text="Cerca de mi" />
 
                     </LinearLayout>
 
