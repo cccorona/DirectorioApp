@@ -16,12 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import mx.com.cesarcorona.directorio.activities.CategoriaActivity;
+import mx.com.cesarcorona.directorio.activities.SearchActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private CardView categoriaCard;
+    private CardView seachCard;
 
 
     @Override
@@ -110,5 +112,15 @@ public class MainActivity extends AppCompatActivity
                 startActivity(categorysActivity);
             }
         });
+
+        seachCard = (CardView) findViewById(R.id.search_card_view);
+        seachCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent categorysActivity = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(categorysActivity);
+            }
+        });
+
     }
 }

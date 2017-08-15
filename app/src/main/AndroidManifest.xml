@@ -33,6 +33,9 @@
         <activity android:name=".activities.CategoriaActivity" />
         <activity android:name=".activities.NegocioPorCategoriaActivity" />
         <activity android:name=".activities.NegocioDetailActivity" />
+        <activity android:name=".activities.SearchActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
 
         <service
             android:name=".service.MyLocationService"
