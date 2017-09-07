@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0099cc"
+        android:background="@drawable/linear_splash_gradient"
         tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.FullscreenActivity">
 
         <TextView
@@ -23,7 +23,7 @@
             android:gravity="center"
             android:keepScreenOn="true"
             android:text="@string/app_name"
-            android:textColor="#33b5e5"
+            android:textColor="@color/colorWhite"
             android:textSize="50sp"
             android:textStyle="bold" />
 
