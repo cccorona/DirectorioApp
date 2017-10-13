@@ -35,7 +35,7 @@ import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivi
  * Created by ccabrera on 15/08/17.
  */
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseAnimatedActivity {
 
 
     public static final String TAG = SearchActivity.class.getSimpleName();

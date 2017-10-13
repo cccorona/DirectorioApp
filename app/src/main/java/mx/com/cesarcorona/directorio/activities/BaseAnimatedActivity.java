@@ -51,7 +51,4 @@ public class BaseAnimatedActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-    }
 }

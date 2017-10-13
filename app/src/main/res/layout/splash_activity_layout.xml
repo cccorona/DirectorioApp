@@ -4,32 +4,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
+    android:background="@drawable/linear_splash_gradient"
     tools:context=".activities.SplashActivity">
 
 
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/linear_splash_gradient"
-        tools:context="mx.com.cesarcorona.proyeccciondegastos.activities.FullscreenActivity">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/hi_res_logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            />
+
 
         <TextView
-            android:id="@+id/fullscreen_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:gravity="center"
-            android:keepScreenOn="true"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:textAllCaps="true"
             android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
 
-    </FrameLayout>
+    </LinearLayout>
+
+
 
 
 

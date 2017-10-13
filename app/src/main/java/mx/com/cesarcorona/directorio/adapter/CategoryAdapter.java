@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.LinkedList;
 
 import mx.com.cesarcorona.directorio.R;
@@ -59,7 +61,14 @@ public class CategoryAdapter extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         final View rootView = inflater.inflate(R.layout.category_element_layout,viewGroup,false);
         TextView title = (TextView) rootView.findViewById(R.id.category_title);
+        ImageView categoryIcon =(ImageView)rootView.findViewById(R.id.category_icon);
         title.setText(allCategories.get(i).getDisplay_title());
+        if(allCategories.get(i).getUrl_icon()!= null){
+            Picasso.with(context).load(allCategories.get(i).getUrl_icon()).fit().fit().into(categoryIcon);
+        }else{
+            Picasso.with(context).load(R.mipmap.ic_launcher).fit().fit().into(categoryIcon);
+
+        }
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

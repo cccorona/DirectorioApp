@@ -1,5 +1,6 @@
 package mx.com.cesarcorona.directorio;
 
+import android.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 import mx.com.cesarcorona.directorio.activities.CategoriaActivity;
 import mx.com.cesarcorona.directorio.activities.SearchActivity;
@@ -53,6 +63,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         initViewsAndStartLisening();
+
+        checkPermissions();
+
     }
 
     @Override
@@ -123,5 +136,29 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+    }
+
+
+    private void checkPermissions(){
+        Dexter.withActivity(this)
+                .withPermissions(
+                        android.Manifest.permission.ACCESS_NETWORK_STATE,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if(!report.areAllPermissionsGranted()){
+                    Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            }
+        }).check();
     }
 }

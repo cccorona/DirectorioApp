@@ -26,6 +26,7 @@
 
             <TextView
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textSize="20sp"
                 android:textColor="@color/colorWhite"
                 android:layout_centerInParent="true"

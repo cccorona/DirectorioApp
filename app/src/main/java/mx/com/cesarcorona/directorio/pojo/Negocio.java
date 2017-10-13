@@ -32,6 +32,8 @@ public class Negocio implements Serializable {
     private String phone;
     private String twitter;
     private String entregaADomicilio;
+    private String premiumBannerUrl;
+    private boolean premiumStatus;
 
     @Exclude
     private String negocioDataBaseReference;
@@ -54,6 +56,45 @@ public class Negocio implements Serializable {
         this.phone = phone;
         this.twitter = twitter;
         this.entregaADomicilio = entregaADomicilio;
+    }
+
+
+    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String phone, String twitter, String entregaADomicilio, String premiumBannerUrl, boolean premiumStatus) {
+        this.close_time = close_time;
+        this.descripcion = descripcion;
+        this.display_title = display_title;
+        this.facebook = facebook;
+        this.full_url_logo = full_url_logo;
+        this.mail = mail;
+        this.open_days = open_days;
+        this.open_days_aleter = open_days_aleter;
+        this.open_time = open_time;
+        this.ubicacion = ubicacion;
+        this.url_logo = url_logo;
+        this.url_promos = url_promos;
+        this.web = web;
+        this.whatsapp = whatsapp;
+        this.phone = phone;
+        this.twitter = twitter;
+        this.entregaADomicilio = entregaADomicilio;
+        this.premiumBannerUrl = premiumBannerUrl;
+        this.premiumStatus = premiumStatus;
+    }
+
+    public String getPremiumBannerUrl() {
+        return premiumBannerUrl;
+    }
+
+    public void setPremiumBannerUrl(String premiumBannerUrl) {
+        this.premiumBannerUrl = premiumBannerUrl;
+    }
+
+    public boolean isPremiumStatus() {
+        return premiumStatus;
+    }
+
+    public void setPremiumStatus(boolean premiumStatus) {
+        this.premiumStatus = premiumStatus;
     }
 
     public Negocio() {
