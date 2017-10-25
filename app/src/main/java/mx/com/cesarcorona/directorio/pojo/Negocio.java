@@ -31,35 +31,18 @@ public class Negocio implements Serializable {
     private String whatsapp;
     private String phone;
     private String twitter;
-    private String entregaADomicilio;
+    private boolean entregaADomicilio;
     private String premiumBannerUrl;
     private boolean premiumStatus;
+    private boolean open24Hours;
+    private boolean aceptaTArjeta;
+
 
     @Exclude
     private String negocioDataBaseReference;
 
-    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String phone, String twitter, String entregaADomicilio) {
-        this.close_time = close_time;
-        this.descripcion = descripcion;
-        this.display_title = display_title;
-        this.facebook = facebook;
-        this.full_url_logo = full_url_logo;
-        this.mail = mail;
-        this.open_days = open_days;
-        this.open_days_aleter = open_days_aleter;
-        this.open_time = open_time;
-        this.ubicacion = ubicacion;
-        this.url_logo = url_logo;
-        this.url_promos = url_promos;
-        this.web = web;
-        this.whatsapp = whatsapp;
-        this.phone = phone;
-        this.twitter = twitter;
-        this.entregaADomicilio = entregaADomicilio;
-    }
 
-
-    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String phone, String twitter, String entregaADomicilio, String premiumBannerUrl, boolean premiumStatus) {
+    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String phone, String twitter, boolean entregaADomicilio, String premiumBannerUrl, boolean premiumStatus, boolean open24Hours, boolean aceptaTArjeta) {
         this.close_time = close_time;
         this.descripcion = descripcion;
         this.display_title = display_title;
@@ -79,6 +62,8 @@ public class Negocio implements Serializable {
         this.entregaADomicilio = entregaADomicilio;
         this.premiumBannerUrl = premiumBannerUrl;
         this.premiumStatus = premiumStatus;
+        this.open24Hours = open24Hours;
+        this.aceptaTArjeta = aceptaTArjeta;
     }
 
     public String getPremiumBannerUrl() {
@@ -237,11 +222,27 @@ public class Negocio implements Serializable {
         this.twitter = twitter;
     }
 
-    public String getEntregaADomicilio() {
+    public boolean isEntregaADomicilio() {
         return entregaADomicilio;
     }
 
-    public void setEntregaADomicilio(String entregaADomicilio) {
+    public void setEntregaADomicilio(boolean entregaADomicilio) {
         this.entregaADomicilio = entregaADomicilio;
+    }
+
+    public boolean isOpen24Hours() {
+        return open24Hours;
+    }
+
+    public void setOpen24Hours(boolean open24Hours) {
+        this.open24Hours = open24Hours;
+    }
+
+    public boolean isAceptaTArjeta() {
+        return aceptaTArjeta;
+    }
+
+    public void setAceptaTArjeta(boolean aceptaTArjeta) {
+        this.aceptaTArjeta = aceptaTArjeta;
     }
 }

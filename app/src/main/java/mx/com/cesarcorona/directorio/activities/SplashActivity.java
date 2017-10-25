@@ -16,7 +16,7 @@ import mx.com.cesarcorona.directorio.R;
  * Created by ccabrera on 04/08/17.
  */
 
-public class SplashActivity extends AppCompatActivity{
+public class SplashActivity extends BaseAnimatedActivity{
 
 
 

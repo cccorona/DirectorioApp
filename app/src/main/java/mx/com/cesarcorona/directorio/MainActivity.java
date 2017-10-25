@@ -25,15 +25,18 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
 
+import mx.com.cesarcorona.directorio.activities.BaseAnimatedActivity;
 import mx.com.cesarcorona.directorio.activities.CategoriaActivity;
+import mx.com.cesarcorona.directorio.activities.PromocionesActivity;
 import mx.com.cesarcorona.directorio.activities.SearchActivity;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseAnimatedActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private CardView categoriaCard;
     private CardView seachCard;
+    private CardView promosCard;
 
 
     @Override
@@ -132,6 +135,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent categorysActivity = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(categorysActivity);
+            }
+        });
+
+        promosCard = (CardView)findViewById(R.id.promo_card_view);
+        promosCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent categorysActivity = new Intent(MainActivity.this, PromocionesActivity.class);
                 startActivity(categorysActivity);
             }
         });

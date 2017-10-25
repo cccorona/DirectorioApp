@@ -16,6 +16,8 @@ public class PremiumBanner implements Serializable {
 
     @Exclude
     private String databaseReference;
+    @Exclude
+    private Negocio relatedNegocio;
 
 
     public PremiumBanner() {
@@ -60,5 +62,13 @@ public class PremiumBanner implements Serializable {
 
     public void setDatabaseReference(String databaseReference) {
         this.databaseReference = databaseReference;
+    }
+
+    public Negocio getRelatedNegocio() {
+        return relatedNegocio;
+    }
+
+    public void setRelatedNegocio(Negocio relatedNegocio) {
+        this.relatedNegocio = relatedNegocio;
     }
 }

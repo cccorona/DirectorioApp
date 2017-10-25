@@ -36,7 +36,7 @@ import mx.com.cesarcorona.directorio.pojo.PremiumBanner;
 import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.ALL_NEGOCIO_REFERENCE;
 import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.PREMIUM_REFERENCE;
 
-public class NegocioPorCategoriaActivity extends AppCompatActivity implements NegocioPorCategoriaAdapter.NegocioSelectedListener {
+public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements NegocioPorCategoriaAdapter.NegocioSelectedListener {
 
 
     public static String NEGOCIOS_REFERENCE ="negocios";

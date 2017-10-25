@@ -5,9 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -34,14 +33,16 @@
         <activity android:name=".activities.CategoriaActivity" />
         <activity android:name=".activities.NegocioPorCategoriaActivity" />
         <activity android:name=".activities.NegocioDetailActivity" />
-        <activity android:name=".activities.SearchActivity"
-            android:windowSoftInputMode="stateHidden"
-            />
+        <activity
+            android:name=".activities.SearchActivity"
+            android:windowSoftInputMode="stateHidden" />
 
         <service
             android:name=".service.MyLocationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".activities.PromocionesActivity"></activity>
     </application>
 
 </manifest>

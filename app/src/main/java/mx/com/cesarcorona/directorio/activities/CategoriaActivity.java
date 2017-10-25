@@ -27,7 +27,7 @@ import mx.com.cesarcorona.directorio.pojo.Categoria;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 import mx.com.cesarcorona.directorio.pojo.PremiumBanner;
 
-public class CategoriaActivity extends AppCompatActivity implements CategoryAdapter.CategorySelectedListener{
+public class CategoriaActivity extends BaseAnimatedActivity implements CategoryAdapter.CategorySelectedListener{
 
     public static String CATEGORY_REFERENCE ="categorias";
     public static String ALL_NEGOCIO_REFERENCE ="allnegocios";

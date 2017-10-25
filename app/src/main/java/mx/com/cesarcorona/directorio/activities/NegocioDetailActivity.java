@@ -40,7 +40,7 @@ import mx.com.cesarcorona.directorio.pojo.Negocio;
 import static mx.com.cesarcorona.directorio.R.id.map;
 import static mx.com.cesarcorona.directorio.R.id.web_action;
 
-public class NegocioDetailActivity extends AppCompatActivity  implements OnMapReadyCallback,BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMapReadyCallback,BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
 
 
@@ -130,7 +130,7 @@ public class NegocioDetailActivity extends AppCompatActivity  implements OnMapRe
         whatsValue.setText(negocioSeleccionado.getWhatsapp());
         emailValue.setText(negocioSeleccionado.getWeb());
         twitterValue.setText(negocioSeleccionado.getTwitter());
-        if(Boolean.parseBoolean(negocioSeleccionado.getEntregaADomicilio())){
+        if(negocioSeleccionado.isEntregaADomicilio()){
             aDocmicilio.setVisibility(View.VISIBLE);
         }
 
