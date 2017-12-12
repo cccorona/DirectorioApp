@@ -42,7 +42,13 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.PromocionesActivity"></activity>
+        <activity android:name=".activities.PromocionesActivity" />
+        <activity android:name=".activities.CloseTomeActivity" />
+        <activity android:name=".activities.SubirClasificadoActivity" />
+        <activity android:name=".activities.ClasificadosActivity" />
+        <activity android:name=".activities.NoticiasActivity" />
+        <activity android:name=".activities.NoticiaDetailActivity" />
+        <activity android:name=".activities.ClasificadosCategoriasActivity"></activity>
     </application>
 
 </manifest>

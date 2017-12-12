@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="mx.com.cesarcorona.directorio.activities.SubirClasificadoActivity">
+
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:background="@color/color_spash"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:text="Subir clasificado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:paddingTop="10dp"
+            android:paddingLeft="0dp"
+            android:textColor="@color/colorAccent"
+            android:text="Titulo del clasificado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        <EditText
+            android:hint="Max 35 caracteres"
+            android:imeOptions="actionNext"
+            android:id="@+id/title_clasificado"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="0dp"
+            android:textColor="@color/colorAccent"
+            android:text="Descripción"
+            android:inputType="textMultiLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:hint="Max 700 caracteres"
+            android:imeOptions="actionNext"
+            android:id="@+id/descripcion_clasificado"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:paddingLeft="0dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/colorAccent"
+                android:text="Categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:layout_gravity="center"
+                android:id="@+id/categoria_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            </android.support.v7.widget.AppCompatSpinner>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="0dp"
+            android:textColor="@color/colorAccent"
+            android:text="Teléfono del anunciante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:hint="Telefono"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:lines="1"
+            android:id="@+id/telefono_clasificado"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/publicar_button"
+                android:text="Publicar clasificado"
+                android:background="@color/color_spash"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

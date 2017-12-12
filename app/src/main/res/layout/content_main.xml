@@ -131,6 +131,7 @@
                 </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
                     android:layout_margin="5dp"
+                    android:id="@+id/clasificados_card"
                     android:layout_gravity="center"
                     android:layout_width="100dp"
                     app:cardElevation="10dp"
@@ -153,6 +154,7 @@
                         <TextView
                             android:layout_gravity="center"
                             android:text="Avisos de\n ocasión"
+                            android:textSize="12sp"
                             style="@style/MainTextStyleOption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -162,6 +164,7 @@
 
                 </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
+                    android:id="@+id/close_to_me"
                     android:layout_margin="5dp"
                     android:layout_gravity="center"
                     app:cardElevation="10dp"
@@ -195,6 +198,7 @@
 
                 </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
+                    android:id="@+id/noticiasCard"
                     android:layout_margin="5dp"
                     android:layout_gravity="center"
                     android:layout_width="100dp"

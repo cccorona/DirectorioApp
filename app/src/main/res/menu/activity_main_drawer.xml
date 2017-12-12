@@ -18,9 +18,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Opcion3" />
             <item
-                android:id="@+id/nav_send2"
+                android:id="@+id/pub_clas"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Opcion3" />
+                android:title="Publicar clasificado " />
         </menu>
     </item>
 

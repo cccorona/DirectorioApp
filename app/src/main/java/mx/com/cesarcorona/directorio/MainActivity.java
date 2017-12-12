@@ -27,8 +27,13 @@ import java.util.List;
 
 import mx.com.cesarcorona.directorio.activities.BaseAnimatedActivity;
 import mx.com.cesarcorona.directorio.activities.CategoriaActivity;
+import mx.com.cesarcorona.directorio.activities.ClasificadosActivity;
+import mx.com.cesarcorona.directorio.activities.ClasificadosCategoriasActivity;
+import mx.com.cesarcorona.directorio.activities.CloseTomeActivity;
+import mx.com.cesarcorona.directorio.activities.NoticiasActivity;
 import mx.com.cesarcorona.directorio.activities.PromocionesActivity;
 import mx.com.cesarcorona.directorio.activities.SearchActivity;
+import mx.com.cesarcorona.directorio.activities.SubirClasificadoActivity;
 
 public class MainActivity extends BaseAnimatedActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +42,9 @@ public class MainActivity extends BaseAnimatedActivity
     private CardView categoriaCard;
     private CardView seachCard;
     private CardView promosCard;
+    private CardView clasificadosCard;
+    private CardView closeToMeCard;
+    private CardView noticiasCard;
 
 
     @Override
@@ -113,6 +121,9 @@ public class MainActivity extends BaseAnimatedActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if(id == R.id.pub_clas){
+            Intent clasificadoIntent = new Intent(MainActivity.this, SubirClasificadoActivity.class);
+            startActivity(clasificadoIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -145,6 +156,33 @@ public class MainActivity extends BaseAnimatedActivity
             public void onClick(View v) {
                 Intent categorysActivity = new Intent(MainActivity.this, PromocionesActivity.class);
                 startActivity(categorysActivity);
+            }
+        });
+
+        clasificadosCard = (CardView)findViewById(R.id.clasificados_card);
+        clasificadosCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent clasificadosIntent = new Intent(MainActivity.this, ClasificadosCategoriasActivity.class);
+                startActivity(clasificadosIntent);
+            }
+        });
+
+        closeToMeCard = (CardView)findViewById(R.id.close_to_me);
+        closeToMeCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent clasificadosIntent = new Intent(MainActivity.this, CloseTomeActivity.class);
+                startActivity(clasificadosIntent);
+            }
+        });
+
+        noticiasCard = (CardView)findViewById(R.id.noticiasCard);
+        noticiasCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent noticiasIntent = new Intent(MainActivity.this, NoticiasActivity.class);
+                startActivity(noticiasIntent);
             }
         });
 
