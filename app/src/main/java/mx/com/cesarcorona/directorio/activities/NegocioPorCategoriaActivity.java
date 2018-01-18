@@ -17,6 +17,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoQuery;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.crash.FirebaseCrash;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +49,9 @@ import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.PREMIUM
 public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements NegocioPorCategoriaAdapter.NegocioSelectedListener {
 
 
-    public static String NEGOCIOS_REFERENCE ="negocios";
+    public static String NEGOCIOS_REFERENCE ="allnegocios";
+    public static String GEO_REFERENCE ="geohash";
+
     public static String TAG = NegocioPorCategoriaActivity.class.getSimpleName();
     public static String ITEM_SELECTED ="categoria";
     public static int ELEMENT_SIZE = 120;
@@ -72,6 +77,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
         setContentView(R.layout.activity_negocio_por_categoria);
         initialize();
         showpDialog();
+        getNearBusiness();
         recoveryNegocios();
 
         categoryPromo = (CardView)findViewById(R.id.categoria_card_view);
@@ -94,13 +100,19 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
 
 
+    private void getNearBusiness(){
+        DatabaseReference geofireReference = FirebaseDatabase.getInstance().getReference(GEO_REFERENCE);
+        GeoFire geoFire = new GeoFire(geofireReference);
+    }
+
+
+
 
 
 
 
     private void initialize(){
         categoriaSelected = (Categoria) getIntent().getExtras().getSerializable(ITEM_SELECTED);
-        mDatabase = FirebaseDatabase.getInstance().getReference( NEGOCIOS_REFERENCE +"/" +categoriaSelected.getDataBaseReference());
         openNegociosGrid = (ExpandableGridView) findViewById(R.id.opened_negocios_grid_view);
         closedNegociosGrid = (ExpandableGridView) findViewById(R.id.close_negocios_grid_view);
         allNegocios = new LinkedList<>();
@@ -123,6 +135,9 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
     }
 
     private void recoveryNegocios(){
+        Query categoriaQuery = FirebaseDatabase.getInstance().getReference("Example").child(NEGOCIOS_REFERENCE)
+                .orderByChild("categoria").equalTo(categoriaSelected.getDataBaseReference());
+
         ValueEventListener categoryListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -142,7 +157,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
                 FirebaseCrash.log(TAG + "loadPost:onCancelled" + databaseError.toException());
             }
         };
-        mDatabase.addListenerForSingleValueEvent(categoryListener);
+        categoriaQuery.addListenerForSingleValueEvent(categoryListener);
     }
 
 
@@ -158,8 +173,8 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
     private void clasifyOpenOrclosed(){
         for(Negocio negocio:allNegocios){
-            String startHour = negocio.getOpen_time();
-            String endHour = negocio.getClose_time();
+            String startHour = negocio.getHora_apertura();
+            String endHour = negocio.getHora_cierre();
             if(DateUtils.isNowInInterval(startHour,endHour)){
                 openNegocios.add(negocio);
             }else{
@@ -188,41 +203,31 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
     }
 
 
+
     private void showPremiunBanner(){
-        DatabaseReference premiumReference = FirebaseDatabase.getInstance().getReference(PREMIUM_REFERENCE);
+        DatabaseReference premiumReference = FirebaseDatabase.getInstance().getReference("Example"+"/"+PREMIUM_REFERENCE +"/" +"premium1");
         premiumReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot keyNegocio:dataSnapshot.getChildren()){
-                    PremiumBanner premiumBanner = keyNegocio.getValue(PremiumBanner.class);
-                    premiumBanner.setDatabaseReference(keyNegocio.getKey());
-                    premiumNegocios.add(premiumBanner);
-                }
+                PremiumBanner premiumBanner =dataSnapshot.getValue(PremiumBanner.class);
+                premiumNegocios.add(premiumBanner);
+
                 if(premiumNegocios.size()>0){
-                    DatabaseReference choosedPremiumNegocioReference =FirebaseDatabase.getInstance().getReference(ALL_NEGOCIO_REFERENCE +"/" +
-                            getRandomChestItem().getDatabaseReference());
+                    DatabaseReference choosedPremiumNegocioReference =FirebaseDatabase.getInstance().getReference("Example"+"/"+ALL_NEGOCIO_REFERENCE +"/" +
+                            premiumNegocios.get(0).getId_negocio());
                     choosedPremiumNegocioReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             negocionOnMainBanner = dataSnapshot.getValue(Negocio.class);
-                            if(negocionOnMainBanner.getPremiumBannerUrl() == null){
+                            if(negocionOnMainBanner.getBanner_premium() == null){
 
-                                if(negocionOnMainBanner.getUrl_promos() == null){
-                                    FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
-                                    //show default banner
-                                    Picasso.with(NegocioPorCategoriaActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
-                                    hidepDialog();
-                                }else{
-                                    for(String key:negocionOnMainBanner.getUrl_promos().keySet()){
-                                        Picasso.with(NegocioPorCategoriaActivity.this).load(negocionOnMainBanner.getUrl_promos().get(key)).fit().into(bannerPromo);
-                                        break;
-                                    }
-                                    hidepDialog();
-                                }
-
+                                FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
+                                //show default banner
+                                Picasso.with(NegocioPorCategoriaActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
+                                hidepDialog();
 
                             }else{
-                                Picasso.with(NegocioPorCategoriaActivity.this).load(negocionOnMainBanner.getPremiumBannerUrl()).fit().into(bannerPromo);
+                                Picasso.with(NegocioPorCategoriaActivity.this).load(negocionOnMainBanner.getBanner_premium()).fit().into(bannerPromo);
                                 hidepDialog();
 
                             }

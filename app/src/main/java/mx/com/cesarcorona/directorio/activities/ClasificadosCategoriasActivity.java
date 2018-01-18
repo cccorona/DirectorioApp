@@ -77,7 +77,7 @@ public class ClasificadosCategoriasActivity extends AppCompatActivity {
 
     private void fillCategorias(){
         showpDialog();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORIA_CLAS_REFERENCE);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example"+"/"+CATEGORIA_CLAS_REFERENCE);
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -92,7 +92,7 @@ public class ClasificadosCategoriasActivity extends AppCompatActivity {
 
                 LinkedList<String> list = new LinkedList<String>();
                 for(CategoriaClasificado topic:categoriaClasificados){
-                    list.add(topic.getDisplay_title());
+                    list.add(topic.getNombre());
                 }
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(ClasificadosCategoriasActivity.this,
                         R.layout.spinner_style, list);

@@ -21,6 +21,7 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+import com.firebase.geofire.example.Example;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -233,7 +234,7 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
                 public void onKeyEntered(String key, GeoLocation location) {
                     Log.e(TAG,"Business match:" + key);
 
-                    mDatabase = FirebaseDatabase.getInstance().getReference( ALL_NEGOCIOS_RFERENCE +"/" +key);
+                    mDatabase = FirebaseDatabase.getInstance().getReference("Example/"+ALL_NEGOCIOS_RFERENCE +"/" +key);
                     mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -302,8 +303,8 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
     private void clasifyOpenOrclosed(){
         for(Negocio negocio:allNegocios){
-            String startHour = negocio.getOpen_time();
-            String endHour = negocio.getClose_time();
+            String startHour = negocio.getHora_apertura();
+            String endHour = negocio.getHora_cierre();
             if(DateUtils.isNowInInterval(startHour,endHour)){
                 openNegocios.add(negocio);
             }else{
@@ -332,40 +333,29 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
 
     private void showPremiunBanner(){
-        DatabaseReference premiumReference = FirebaseDatabase.getInstance().getReference(PREMIUM_REFERENCE);
+        DatabaseReference premiumReference = FirebaseDatabase.getInstance().getReference("Example"+"/"+PREMIUM_REFERENCE +"/" +"premium1");
         premiumReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot keyNegocio:dataSnapshot.getChildren()){
-                    PremiumBanner premiumBanner = keyNegocio.getValue(PremiumBanner.class);
-                    premiumBanner.setDatabaseReference(keyNegocio.getKey());
-                    premiumNegocios.add(premiumBanner);
-                }
+                PremiumBanner premiumBanner =dataSnapshot.getValue(PremiumBanner.class);
+                premiumNegocios.add(premiumBanner);
+
                 if(premiumNegocios.size()>0){
-                    DatabaseReference choosedPremiumNegocioReference =FirebaseDatabase.getInstance().getReference(ALL_NEGOCIO_REFERENCE +"/" +
-                            getRandomChestItem().getDatabaseReference());
+                    DatabaseReference choosedPremiumNegocioReference =FirebaseDatabase.getInstance().getReference("Example"+"/"+ALL_NEGOCIO_REFERENCE +"/" +
+                            premiumNegocios.get(0).getId_negocio());
                     choosedPremiumNegocioReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             negocionOnMainBanner = dataSnapshot.getValue(Negocio.class);
-                            if(negocionOnMainBanner.getPremiumBannerUrl() == null){
+                            if(negocionOnMainBanner.getBanner_premium() == null){
 
-                                if(negocionOnMainBanner.getUrl_promos() == null){
-                                    FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
-                                    //show default banner
-                                    Picasso.with(CloseTomeActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
-                                    hidepDialog();
-                                }else{
-                                    for(String key:negocionOnMainBanner.getUrl_promos().keySet()){
-                                        Picasso.with(CloseTomeActivity.this).load(negocionOnMainBanner.getUrl_promos().get(key)).fit().into(bannerPromo);
-                                        break;
-                                    }
-                                    hidepDialog();
-                                }
-
+                                FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
+                                //show default banner
+                                Picasso.with(CloseTomeActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
+                                hidepDialog();
 
                             }else{
-                                Picasso.with(CloseTomeActivity.this).load(negocionOnMainBanner.getPremiumBannerUrl()).fit().into(bannerPromo);
+                                Picasso.with(CloseTomeActivity.this).load(negocionOnMainBanner.getBanner_premium()).fit().into(bannerPromo);
                                 hidepDialog();
 
                             }

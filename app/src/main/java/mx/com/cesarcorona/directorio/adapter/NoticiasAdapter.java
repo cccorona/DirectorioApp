@@ -63,15 +63,18 @@ public class NoticiasAdapter  extends BaseAdapter{
         ImageView previewImage = (ImageView)rootView.findViewById(R.id.preview_image);
         TextView previewText = (TextView)rootView.findViewById(R.id.preview_text);
         TextView linkText = (TextView)rootView.findViewById(R.id.complete_link);
+        TextView titleTextView = (TextView)rootView.findViewById(R.id.title_noticia);
 
-        if(noticias.get(position).getFotoUrl() == null || noticias.get(position).getFotoUrl().equals("")){
+        titleTextView.setText(noticias.get(position).getTitulo());
+
+        if(noticias.get(position).getFoto() == null || noticias.get(position).getFoto().equals("")){
             Picasso.with(context).load(R.drawable.noticias).into(previewImage);
         }else{
-            Picasso.with(context).load(noticias.get(position).getFotoUrl()).centerCrop().resize(100,200).into(previewImage);
+            Picasso.with(context).load(noticias.get(position).getFoto()).centerCrop().resize(100,200).into(previewImage);
 
         }
 
-        previewText.setText(noticias.get(position).getTextoContenido());
+        previewText.setText(noticias.get(position).getTexto_contenido());
         linkText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

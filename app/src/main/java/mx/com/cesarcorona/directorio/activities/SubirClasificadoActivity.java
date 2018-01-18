@@ -182,8 +182,8 @@ public class SubirClasificadoActivity extends BaseAnimatedActivity {
         showpDialog();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORIA_CLAS_REFERENCE);
         CategoriaClasificado selectATopi = new CategoriaClasificado();
-        selectATopi.setDisplay_title("Seleccione una categoria");
-        selectATopi.setType("Seleccione una categoria");
+        selectATopi.setNombre("Seleccione una categoria");
+        selectATopi.setTipo("Seleccione una categoria");
         categoriaClasificados.add(selectATopi);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -198,7 +198,7 @@ public class SubirClasificadoActivity extends BaseAnimatedActivity {
 
                 LinkedList<String> list = new LinkedList<String>();
                 for(CategoriaClasificado topic:categoriaClasificados){
-                    list.add(topic.getDisplay_title());
+                    list.add(topic.getNombre());
                 }
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(SubirClasificadoActivity.this,
                         R.layout.spinner_style, list);

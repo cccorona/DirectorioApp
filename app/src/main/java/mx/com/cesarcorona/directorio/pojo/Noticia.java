@@ -10,20 +10,12 @@ public class Noticia implements Serializable {
 
 
     private String titulo;
-    private String fotoUrl;
-    private String textoContenido;
+    private String foto;
+    private String texto_contenido;
 
 
     public Noticia() {
     }
-
-
-    public Noticia(String titulo, String fotoUrl, String textoContenido) {
-        this.titulo = titulo;
-        this.fotoUrl = fotoUrl;
-        this.textoContenido = textoContenido;
-    }
-
 
     public String getTitulo() {
         return titulo;
@@ -33,19 +25,19 @@ public class Noticia implements Serializable {
         this.titulo = titulo;
     }
 
-    public String getFotoUrl() {
-        return fotoUrl;
+    public String getFoto() {
+        return foto;
     }
 
-    public void setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
-    public String getTextoContenido() {
-        return textoContenido;
+    public String getTexto_contenido() {
+        return texto_contenido;
     }
 
-    public void setTextoContenido(String textoContenido) {
-        this.textoContenido = textoContenido;
+    public void setTexto_contenido(String texto_contenido) {
+        this.texto_contenido = texto_contenido;
     }
 }

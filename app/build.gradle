@@ -42,7 +42,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'com.karumi:dexter:4.1.0'
-    compile 'com.firebase:geofire-android:2.1.3'
+    compile 'com.firebase:geofire-android:2.2.0'
 
 
 

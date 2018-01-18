@@ -38,9 +38,33 @@ public class DateUtils {
      * @return true    true if the current hour is between
      */
     public static boolean isNowInInterval(String start, String end) {
+
+        String formatedStart[] = start.split(":");
+        if(formatedStart != null && formatedStart.length >3){
+            start = formatedStart[1] +":" + formatedStart[2].substring(0,2);
+        }
+        String formatedEnd[] = end.split(":");
+        if(formatedStart != null && formatedStart.length >3){
+            end = formatedEnd[1] +":" + formatedEnd[2].substring(0,2);
+        }
         return DateUtils.isHourInInterval
                 (DateUtils.getCurrentHour(), start, end);
     }
+
+
+    public static String formatDate(String start, String end) {
+
+        String formatedStart[] = start.split(":");
+        if(formatedStart != null && formatedStart.length >3){
+            start = formatedStart[1] +":" + formatedStart[2].substring(0,2);
+        }
+        String formatedEnd[] = end.split(":");
+        if(formatedStart != null && formatedStart.length >3){
+            end = formatedEnd[1] +":" + formatedEnd[2].substring(0,2);
+        }
+        return start+"-"+end;
+    }
+
 
     //    TEST
     public static void main (String[] args) {

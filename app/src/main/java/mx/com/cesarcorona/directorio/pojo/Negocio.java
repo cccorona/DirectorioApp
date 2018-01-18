@@ -16,21 +16,21 @@ import java.util.LinkedList;
 public class Negocio implements Serializable {
 
     private String close_time;
-    private String descripcion;
+   // private String descripcion;
     private String display_title;
-    private String facebook;
+  //  private String facebook;
     private String full_url_logo;
-    private String mail;
+    //private String mail;
     private HashMap<String,String> open_days;
     private String open_days_aleter;
     private String open_time;
-    private HashMap<String,String> ubicacion;
+   // private HashMap<String,String> ubicacion;
     private String url_logo;
     private HashMap<String,String> url_promos;
-    private String web;
-    private String whatsapp;
+   // private String web;
+   // private String whatsapp;
     private String phone;
-    private String twitter;
+   // private String twitter;
     private boolean entregaADomicilio;
     private String premiumBannerUrl;
     private boolean premiumStatus;
@@ -38,33 +38,51 @@ public class Negocio implements Serializable {
     private boolean aceptaTArjeta;
 
 
+
+
+    /* New properties*/
+
+    private String abierto_24_horas;
+    private String abre_domingo;
+    private String abre_jueves;
+    private String abre_lunes;
+    private String abre_martes;
+    private String abre_miercoles;
+    private String abre_sabado;
+    private String abre_viernes;
+    private String acepta_tarjeta;
+    private String banner_premium;
+    private String descripcion;
+    private String entrega_a_domicilio;
+    private String status_premium;
+    private String facebook;
+    private String hora_apertura;
+    private String hora_cierre;
+    private String imagen_promo1;
+    private String imagen_promo2;
+    private String imagen_promo3;
+    private String logo;
+    private String logo_negocio;
+    private String mail;
+    private String nombre;
+    private String publicado;
+    private String telefono;
+    private String twitter;
+    private String ubicacion;
+    private String web;
+    private String whatsapp;
+
+
+
+
+
+
+
     @Exclude
     private String negocioDataBaseReference;
 
 
-    public Negocio(String close_time, String descripcion, String display_title, String facebook, String full_url_logo, String mail, HashMap<String, String> open_days, String open_days_aleter, String open_time, HashMap<String, String> ubicacion, String url_logo, HashMap<String, String> url_promos, String web, String whatsapp, String phone, String twitter, boolean entregaADomicilio, String premiumBannerUrl, boolean premiumStatus, boolean open24Hours, boolean aceptaTArjeta) {
-        this.close_time = close_time;
-        this.descripcion = descripcion;
-        this.display_title = display_title;
-        this.facebook = facebook;
-        this.full_url_logo = full_url_logo;
-        this.mail = mail;
-        this.open_days = open_days;
-        this.open_days_aleter = open_days_aleter;
-        this.open_time = open_time;
-        this.ubicacion = ubicacion;
-        this.url_logo = url_logo;
-        this.url_promos = url_promos;
-        this.web = web;
-        this.whatsapp = whatsapp;
-        this.phone = phone;
-        this.twitter = twitter;
-        this.entregaADomicilio = entregaADomicilio;
-        this.premiumBannerUrl = premiumBannerUrl;
-        this.premiumStatus = premiumStatus;
-        this.open24Hours = open24Hours;
-        this.aceptaTArjeta = aceptaTArjeta;
-    }
+
 
     public String getPremiumBannerUrl() {
         return premiumBannerUrl;
@@ -157,13 +175,7 @@ public class Negocio implements Serializable {
         this.open_time = open_time;
     }
 
-    public HashMap<String, String> getUbicacion() {
-        return ubicacion;
-    }
 
-    public void setUbicacion(HashMap<String, String> ubicacion) {
-        this.ubicacion = ubicacion;
-    }
 
     public String getUrl_logo() {
         return url_logo;
@@ -244,5 +256,189 @@ public class Negocio implements Serializable {
 
     public void setAceptaTArjeta(boolean aceptaTArjeta) {
         this.aceptaTArjeta = aceptaTArjeta;
+    }
+
+    public String getAbierto_24_horas() {
+        return abierto_24_horas;
+    }
+
+    public void setAbierto_24_horas(String abierto_24_horas) {
+        this.abierto_24_horas = abierto_24_horas;
+    }
+
+    public String getAbre_domingo() {
+        return abre_domingo;
+    }
+
+    public void setAbre_domingo(String abre_domingo) {
+        this.abre_domingo = abre_domingo;
+    }
+
+    public String getAbre_jueves() {
+        return abre_jueves;
+    }
+
+    public void setAbre_jueves(String abre_jueves) {
+        this.abre_jueves = abre_jueves;
+    }
+
+    public String getAbre_lunes() {
+        return abre_lunes;
+    }
+
+    public void setAbre_lunes(String abre_lunes) {
+        this.abre_lunes = abre_lunes;
+    }
+
+    public String getAbre_martes() {
+        return abre_martes;
+    }
+
+    public void setAbre_martes(String abre_martes) {
+        this.abre_martes = abre_martes;
+    }
+
+    public String getAbre_miercoles() {
+        return abre_miercoles;
+    }
+
+    public void setAbre_miercoles(String abre_miercoles) {
+        this.abre_miercoles = abre_miercoles;
+    }
+
+    public String getAbre_sabado() {
+        return abre_sabado;
+    }
+
+    public void setAbre_sabado(String abre_sabado) {
+        this.abre_sabado = abre_sabado;
+    }
+
+    public String getAbre_viernes() {
+        return abre_viernes;
+    }
+
+    public void setAbre_viernes(String abre_viernes) {
+        this.abre_viernes = abre_viernes;
+    }
+
+    public String getAcepta_tarjeta() {
+        return acepta_tarjeta;
+    }
+
+    public void setAcepta_tarjeta(String acepta_tarjeta) {
+        this.acepta_tarjeta = acepta_tarjeta;
+    }
+
+    public String getBanner_premium() {
+        return banner_premium;
+    }
+
+    public void setBanner_premium(String banner_premium) {
+        this.banner_premium = banner_premium;
+    }
+
+    public String getEntrega_a_domicilio() {
+        return entrega_a_domicilio;
+    }
+
+    public void setEntrega_a_domicilio(String entrega_a_domicilio) {
+        this.entrega_a_domicilio = entrega_a_domicilio;
+    }
+
+    public String getStatus_premium() {
+        return status_premium;
+    }
+
+    public void setStatus_premium(String status_premium) {
+        this.status_premium = status_premium;
+    }
+
+    public String getHora_apertura() {
+        return hora_apertura;
+    }
+
+    public void setHora_apertura(String hora_apertura) {
+        this.hora_apertura = hora_apertura;
+    }
+
+    public String getHora_cierre() {
+        return hora_cierre;
+    }
+
+    public void setHora_cierre(String hora_cierre) {
+        this.hora_cierre = hora_cierre;
+    }
+
+    public String getImagen_promo1() {
+        return imagen_promo1;
+    }
+
+    public void setImagen_promo1(String imagen_promo1) {
+        this.imagen_promo1 = imagen_promo1;
+    }
+
+    public String getImagen_promo2() {
+        return imagen_promo2;
+    }
+
+    public void setImagen_promo2(String imagen_promo2) {
+        this.imagen_promo2 = imagen_promo2;
+    }
+
+    public String getImagen_promo3() {
+        return imagen_promo3;
+    }
+
+    public void setImagen_promo3(String imagen_promo3) {
+        this.imagen_promo3 = imagen_promo3;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getLogo_negocio() {
+        return logo_negocio;
+    }
+
+    public void setLogo_negocio(String logo_negocio) {
+        this.logo_negocio = logo_negocio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPublicado() {
+        return publicado;
+    }
+
+    public void setPublicado(String publicado) {
+        this.publicado = publicado;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 }

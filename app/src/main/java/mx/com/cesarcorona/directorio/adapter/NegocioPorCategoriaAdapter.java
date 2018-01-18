@@ -61,7 +61,7 @@ public class NegocioPorCategoriaAdapter  extends BaseAdapter {
         final View rootView = inflater.inflate(R.layout.negocio_item_layout,viewGroup,false);
         TextView title = (TextView) rootView.findViewById(R.id.negocio_title);
         ImageView negocioIcon = (ImageView) rootView.findViewById(R.id.category_icon);
-        title.setText(allNegocios.get(i).getDisplay_title());
+        title.setText(allNegocios.get(i).getNombre());
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +71,7 @@ public class NegocioPorCategoriaAdapter  extends BaseAdapter {
             }
         });
 
-        Picasso.with(context).load(allNegocios.get(i).getUrl_logo()).resize(50,50).centerInside().into(negocioIcon);
+        Picasso.with(context).load(allNegocios.get(i).getLogo()).resize(50,50).centerInside().into(negocioIcon);
         return  rootView;
     }
 }

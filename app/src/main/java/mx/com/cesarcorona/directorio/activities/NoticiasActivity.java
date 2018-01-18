@@ -61,7 +61,7 @@ public class NoticiasActivity extends BaseAnimatedActivity implements NoticiasAd
 
     private void fillList(){
         showpDialog();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NOTICIAS_REFERENCE);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/"+NOTICIAS_REFERENCE);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

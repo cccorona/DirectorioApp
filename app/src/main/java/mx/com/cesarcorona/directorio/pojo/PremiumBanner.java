@@ -10,9 +10,9 @@ import java.io.Serializable;
 
 public class PremiumBanner implements Serializable {
 
-    private String beginingTime;
-    private int numClicks;
-    private int numTimeShow;
+
+    private String id_negocio;
+
 
     @Exclude
     private String databaseReference;
@@ -24,36 +24,12 @@ public class PremiumBanner implements Serializable {
     }
 
 
-    public PremiumBanner(String beginingTime,  int numClicks, int numTimeShow) {
-        this.beginingTime = beginingTime;
-        this.numClicks = numClicks;
-        this.numTimeShow = numTimeShow;
+    public String getId_negocio() {
+        return id_negocio;
     }
 
-    public String getBeginingTime() {
-        return beginingTime;
-    }
-
-    public void setBeginingTime(String beginingTime) {
-        this.beginingTime = beginingTime;
-    }
-
-    public int getNumClicks() {
-        return numClicks;
-    }
-
-    public void setNumClicks(int numClicks) {
-        this.numClicks = numClicks;
-    }
-
-
-
-    public int getNumTimeShow() {
-        return numTimeShow;
-    }
-
-    public void setNumTimeShow(int numTimeShow) {
-        this.numTimeShow = numTimeShow;
+    public void setId_negocio(String id_negocio) {
+        this.id_negocio = id_negocio;
     }
 
     public String getDatabaseReference() {

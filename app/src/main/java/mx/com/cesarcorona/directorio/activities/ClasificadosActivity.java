@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
@@ -62,14 +63,40 @@ public class ClasificadosActivity extends BaseAnimatedActivity {
 
     private void fillList(){
         showpDialog();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CLASIFICADOS_REFERENCE);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/");
+        Query clasficiadosPorCategoria = databaseReference.child(CLASIFICADOS_REFERENCE)
+                .orderByChild("referencia_categoria").equalTo(categoriaClasificado.getNombre());
+        clasficiadosPorCategoria.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     Clasificado clasificado = dataSnapshot1.getValue(Clasificado.class);
                     clasificado.setReference(dataSnapshot1.getKey());
-                    if(categoriaClasificado.getDisplay_title().equals(clasificado.getCategoriaReference())){
+                    if(clasificado != null && clasificado.getPublicado().equalsIgnoreCase("si")){
+                        clasificados.add(clasificado);
+
+                    }
+                }
+
+                clasificadosAdapter = new ClasificadosAdapter(ClasificadosActivity.this,clasificados);
+                listaClasificados.setAdapter(clasificadosAdapter);
+                hidepDialog();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                hidepDialog();
+                Toast.makeText(ClasificadosActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+      /*  databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Clasificado clasificado = dataSnapshot1.getValue(Clasificado.class);
+                    clasificado.setReference(dataSnapshot1.getKey());
+                    if(categoriaClasificado.equals(clasificado.getCategoriaReference())){
                         clasificados.add(clasificado);
 
                     }
@@ -86,7 +113,7 @@ public class ClasificadosActivity extends BaseAnimatedActivity {
                hidepDialog();
                 Toast.makeText(ClasificadosActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
     }
 
 }

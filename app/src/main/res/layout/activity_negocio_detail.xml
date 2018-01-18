@@ -322,6 +322,7 @@
 
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/ruta_negocio"
                 android:textSize="16dp"
                 android:textStyle="bold"

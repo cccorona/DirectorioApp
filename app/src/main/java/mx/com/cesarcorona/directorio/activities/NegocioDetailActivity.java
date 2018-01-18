@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import mx.com.cesarcorona.directorio.R;
@@ -105,9 +106,17 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng negocioLatLog = new LatLng(Double.parseDouble(negocioSeleccionado.getUbicacion().get("lat")),Double.parseDouble(negocioSeleccionado.getUbicacion().get("lon")));
-        mMap.addMarker(new MarkerOptions().position(negocioLatLog).title(negocioSeleccionado.getDisplay_title()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negocioLatLog,MAX_ZOOM));
+        LatLng negocioLatlog = null;
+        String latLon[] = negocioSeleccionado.getUbicacion().split(",");
+        if(latLon!= null &&latLon.length>=2){
+             negocioLatlog = new LatLng(Double.parseDouble(latLon[0]),Double.parseDouble(latLon[1]));
+            mMap.addMarker(new MarkerOptions().position(negocioLatlog).title(negocioSeleccionado.getNombre()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negocioLatlog,MAX_ZOOM));
+
+        }
+       // LatLng negocioLatLog = new LatLng(Double.parseDouble(negocioSeleccionado.getUbicacion().get("lat")),Double.parseDouble(negocioSeleccionado.getUbicacion().get("lon")));
+       // mMap.addMarker(new MarkerOptions().position(negocioLatLog).title(negocioSeleccionado.getDisplay_title()));
+       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(negocioLatLog,MAX_ZOOM));
 
 
     }
@@ -119,24 +128,24 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     }
 
     private void setValues(){
-        Picasso.with(NegocioDetailActivity.this).load(negocioSeleccionado.getUrl_logo()).resize(300,180).into(negocioImagen);
-        nombreNegocio.setText(negocioSeleccionado.getDisplay_title());
+        Picasso.with(NegocioDetailActivity.this).load(negocioSeleccionado.getLogo_negocio()).resize(300,180).into(negocioImagen);
+        nombreNegocio.setText(negocioSeleccionado.getNombre());
 
-        StringBuilder stringBuilder = new StringBuilder(negocioSeleccionado.getOpen_days_aleter());
-        stringBuilder.append("\n").append(negocioSeleccionado.getOpen_time()).append("-").append(negocioSeleccionado.getClose_time());
-        horarioNegocio.setText(stringBuilder.toString());
+        //StringBuilder stringBuilder = new StringBuilder(negocioSeleccionado.);
+        //stringBuilder.append("\n").append(negocioSeleccionado.getOpen_time()).append("-").append(negocioSeleccionado.getClose_time());
+        horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getHora_apertura(),negocioSeleccionado.getHora_cierre()));
         descripcionNegocio.setText(negocioSeleccionado.getDescripcion());
         phoneValue.setText(negocioSeleccionado.getPhone());
         whatsValue.setText(negocioSeleccionado.getWhatsapp());
         emailValue.setText(negocioSeleccionado.getWeb());
         twitterValue.setText(negocioSeleccionado.getTwitter());
-        if(negocioSeleccionado.isEntregaADomicilio()){
+        if(negocioSeleccionado.getEntrega_a_domicilio().equals("SI")){
             aDocmicilio.setVisibility(View.VISIBLE);
         }
 
 
-        String startHour = negocioSeleccionado.getOpen_time();
-        String endHour = negocioSeleccionado.getClose_time();
+        String startHour = negocioSeleccionado.getHora_apertura();
+        String endHour = negocioSeleccionado.getHora_cierre();
         if(DateUtils.isNowInInterval(startHour,endHour)){
             Calendar calendar = Calendar.getInstance();
             int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -150,30 +159,41 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
     private void loadPromos(){
 
-        if(negocioSeleccionado.getUrl_promos()!= null && negocioSeleccionado.getUrl_promos().size() >0){
-            promoGallery.setVisibility(View.VISIBLE);
-            for(String name : negocioSeleccionado.getUrl_promos().keySet()){
-                TextSliderView textSliderView = new TextSliderView(this);
-                textSliderView
-                        .description(name)
-                        .image(negocioSeleccionado.getUrl_promos().get(name))
-                        .setScaleType(BaseSliderView.ScaleType.Fit)
-                        .setOnSliderClickListener(this);
+        LinkedList<String> urlsPromos = new LinkedList<>();
+        urlsPromos.add(negocioSeleccionado.getImagen_promo1());
+        urlsPromos.add(negocioSeleccionado.getImagen_promo2());
+        urlsPromos.add(negocioSeleccionado.getImagen_promo3());
+        int promosAdde = 0;
 
-                //add your extra information
-                textSliderView.bundle(new Bundle());
-                textSliderView.getBundle()
-                        .putString("extra",name);
+        if(urlsPromos!= null && urlsPromos.size() >0){
+            for(String name : urlsPromos){
+                if(name!= null && !name.equals("")){
+                    promosAdde++;
+                    TextSliderView textSliderView = new TextSliderView(this);
+                    textSliderView
+                            .description("")
+                            .image(name)
+                            .setScaleType(BaseSliderView.ScaleType.Fit)
+                            .setOnSliderClickListener(this);
 
-                promoGallery.addSlider(textSliderView);
+                    //add your extra information
+                    textSliderView.bundle(new Bundle());
+                    textSliderView.getBundle()
+                            .putString("extra",name);
+
+                    promoGallery.addSlider(textSliderView);
+                }
+
             }
-            promoGallery.setDuration(GALLERY_PROMO_DURATION);
-            promoGallery.addOnPageChangeListener(this);
-            promoGallery.setCustomIndicator(pagerIndicator);
-            promoGallery.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Visible);
+            if(promosAdde>0){
+                promoGallery.setVisibility(View.VISIBLE);
+                promoGallery.setDuration(GALLERY_PROMO_DURATION);
+                promoGallery.addOnPageChangeListener(this);
+                promoGallery.setCustomIndicator(pagerIndicator);
+                promoGallery.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Visible);
+            }
+
         }
-
-
 
 
     }
@@ -185,9 +205,12 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_CALL);
-                String stringPhone = negocioSeleccionado.getPhone().replace("-","");
-                intent.setData(Uri.parse("tel:" + stringPhone));
-                startActivity(intent);//check permissions
+                if(negocioSeleccionado.getTelefono()!=null){
+                    String stringPhone = negocioSeleccionado.getTelefono().replace("-","");
+                    intent.setData(Uri.parse("tel:" + stringPhone));
+                }
+
+              //  startActivity(intent);//check permissions
             }
         });
 
@@ -311,9 +334,12 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
         public void webAction(){
             String url = negocioSeleccionado.getWeb();
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
+            if(url!=null){
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+
         }
 
 

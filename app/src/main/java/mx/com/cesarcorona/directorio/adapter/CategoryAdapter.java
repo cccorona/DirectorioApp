@@ -62,9 +62,9 @@ public class CategoryAdapter extends BaseAdapter {
         final View rootView = inflater.inflate(R.layout.category_element_layout,viewGroup,false);
         TextView title = (TextView) rootView.findViewById(R.id.category_title);
         ImageView categoryIcon =(ImageView)rootView.findViewById(R.id.category_icon);
-        title.setText(allCategories.get(i).getDisplay_title());
-        if(allCategories.get(i).getUrl_icon()!= null){
-            Picasso.with(context).load(allCategories.get(i).getUrl_icon()).fit().fit().into(categoryIcon);
+        title.setText(allCategories.get(i).getNombre());
+        if(allCategories.get(i).getImagen()!= null){
+            Picasso.with(context).load(allCategories.get(i).getImagen()).resize(100,100).into(categoryIcon);
         }else{
             Picasso.with(context).load(R.mipmap.ic_launcher).fit().fit().into(categoryIcon);
 

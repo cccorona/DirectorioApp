@@ -14,6 +14,8 @@ public class Clasificado implements Serializable {
     private String contenido;
     private String categoriaReference;
     private String telefono;
+    private String publicado;
+    private String referencia_categoria;
 
     @Exclude
     private String reference;
@@ -69,5 +71,21 @@ public class Clasificado implements Serializable {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public String getPublicado() {
+        return publicado;
+    }
+
+    public void setPublicado(String publicado) {
+        this.publicado = publicado;
+    }
+
+    public String getReferencia_categoria() {
+        return referencia_categoria;
+    }
+
+    public void setReferencia_categoria(String referencia_categoria) {
+        this.referencia_categoria = referencia_categoria;
     }
 }
