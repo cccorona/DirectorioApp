@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    xmlns:card_view="http://schemas.android.com/tools"
+
+    tools:context="mx.com.cesarcorona.directorio.activities.NegocioDetailActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <RelativeLayout
+            android:visibility="visible"
+            android:background="#FFF"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/negocio_imagen"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/attach_big"
+                android:layout_margin="15dp"
+                android:tint="#606060"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_attach_file_black_24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/nombre_negocio"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="#BB000000"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:hint="Introduzca Nombre del negocio"
+                    android:textColorHint="@color/colorWhite"
+                    android:padding="7dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/horario_negocio"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="#BB000000"
+                    android:gravity="center"
+                    android:text="09:00 AM - 05:30 PM"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </RelativeLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/open_status_negocio"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorCerrado"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:text="Cerrado"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/domicilio_status_negocio"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorEntrega"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:text="Entrega a domicilio"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <TextView
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Banner Premium"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <android.support.v7.widget.CardView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardElevation="10dp"
+            card_view:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/banner_image"
+                    android:src="@drawable/default_image"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <ImageView
+                    android:id="@+id/attach_banner"
+                    android:src="@drawable/ic_attach_file_black_24dp"
+                    android:tint="#606060"
+                    android:layout_margin="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Imagenes secundarias"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <android.support.v7.widget.CardView
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:cardElevation="10dp"
+                card_view:cardCornerRadius="4dp">
+
+                <RelativeLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/rect_uno"
+                        android:src="@drawable/default_image"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                    <ImageView
+                        android:src="@drawable/ic_attach_file_black_24dp"
+                        android:id="@+id/imagen_uno_up"
+                        android:layout_margin="5dp"
+                        android:tint="#606060"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:cardElevation="10dp"
+                card_view:cardCornerRadius="4dp">
+
+                <RelativeLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/rect_dos"
+                        android:src="@drawable/default_image"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                    <ImageView
+                        android:id="@+id/imagen_dos_up"
+                        android:layout_margin="5dp"
+                        android:tint="#606060"
+                        android:src="@drawable/ic_attach_file_black_24dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:cardElevation="10dp"
+                card_view:cardCornerRadius="4dp">
+
+                <RelativeLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/rect_tres"
+                        android:src="@drawable/default_image"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                    <ImageView
+                        android:id="@+id/imagen_tres_up"
+                        android:layout_margin="5dp"
+                        android:tint="#606060"
+                        android:src="@drawable/ic_attach_file_black_24dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+
+
+        <android.support.v7.widget.CardView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardElevation="10dp"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/negocio_descripcion"
+                    android:textAlignment="center"
+                    android:padding="3dp"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Introduzca descripción de su negocio"
+                    android:lines="2"
+                    style="@style/MainTextStyleOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Categoria"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <Spinner
+            style="@style/spinner_style"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:minWidth="150dp"
+            android:layout_height="40dp">
+
+        </Spinner>
+
+
+        <TextView
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Direccion"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <fragment
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/white_rounded"
+            android:id="@+id/place_autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment"
+
+            />
+
+
+
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/map"
+                tools:context=".MapsActivity"
+                android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/ruta_negocio"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:background="#DD000000"
+                android:gravity="center"
+                android:padding="7dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp" >
+
+                <ImageView
+                    android:id="@+id/button_navegar"
+                    android:src="@drawable/navigation"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Horarios"
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Lunes"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupL"
+                android:checkedButton="@+id/yesL" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesL"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noL"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/la"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/lc"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Martes"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupMa"
+                android:checkedButton="@+id/yesMa" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesMa"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noMa"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/ma"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/mc"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Miercoles"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupMi"
+                android:checkedButton="@+id/yesMi" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesMi"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noMi"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/mia"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/mic"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Jueves"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupJ"
+                android:checkedButton="@+id/yesJ" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesJ"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noJ"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/ja"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/jc"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Viernes"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupV"
+                android:checkedButton="@+id/yesV" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesV"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noV"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/va"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/vc"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Sabado"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupS"
+                android:checkedButton="@+id/yesS" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesS"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noS"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/sa"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/sc"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abre Domingo"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupD"
+                android:checkedButton="@+id/yesD" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesD"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noD"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="Abre"
+                    android:layout_weight="1"
+                    android:id="@+id/da"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/dc"
+                    android:gravity="center"
+                    android:text="Cierra"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:onClick="showTimedialog"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_marginBottom="20dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Otras caractersticas"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Abierto 24 horas"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroup24"
+                android:checkedButton="@+id/yes24" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yes24"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/no24"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Acepta tarjeta"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGrouptarjeta"
+                android:checkedButton="@+id/yesta" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesta"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nota"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text="Entrega a domicilio"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="8dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/text"
+                android:id="@+id/myRadioGroupdomi"
+                android:checkedButton="@+id/yesdomi" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/yesdomi"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nodomi"
+                    android:text="No" />
+
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"
+            android:textColor="#FFF"
+            android:textAllCaps="true"
+            android:text="Publicar"
+            android:background="@color/colorPrimary"
+            android:layout_weight="1"
+            android:id="@+id/publicar_button_negocio"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
+
+
+
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_phone_1055012"
+                    android:id="@+id/phone_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Telefono:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/phone_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:inputType="phone"
+                    android:hint="556810-1453"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_whatsapp_287675"
+                    android:id="@+id/whats_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="WhatsApp:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/whats_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="556810-1453"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:inputType="phone"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_twitter_287618"
+                    android:id="@+id/twitter_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Twitter:"
+                    android:layout_marginLeft="10dp"
+
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/twiter_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text=""
+                    android:hint="twitter user"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_facebook_313103"
+                    android:id="@+id/facebook_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Facebook:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/facebook_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="cesar.corona"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_mail_287559"
+                    android:id="@+id/web_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Web:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/web_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="contacto@cesrcorona.com.mx"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+        <com.daimajia.slider.library.SliderLayout
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:id="@+id/slider"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            />
+
+        <com.daimajia.slider.library.Indicators.PagerIndicator
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:id="@+id/custom_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

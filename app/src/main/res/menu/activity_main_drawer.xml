@@ -5,22 +5,35 @@
     <item android:title="Anunciate con nosotros">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_publicar"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Opcion1" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Opcion2" />
+                android:title="Publicar Negocio" />
 
-            <item
-                android:id="@+id/nav_share2"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Opcion3" />
             <item
                 android:id="@+id/pub_clas"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Publicar clasificado " />
+
+            <item
+                android:id="@+id/nav_mis_megocios"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Mis negocios " />
+
+            <item
+                android:id="@+id/nav_promociones"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Publicar promocion" />
+
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Compartir" />
+
+            <item
+                android:id="@+id/nav_about_us"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Acerca de" />
+
         </menu>
     </item>
 

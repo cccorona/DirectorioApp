@@ -51,7 +51,7 @@ public class ClasificadosAdapter extends BaseAdapter {
 
         title.setText(clasificados.get(position).getTitulo());
         contenido.setText(clasificados.get(position).getContenido());
-        categoria.setText(clasificados.get(position).getCategoriaReference());
+        categoria.setText(clasificados.get(position).getReferencia_categoria());
         return root;
 
     }

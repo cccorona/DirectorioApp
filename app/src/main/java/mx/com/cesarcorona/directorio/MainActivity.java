@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -30,8 +31,10 @@ import mx.com.cesarcorona.directorio.activities.CategoriaActivity;
 import mx.com.cesarcorona.directorio.activities.ClasificadosActivity;
 import mx.com.cesarcorona.directorio.activities.ClasificadosCategoriasActivity;
 import mx.com.cesarcorona.directorio.activities.CloseTomeActivity;
+import mx.com.cesarcorona.directorio.activities.LoginRegisterActivity;
 import mx.com.cesarcorona.directorio.activities.NoticiasActivity;
 import mx.com.cesarcorona.directorio.activities.PromocionesActivity;
+import mx.com.cesarcorona.directorio.activities.PublicarNegocioActivity;
 import mx.com.cesarcorona.directorio.activities.SearchActivity;
 import mx.com.cesarcorona.directorio.activities.SubirClasificadoActivity;
 
@@ -117,13 +120,41 @@ public class MainActivity extends BaseAnimatedActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_share) {
+        if (id == R.id.nav_publicar) {
+            if(FirebaseAuth.getInstance().getCurrentUser()== null){
+                Intent publicarNegocioInent = new Intent(MainActivity.this, LoginRegisterActivity.class);
+                startActivity(publicarNegocioInent);
+            }else{
+                Intent publicarNegocioInent = new Intent(MainActivity.this, PublicarNegocioActivity.class);
+                startActivity(publicarNegocioInent);
+            }
 
-        } else if (id == R.id.nav_send) {
 
-        } else if(id == R.id.pub_clas){
+        } else if (id == R.id.pub_clas) {
             Intent clasificadoIntent = new Intent(MainActivity.this, SubirClasificadoActivity.class);
             startActivity(clasificadoIntent);
+        } else if(id == R.id.nav_share){
+
+        }else if(id ==R.id.nav_about_us){
+
+        }  else if(id == R.id.nav_mis_megocios){
+            if(FirebaseAuth.getInstance().getCurrentUser()== null){
+                Intent publicarNegocioInent = new Intent(MainActivity.this, LoginRegisterActivity.class);
+                startActivity(publicarNegocioInent);
+            }else{
+                Intent publicarNegocioInent = new Intent(MainActivity.this, PublicarNegocioActivity.class);
+                startActivity(publicarNegocioInent);
+            }
+
+        }else if(id ==R.id.nav_promociones){
+            if(FirebaseAuth.getInstance().getCurrentUser()== null){
+                Intent publicarNegocioInent = new Intent(MainActivity.this, LoginRegisterActivity.class);
+                startActivity(publicarNegocioInent);
+            }else{
+                Intent publicarNegocioInent = new Intent(MainActivity.this, PublicarNegocioActivity.class);
+                startActivity(publicarNegocioInent);
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

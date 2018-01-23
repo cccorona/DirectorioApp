@@ -1,6 +1,7 @@
 package mx.com.cesarcorona.directorio.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.pojo.CategoriaClasificado;
 import mx.com.cesarcorona.directorio.pojo.Clasificado;
@@ -95,13 +97,17 @@ public class SubirClasificadoActivity extends BaseAnimatedActivity {
 
     private void uploadClasificado(){
         showpDialog();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CLASIFICADOS_REFERENCE);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/"+CLASIFICADOS_REFERENCE);
         Clasificado clasificado = new Clasificado();
         clasificado.setContenido(contenido.getText().toString());
         clasificado.setTitulo(titulo.getText().toString());
         clasificado.setCategoriaReference(categoriaSeleccionada.getDataBaseReference());
+        clasificado.setTelefono(telefono.getText().toString());
+        clasificado.setReferencia_categoria(categoriaSeleccionada.getNombre());
+        clasificado.setPublicado("No");
+        String key = databaseReference.push().getKey();
 
-        databaseReference.push().setValue(clasificado, new DatabaseReference.CompletionListener() {
+        databaseReference.child("clasificado"+key).setValue(clasificado, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if(databaseError == null){
@@ -115,13 +121,15 @@ public class SubirClasificadoActivity extends BaseAnimatedActivity {
                                     .setName(this.getClass().getSimpleName() + ": " + Thread.currentThread().getName());
 
 
-                           // SubirClasificadoActivity.super.onBackPressed();
+                            Intent mainIntent = new Intent(SubirClasificadoActivity.this, MainActivity.class);
+                            startActivity(mainIntent);
+                            finish();
 
                         }
                     };
 
                     Timer timer = new Timer();
-                    timer.schedule(task, 1000);
+                    timer.schedule(task, 1500);
 
                 }else{
                     Toast.makeText(SubirClasificadoActivity.this,"Hubo un error al subir el clasificado, intente despues",Toast.LENGTH_LONG).show();
@@ -180,7 +188,7 @@ public class SubirClasificadoActivity extends BaseAnimatedActivity {
 
     private void fillCategorias(){
         showpDialog();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORIA_CLAS_REFERENCE);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/"+CATEGORIA_CLAS_REFERENCE);
         CategoriaClasificado selectATopi = new CategoriaClasificado();
         selectATopi.setNombre("Seleccione una categoria");
         selectATopi.setTipo("Seleccione una categoria");

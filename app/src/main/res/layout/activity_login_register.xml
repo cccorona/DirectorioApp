@@ -1,0 +1,153 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:id="@+id/root_view"
+    android:orientation="vertical"
+    tools:context="mx.com.cesarcorona.directorio.activities.LoginRegisterActivity">
+
+
+
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:shadowRadius="4"
+            android:shadowDy="4.0"
+            android:shadowDx="4.0"
+            android:shadowColor="#000"
+            android:text="Login"
+            android:textSize="30sp"
+            android:textColor="@color/colorWhite"
+            android:gravity="end|bottom"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:id="@+id/correo_field"
+            android:textColor="@color/colorPrimary"
+            android:alpha="0.8"
+            android:paddingRight="15dp"
+            android:drawableTint="#606060"
+            android:drawableRight="@drawable/ic_email_black_24dp"
+            android:paddingLeft="10dp"
+            android:hint="@string/correo_electronico"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/white_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+        <EditText
+            android:imeOptions="actionDone"
+            android:id="@+id/pass_field"
+            android:alpha="0.8"
+            android:drawableTint="#606060"
+            android:textColor="@color/colorPrimary"
+            android:paddingRight="15dp"
+            android:drawableRight="@drawable/ic_lock_black_24dp"
+            android:hint="Contraseña"
+            android:paddingLeft="10dp"
+            android:inputType="textPassword"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/white_rounded"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+
+        <Button
+            android:id="@+id/ingresar_button"
+            android:alpha="0.8"
+            android:textColor="#FFF"
+            android:text="Ingresar"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+        <Button
+            android:id="@+id/registrarse_button"
+            android:alpha="0.8"
+            android:textColor="#FFF"
+            android:text="registrarse"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <TextView
+            android:id="@+id/olvide_link"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:text="Olvide mi contaseña"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
