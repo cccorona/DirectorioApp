@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +28,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -40,8 +43,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,19 +65,33 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TimerTask;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.dialogs.TimeSelectorDialog;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
+import mx.com.cesarcorona.directorio.pojo.Negocio;
+
+import static mx.com.cesarcorona.directorio.Utils.DataLoader.PROMOS_PHOTOS_REFRENCE;
+import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.GEO_REFERENCE;
+import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.NEGOCIOS_REFERENCE;
 
 public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnMapReadyCallback, TimeSelectorDialog.OnTimeSelectedInterface {
 
 
     private Uri bigImage;
+    private Uri bigImageUrl;
     private Uri bannerImage;
+    private Uri bannerImageUrl;
     private Uri fotouno;
+    private Uri fotounoUrl;
     private Uri fotodos;
+    private Uri fotodosUrl;
     private Uri fototres;
+    private Uri fototresUrl;
+
 
     private static final int MAX_ZOOM = 16;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 100;
@@ -97,6 +117,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     private RadioGroup abre23,tarjeta,docimilio;
     private TextView tLa,tLc,tMa,tMc,tMia,tMic,tJa,tJv,tVa,tVc,tSa,tSc,tDa,TDc;
     private Button publicarNegocioButton;
+    private EditText faceBookValue , mailValue, whtasValue, twitterValue,telefonoValue;
 
 
     private LinkedList<Categoria> allCategorias;
@@ -114,6 +135,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     private HashMap<String,String> fechasEspeciales;
     private String currentIdDay;
     private int currentIdView;
+
+    private Negocio negocioPorPublicar;
 
 
 
@@ -140,7 +163,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         categorySpinner= (Spinner)findViewById(R.id.categorySpinner);
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        publicarNegocioButton = (Button) findViewById(R.id.publicar_button);
+        publicarNegocioButton = (Button) findViewById(R.id.publicar_button_negocio);
         publicarNegocioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,8 +180,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         sabado = (RadioGroup)findViewById(R.id.myRadioGroupS);
         domingo = (RadioGroup)findViewById(R.id.myRadioGroupD);
         abre23 = (RadioGroup)findViewById(R.id.myRadioGroup24);
-        domingo = (RadioGroup)findViewById(R.id.myRadioGroupdomi);
-        docimilio = (RadioGroup)findViewById(R.id.myRadioGrouptarjeta);
+        docimilio = (RadioGroup)findViewById(R.id.myRadioGroupdomi);
+        tarjeta = (RadioGroup)findViewById(R.id.myRadioGrouptarjeta);
 
 
         tLa = (TextView)findViewById(R.id.la);
@@ -175,6 +198,14 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         tSc = (TextView)findViewById(R.id.sc);
         tDa = (TextView)findViewById(R.id.da);
         TDc = (TextView)findViewById(R.id.dc);
+
+
+        faceBookValue = (EditText) findViewById(R.id.facebook_value);
+        mailValue = (EditText) findViewById(R.id.web_value);
+        whtasValue = (EditText) findViewById(R.id.whats_value);
+        telefonoValue = (EditText) findViewById(R.id.phone_value);
+        twitterValue = (EditText) findViewById(R.id.twiter_value);
+
 
 
 
@@ -240,7 +271,270 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
     private void publishAttempt(){
 
+
+      //  private Uri fotouno;
+       // private Uri fotodos;
+       // private Uri fototres;
+
+        negocioPorPublicar = new Negocio();
+
+        if(bigImage!= null &&  bannerImage != null && nombre_negocio.getText().length()>0 && negocio_descripcion.getText().length() >0
+                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0){
+
+            StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bigImage.getLastPathSegment());
+        UploadTask uploadTask = fotoref.putFile(bigImage);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                return;
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                bigImageUrl = taskSnapshot.getDownloadUrl();
+                negocioPorPublicar.setLogo(bigImageUrl.toString());
+                negocioPorPublicar.setLogo_negocio(bigImageUrl.toString());
+                negocioPorPublicar.setUrl_logo(bigImageUrl.toString());
+                negocioPorPublicar.setFull_url_logo(bigImageUrl.toString());
+                StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bannerImage.getLastPathSegment());
+                UploadTask uploadTask = fotoref.putFile(bannerImage);
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                        bannerImageUrl = taskSnapshot.getDownloadUrl();
+                        negocioPorPublicar.setBanner_premium(bannerImageUrl.toString());
+                        negocioPorPublicar.setPremiumBannerUrl(bannerImageUrl.toString());
+                        fillDataRemain();
+                    }
+                });
+
+            }
+           });
+
+
+
+
+
+        }else{
+            Toast.makeText(PublicarNegocioActivity.this,"Rellene todos los datos para publicar su negocio",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
+
+             /*  StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+selectedImage.getLastPathSegment());
+        UploadTask uploadTask = fotoref.putFile(selectedImage);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                hidepDialog();
+                showSnackbar(exception.getMessage());
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                bannerURL = taskSnapshot.getDownloadUrl();
+                uploadAttemp();
+            }
+        });*/
+
     }
+
+
+    private void fillDataRemain(){
+
+
+        //optional images
+        //
+        if(fotouno!= null){
+           StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+fotouno.getLastPathSegment());
+           UploadTask uploadTask = fotoref.putFile(fotouno);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    negocioPorPublicar.setImagen_promo1( taskSnapshot.getDownloadUrl().toString());
+                    if(fotodos!= null){
+                        StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+fotodos.getLastPathSegment());
+                        UploadTask uploadTask = fotoref.putFile(fotodos);
+
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                negocioPorPublicar.setImagen_promo2( taskSnapshot.getDownloadUrl().toString());
+                                if(fototres!= null){
+                                    StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+fototres.getLastPathSegment());
+                                    UploadTask uploadTask = fotoref.putFile(fototres);
+
+                                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+                                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                            negocioPorPublicar.setImagen_promo3( taskSnapshot.getDownloadUrl().toString());
+                                        }
+                                    });
+                                }else{
+                                    //roced wit data
+                                    finisData();
+                                }
+                            }
+                        });
+                    }else{
+                        //proced with data
+                        finisData();
+                    }
+
+                }
+            });
+        }else{
+            // proced wuth data
+            finisData();
+        }
+
+    }
+
+    private void finisData(){
+        negocioPorPublicar.setNombre(nombre_negocio.getText().toString());
+        negocioPorPublicar.setDescripcion(negocio_descripcion.getText().toString());
+        negocioPorPublicar.setCategoria(categoriaSeleccionada.getDataBaseReference());
+        negocioPorPublicar.setWeb(mailValue.getText().toString());
+        negocioPorPublicar.setTwitter(twitterValue.getText().toString());
+        negocioPorPublicar.setTelefono(telefonoValue.getText().toString());
+        negocioPorPublicar.setWhatsapp(whtasValue.getText().toString());
+        negocioPorPublicar.setFacebook(faceBookValue.getText().toString());
+        negocioPorPublicar.setUbicacion(""+placeSelected.getLatLng().latitude+","+placeSelected.getLatLng().longitude);
+        negocioPorPublicar.setDiasAbiertos(diasAbiertos);
+        if(lunes.getCheckedRadioButtonId() == R.id.yesL){
+            negocioPorPublicar.setAbre_lunes("Si");
+        }else if(lunes.getCheckedRadioButtonId() == R.id.noL){
+            negocioPorPublicar.setAbre_lunes("No");
+
+        }
+        if(martes.getCheckedRadioButtonId() == R.id.yesMa){
+            negocioPorPublicar.setAbre_martes("Si");
+        }else if(martes.getCheckedRadioButtonId() == R.id.noMa){
+            negocioPorPublicar.setAbre_martes("No");
+
+        }
+        if(miercoles.getCheckedRadioButtonId() == R.id.yesMi){
+            negocioPorPublicar.setAbre_miercoles("Si");
+        }else if(miercoles.getCheckedRadioButtonId() == R.id.noMi){
+            negocioPorPublicar.setAbre_miercoles("No");
+
+        }
+        if(jueves.getCheckedRadioButtonId() == R.id.yesJ){
+            negocioPorPublicar.setAbre_jueves("Si");
+        }else if(jueves.getCheckedRadioButtonId() == R.id.noJ){
+            negocioPorPublicar.setAbre_jueves("No");
+
+        }
+        if(viernes.getCheckedRadioButtonId() == R.id.yesV){
+            negocioPorPublicar.setAbre_viernes("Si");
+        }else if(viernes.getCheckedRadioButtonId() == R.id.noV){
+            negocioPorPublicar.setAbre_viernes("No");
+
+        }
+        if(sabado.getCheckedRadioButtonId() == R.id.yesS){
+            negocioPorPublicar.setAbre_sabado("Si");
+        }else if(sabado.getCheckedRadioButtonId() == R.id.noS){
+            negocioPorPublicar.setAbre_sabado("No");
+
+        }
+        if(domingo.getCheckedRadioButtonId() == R.id.yesD){
+            negocioPorPublicar.setAbre_domingo("Si");
+        }else if(domingo.getCheckedRadioButtonId() == R.id.noD){
+            negocioPorPublicar.setAbre_domingo("No");
+
+        }
+
+        if(abre23.getCheckedRadioButtonId() == R.id.yes24){
+            negocioPorPublicar.setAbierto_24_horas("Si");
+        }else if(abre23.getCheckedRadioButtonId() == R.id.no24){
+            negocioPorPublicar.setAbierto_24_horas("No");
+
+        }
+        if(docimilio.getCheckedRadioButtonId() == R.id.yesdomi){
+            negocioPorPublicar.setEntrega_a_domicilio("Si");
+        }else if(docimilio.getCheckedRadioButtonId() == R.id.nodomi){
+            negocioPorPublicar.setEntrega_a_domicilio("No");
+
+        }
+
+        if(tarjeta.getCheckedRadioButtonId() == R.id.yesta){
+            negocioPorPublicar.setAcepta_tarjeta("Si");
+        }else if(tarjeta.getCheckedRadioButtonId() == R.id.nota){
+            negocioPorPublicar.setAcepta_tarjeta("No");
+
+        }
+        negocioPorPublicar.setPublicado("No");
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NEGOCIOS_REFERENCE);
+        String key = databaseReference.push().getKey();
+        final String keyToPush = "Negocio"+key;
+        databaseReference = FirebaseDatabase.getInstance().getReference("Example/"+NEGOCIOS_REFERENCE+"/"+keyToPush);
+        databaseReference.setValue(negocioPorPublicar).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(PublicarNegocioActivity.this,"Negocio esperando publicacion de la administracion",Toast.LENGTH_LONG).show();
+                    DatabaseReference geoReference = FirebaseDatabase.getInstance().getReference(GEO_REFERENCE);
+                    GeoFire geoFire = new GeoFire(geoReference);
+                    geoFire.setLocation(keyToPush, new GeoLocation(placeSelected.getLatLng().latitude, placeSelected.getLatLng().longitude)
+                            , new GeoFire.CompletionListener() {
+                                @Override
+                                public void onComplete(String key, DatabaseError error) {
+                                    if(error == null){
+                                        Intent mainInent = new Intent(PublicarNegocioActivity.this, MainActivity.class);
+                                        startActivity(mainInent);
+                                    }else{
+
+                                    }
+                                }
+                            });
+                }else{
+                    Toast.makeText(PublicarNegocioActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+
+    }
+
 
 
     private void fillCategorias() {
@@ -598,6 +892,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         {
             currentHour = hourOfDay;
         }
+
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;

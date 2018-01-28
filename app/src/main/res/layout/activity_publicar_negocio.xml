@@ -440,6 +440,208 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_marginTop="20dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Redes sociales"
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <LinearLayout
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_phone_1055012"
+                    android:id="@+id/phone_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Telefono:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/phone_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:inputType="phone"
+                    android:hint="556810-1453"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_whatsapp_287675"
+                    android:id="@+id/whats_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="WhatsApp:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/whats_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="556810-1453"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:inputType="phone"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_twitter_287618"
+                    android:id="@+id/twitter_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Twitter:"
+                    android:layout_marginLeft="10dp"
+
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/twiter_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text=""
+                    android:hint="twitter user"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_facebook_313103"
+                    android:id="@+id/facebook_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Facebook:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/facebook_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="cesar.corona"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/if_mail_287559"
+                    android:id="@+id/web_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Web:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/web_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="contacto@cesrcorona.com.mx"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
 
 
         <TextView
@@ -1072,187 +1274,6 @@
 
 
 
-        <LinearLayout
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="5dp"
-                    android:src="@drawable/if_phone_1055012"
-                    android:id="@+id/phone_action"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="Telefono:"
-                    android:layout_marginLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/phone_value"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:inputType="phone"
-                    android:hint="556810-1453"
-                    android:paddingRight="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="5dp"
-                    android:src="@drawable/if_whatsapp_287675"
-                    android:id="@+id/whats_action"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="WhatsApp:"
-                    android:layout_marginLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/whats_value"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:hint="556810-1453"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:inputType="phone"
-                    android:lines="1"
-                    android:paddingRight="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="5dp"
-                    android:src="@drawable/if_twitter_287618"
-                    android:id="@+id/twitter_action"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="Twitter:"
-                    android:layout_marginLeft="10dp"
-
-                    android:paddingRight="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/twiter_value"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text=""
-                    android:hint="twitter user"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:paddingRight="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="5dp"
-                    android:src="@drawable/if_facebook_313103"
-                    android:id="@+id/facebook_action"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="Facebook:"
-                    android:layout_marginLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/facebook_value"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:hint="cesar.corona"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:paddingRight="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="5dp"
-                    android:src="@drawable/if_mail_287559"
-                    android:id="@+id/web_action"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:text="Web:"
-                    android:layout_marginLeft="10dp"
-                    android:paddingRight="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/web_value"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:hint="contacto@cesrcorona.com.mx"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:paddingRight="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-
-
-
-        </LinearLayout>
 
 
 

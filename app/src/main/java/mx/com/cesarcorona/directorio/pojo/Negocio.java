@@ -36,6 +36,7 @@ public class Negocio implements Serializable {
     private boolean premiumStatus;
     private boolean open24Hours;
     private boolean aceptaTArjeta;
+    private String categoria;
 
 
 
@@ -71,6 +72,7 @@ public class Negocio implements Serializable {
     private String ubicacion;
     private String web;
     private String whatsapp;
+    private HashMap<String,String> diasAbiertos;
 
 
 
@@ -440,5 +442,21 @@ public class Negocio implements Serializable {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public HashMap<String, String> getDiasAbiertos() {
+        return diasAbiertos;
+    }
+
+    public void setDiasAbiertos(HashMap<String, String> diasAbiertos) {
+        this.diasAbiertos = diasAbiertos;
     }
 }
