@@ -2,6 +2,7 @@ package mx.com.cesarcorona.directorio.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by ccabrera on 10/08/17.
@@ -39,6 +40,10 @@ public class DateUtils {
      */
     public static boolean isNowInInterval(String start, String end) {
 
+        if(start == null || end == null){
+            return false;
+        }
+
         String formatedStart[] = start.split(":");
         if(formatedStart != null && formatedStart.length >3){
             start = formatedStart[1] +":" + formatedStart[2].substring(0,2);
@@ -53,7 +58,9 @@ public class DateUtils {
 
 
     public static String formatDate(String start, String end) {
-
+        if(start == null || end == null){
+            return new Date().toString();
+        }
         String formatedStart[] = start.split(":");
         if(formatedStart != null && formatedStart.length >3){
             start = formatedStart[1] +":" + formatedStart[2].substring(0,2);
