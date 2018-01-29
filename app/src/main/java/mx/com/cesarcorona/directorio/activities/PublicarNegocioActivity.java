@@ -189,7 +189,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         tMa = (TextView)findViewById(R.id.ma);
         tMc = (TextView)findViewById(R.id.mc);
         tMia = (TextView)findViewById(R.id.mia);
-        tMic = (TextView)findViewById(R.id.mc);
+        tMic = (TextView)findViewById(R.id.mic);
         tJa = (TextView)findViewById(R.id.ja);
         tJv = (TextView)findViewById(R.id.jc);
         tVa = (TextView)findViewById(R.id.va);
@@ -500,6 +500,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
         }
         negocioPorPublicar.setPublicado("No");
+        negocioPorPublicar.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NEGOCIOS_REFERENCE);

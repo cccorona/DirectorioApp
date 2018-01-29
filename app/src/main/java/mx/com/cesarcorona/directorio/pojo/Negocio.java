@@ -73,6 +73,7 @@ public class Negocio implements Serializable {
     private String web;
     private String whatsapp;
     private HashMap<String,String> diasAbiertos;
+    private String userId;
 
 
 
@@ -458,5 +459,14 @@ public class Negocio implements Serializable {
 
     public void setDiasAbiertos(HashMap<String, String> diasAbiertos) {
         this.diasAbiertos = diasAbiertos;
+    }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

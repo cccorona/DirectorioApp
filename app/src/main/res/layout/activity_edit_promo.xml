@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="mx.com.cesarcorona.directorio.activities.EditPromoActivity">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <TextView
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Agregar promoción"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <android.support.v7.widget.CardView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/banner_image"
+                    android:src="@drawable/default_image"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <ImageView
+                    android:id="@+id/attach_banner"
+                    android:src="@drawable/ic_attach_file_black_24dp"
+                    android:tint="#606060"
+                    android:layout_margin="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <TextView
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="#BB000000"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:hint="Palabras clave, separadas por coma"
+            android:textColorHint="@color/colorWhite"
+            android:padding="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <android.support.v7.widget.CardView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/negocio_tags"
+                    android:textAlignment="center"
+                    android:padding="3dp"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center_horizontal"
+                    android:hint="Pizza,Comida,2x1,30% descuento"
+                    android:lines="2"
+                    style="@style/MainTextStyleOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="30dp"
+        android:textSize="14sp"
+        android:textColor="#FFF"
+        android:textAllCaps="true"
+        android:text="Guardar cambios"
+        android:background="@color/colorPrimary"
+        android:id="@+id/publicar_button_negocio"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+
+
+</>

@@ -1,5 +1,7 @@
 package mx.com.cesarcorona.directorio.pojo;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -11,7 +13,12 @@ public class Promocion implements Serializable {
 
     private String photoUrl;
     private String negocioId;
-    private HashMap<String,String> ubicacion;
+    private String ubicacion;
+    private HashMap<String ,String> tags;
+
+
+    @Exclude
+    private String dataBasereference;
 
 
     public Promocion() {
@@ -21,7 +28,6 @@ public class Promocion implements Serializable {
     public Promocion(String photoUrl, String negocioId, HashMap<String, String> ubicacion) {
         this.photoUrl = photoUrl;
         this.negocioId = negocioId;
-        this.ubicacion = ubicacion;
     }
 
     public String getPhotoUrl() {
@@ -41,11 +47,38 @@ public class Promocion implements Serializable {
     }
 
 
-    public HashMap<String, String> getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(HashMap<String, String> ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public HashMap<String, String> getTags() {
+        return tags;
+    }
+
+    public void setTags(HashMap<String, String> tags) {
+        this.tags = tags;
+    }
+
+
+    public String getDataBasereference() {
+        return dataBasereference;
+    }
+
+    public void setDataBasereference(String dataBasereference) {
+        this.dataBasereference = dataBasereference;
+    }
+
+
+    public boolean containsTag(String tag){
+        boolean contins = false;
+        if(tags != null && tags.containsKey(tag)){
+            return  true;
+        }else{
+            return false;
+        }
     }
 }

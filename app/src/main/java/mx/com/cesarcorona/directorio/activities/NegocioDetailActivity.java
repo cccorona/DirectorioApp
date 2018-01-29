@@ -47,6 +47,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
     public static String TAG = NegocioDetailActivity.class.getSimpleName();
     public static String KEY_NEGOCIO = "negocio";
+    public static String KEY_NEGOCIO_ID="negocioid";
     public static int GALLERY_PROMO_DURATION = 4000;
     private static final int MAX_ZOOM = 16;
     private FusedLocationProviderClient mFusedLocationClient;
