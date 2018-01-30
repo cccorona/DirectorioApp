@@ -30,7 +30,7 @@
 
     <EditText
         android:id="@+id/palabra_clave_text"
-        android:imeOptions="actionGo"
+        android:imeOptions="actionDone"
         android:singleLine="true"
         android:lines="1"
         android:inputType="text"

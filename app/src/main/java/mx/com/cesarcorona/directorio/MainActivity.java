@@ -32,9 +32,11 @@ import mx.com.cesarcorona.directorio.activities.ClasificadosActivity;
 import mx.com.cesarcorona.directorio.activities.ClasificadosCategoriasActivity;
 import mx.com.cesarcorona.directorio.activities.CloseTomeActivity;
 import mx.com.cesarcorona.directorio.activities.LoginRegisterActivity;
+import mx.com.cesarcorona.directorio.activities.MisNegociosActivity;
 import mx.com.cesarcorona.directorio.activities.NoticiasActivity;
 import mx.com.cesarcorona.directorio.activities.PromocionesActivity;
 import mx.com.cesarcorona.directorio.activities.PublicarNegocioActivity;
+import mx.com.cesarcorona.directorio.activities.PublicarPromocionActivity;
 import mx.com.cesarcorona.directorio.activities.SearchActivity;
 import mx.com.cesarcorona.directorio.activities.SubirClasificadoActivity;
 
@@ -142,7 +144,7 @@ public class MainActivity extends BaseAnimatedActivity
                 Intent publicarNegocioInent = new Intent(MainActivity.this, LoginRegisterActivity.class);
                 startActivity(publicarNegocioInent);
             }else{
-                Intent publicarNegocioInent = new Intent(MainActivity.this, PublicarNegocioActivity.class);
+                Intent publicarNegocioInent = new Intent(MainActivity.this, MisNegociosActivity.class);
                 startActivity(publicarNegocioInent);
             }
 
@@ -151,11 +153,22 @@ public class MainActivity extends BaseAnimatedActivity
                 Intent publicarNegocioInent = new Intent(MainActivity.this, LoginRegisterActivity.class);
                 startActivity(publicarNegocioInent);
             }else{
-                Intent publicarNegocioInent = new Intent(MainActivity.this, PublicarNegocioActivity.class);
+                Intent publicarNegocioInent = new Intent(MainActivity.this, PublicarPromocionActivity.class);
                 startActivity(publicarNegocioInent);
             }
 
+        }else if(id ==R.id.nav_terminos){
+
+
+        }else if(id ==R.id.nav_salir){
+            if(FirebaseAuth.getInstance().getCurrentUser()== null){
+
+            }else{
+
+            }
+
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

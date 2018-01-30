@@ -42,7 +42,7 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
 
     public static final String TAG = SearchActivity.class.getSimpleName();
     public static String CATEGORY_REFERENCE ="categorias";
-    public static String ALL_NEGOCIOS_REFERENCE ="allnegocios";
+    public static String ALL_NEGOCIOS_REFERENCE ="Example/allnegocios";
 
 
     private EditText textSearch;

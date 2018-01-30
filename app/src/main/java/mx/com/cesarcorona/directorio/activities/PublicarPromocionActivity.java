@@ -154,7 +154,7 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
             if(tags != null && tags.length >0){
                 tagsnegocio = new HashMap<>();
                 for(String tag:tags){
-                    tagsnegocio.put(tag,tag);
+                    tagsnegocio.put(tag.trim().toLowerCase(),tag.trim().toLowerCase());
                 }
                 promocion.setTags(tagsnegocio);
 
@@ -176,11 +176,13 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
                 promocion.setPhotoUrl(taskSnapshot.getDownloadUrl().toString());
                 promocion.setUbicacion(negocioSeleccionado.getUbicacion());
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/promociones");
-                String keyTopush = "promocion" + databaseReference.push();
+                String keyTopush = "promocion" + databaseReference.push().getKey();
                 databaseReference.child(keyTopush).setValue(promocion).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
+                            Toast.makeText(PublicarPromocionActivity.this,"Promocion publicada ",Toast.LENGTH_LONG).show();
+                            reloadPromociones();
 
                         }else {
                             Toast.makeText(PublicarPromocionActivity.this,"No se pudo publicar la promoción, intente despues",Toast.LENGTH_LONG).show();
@@ -199,6 +201,7 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
 
     private void fillNegocios() {
         showpDialog();
+        misNegocios = new LinkedList<>();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/allnegocios");
 
         Query query = databaseReference.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -216,7 +219,10 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
                 for (DataSnapshot negocioSnap : dataSnapshot.getChildren()) {
                     Negocio negocio = negocioSnap.getValue(Negocio.class);
                     negocio.setNegocioDataBaseReference(negocioSnap.getKey());
-                    misNegocios.add(negocio);
+                    if(negocio.getPublicado()!= null && negocio.getPublicado().equals("Si")){
+                        misNegocios.add(negocio);
+
+                    }
                 }
 
                 LinkedList<String> list = new LinkedList<String>();
@@ -229,6 +235,11 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
                 negocioSpinner.setAdapter(dataAdapter);
 
                 hidepDialog();
+                if(misNegocios.size()==1){
+                    Toast.makeText(PublicarPromocionActivity.this,"No has publicado negocios, o se encuentran" +
+                            " en espera de publicación por parte del administrador",Toast.LENGTH_LONG).show();
+
+                }
 
             }
 
@@ -295,6 +306,10 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
 
                 } else {
                     negocioSeleccionado = null;
+                    reloadPromociones();
+                    promosAdapter = new PromosAdapter(PublicarPromocionActivity.this,new LinkedList<Promocion>(),ADAPTER_TYPE_EDIT);
+                    promosAdapter.setOnPromoInterface(PublicarPromocionActivity.this);
+                    misPromocionesList.setAdapter(promosAdapter);
 
 
                 }
@@ -326,6 +341,11 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
                         Promocion promocion = promoStap.getValue(Promocion.class);
                         promocion.setDataBasereference(promoStap.getKey());
                         promosAdapter.addPromocion(promocion);
+                    }
+                    if(promosAdapter.getCount()>0){
+                        misPromocionesList.setVisibility(View.VISIBLE);
+                    }else{
+                        misPromocionesList.setVisibility(View.GONE);
                     }
                 }
 

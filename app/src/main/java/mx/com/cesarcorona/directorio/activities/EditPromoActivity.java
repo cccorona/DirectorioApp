@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -64,6 +65,8 @@ public class EditPromoActivity extends BaseAnimatedActivity {
         promoSelected = (Promocion) getIntent().getExtras().getSerializable(KEY_PROMO_SELECTED);
         banner_image = (ImageView)findViewById(R.id.banner_image);
         tagsText = (EditText) findViewById(R.id.negocio_tags);
+        attache = (ImageView)findViewById(R.id.attach_banner);
+
         publicarButton = (Button) findViewById(R.id.publicar_button_negocio) ;
         pDialog = new ProgressDialog(EditPromoActivity.this);
         pDialog.setMessage("Por favor espere");
@@ -89,7 +92,19 @@ public class EditPromoActivity extends BaseAnimatedActivity {
             }
         });
 
+        if(promoSelected.getPhotoUrl()!= null && !promoSelected.getPhotoUrl().equals("")){
+            Picasso.with(EditPromoActivity.this).load(promoSelected.getPhotoUrl()).into(banner_image);
 
+        }
+
+        if(promoSelected.getTags()!=null){
+            StringBuilder tags = new StringBuilder();
+            for(String tag:promoSelected.getTags().keySet()){
+                tags.append(tag).append(",");
+            }
+            tags = new StringBuilder( tags.subSequence(0,tags.length()-1).toString());
+            tagsText.setText(tags.toString());
+        }
 
 
 
@@ -127,7 +142,7 @@ public class EditPromoActivity extends BaseAnimatedActivity {
             if(tags != null && tags.length >0){
                 tagsnegocio = new HashMap<>();
                 for(String tag:tags){
-                    tagsnegocio.put(tag,tag);
+                    tagsnegocio.put(tag.trim().toLowerCase(),tag.trim().toLowerCase());
                 }
                 promoSelected.setTags(tagsnegocio);
 

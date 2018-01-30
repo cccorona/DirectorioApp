@@ -6,7 +6,7 @@
         <menu>
             <item
                 android:id="@+id/nav_publicar"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_send"
                 android:title="Publicar Negocio" />
 
             <item
@@ -31,8 +31,18 @@
 
             <item
                 android:id="@+id/nav_about_us"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_send"
                 android:title="Acerca de" />
+
+            <item
+                android:id="@+id/nav_terminos"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Terminos y condiciones" />
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Salir" />
+
 
         </menu>
     </item>

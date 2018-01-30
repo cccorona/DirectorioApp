@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -79,15 +80,9 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
         pDialog = new ProgressDialog(PromocionesActivity.this);
         pDialog.setMessage("Por favor espera...");
         pDialog.setCancelable(false);
-        showpDialog();
         reloadPromociones();
 
 
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
 
 
         textSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -118,6 +113,8 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
 
     private void seachAttepmt(){
         if(textSearch.getText().length() >0){
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            showpDialog();
             promosAdapter = new PromosAdapter(PromocionesActivity.this,new LinkedList<Promocion>(),ADAPTER_TYPE_INFO);
             promosAdapter.setOnPromoInterface(this);
             promosList.setAdapter(promosAdapter);
@@ -126,6 +123,7 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
                     promosAdapter.addPromocion(laPromocion);
                 }
             }
+            hidepDialog();
         }else{
             Toast.makeText(PromocionesActivity.this,"Introudce una palabra clave",Toast.LENGTH_LONG).show();
         }
@@ -134,6 +132,7 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
     }
 
     private void reloadPromociones(){
+            showpDialog();
             promosAdapter = new PromosAdapter(PromocionesActivity.this,new LinkedList<Promocion>(),ADAPTER_TYPE_INFO);
             promosAdapter.setOnPromoInterface(this);
             promosList.setAdapter(promosAdapter);
@@ -149,11 +148,12 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
                             premiumNegocios.add(promocion);
                         }
                     }
+                    hidepDialog();
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                     hidepDialog();
                 }
             });
 

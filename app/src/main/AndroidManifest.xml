@@ -60,7 +60,8 @@
             android:label="@string/title_activity_login_register" />
         <activity android:name=".activities.SendPassActivity" />
         <activity android:name=".activities.PublicarPromocionActivity" />
-        <activity android:name=".activities.EditPromoActivity"></activity>
+        <activity android:name=".activities.EditPromoActivity" />
+        <activity android:name=".activities.MisNegociosActivity"></activity>
     </application>
 
 </manifest>
