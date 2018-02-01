@@ -1,7 +1,9 @@
 package mx.com.cesarcorona.directorio.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.pojo.Noticia;
 
@@ -45,6 +48,24 @@ public class NoticiaDetailActivity extends AppCompatActivity {
         }else{
             Toast.makeText(NoticiaDetailActivity.this,"Hubo un error al leer la noticia",Toast.LENGTH_LONG).show();
         }
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoticiaDetailActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(NoticiaDetailActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+
 
     }
 }

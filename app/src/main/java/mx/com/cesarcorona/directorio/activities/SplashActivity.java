@@ -50,6 +50,9 @@ public class SplashActivity extends BaseAnimatedActivity{
 
 
 
+
+
+
         } // Fin onCreate()
 
 

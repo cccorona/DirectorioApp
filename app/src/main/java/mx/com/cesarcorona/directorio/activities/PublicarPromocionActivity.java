@@ -37,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.adapter.PromosAdapter;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
@@ -114,6 +115,24 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
                  publicarPromocion();
              }
          });
+
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PublicarPromocionActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(PublicarPromocionActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
     }
 

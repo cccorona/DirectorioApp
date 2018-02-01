@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Random;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.adapter.CategoryAdapter;
@@ -93,6 +94,24 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
                     startActivity(detailIntent);
                 }
 
+            }
+        });
+
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NegocioPorCategoriaActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(NegocioPorCategoriaActivity.this, MainActivity.class);
+                startActivity(mainIntent);
             }
         });
 

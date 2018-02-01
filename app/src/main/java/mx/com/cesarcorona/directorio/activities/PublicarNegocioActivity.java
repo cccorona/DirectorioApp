@@ -184,6 +184,52 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         tarjeta = (RadioGroup)findViewById(R.id.myRadioGrouptarjeta);
 
 
+        domingo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+
+        lunes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+        martes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+        miercoles.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+        jueves.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+        viernes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+        sabado.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateDias(checkedId);
+            }
+        });
+
+
+
         tLa = (TextView)findViewById(R.id.la);
         tLc = (TextView)findViewById(R.id.lc);
         tMa = (TextView)findViewById(R.id.ma);
@@ -215,6 +261,25 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         initMap();
         initLocation();
         initAddresSearch();
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PublicarNegocioActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(PublicarNegocioActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
+
+
 
 
     }
@@ -279,7 +344,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         negocioPorPublicar = new Negocio();
 
         if(bigImage!= null &&  bannerImage != null && nombre_negocio.getText().length()>0 && negocio_descripcion.getText().length() >0
-                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0){
+                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0 && datesAreComplete()){
+            showpDialog();
 
             StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bigImage.getLastPathSegment());
         UploadTask uploadTask = fotoref.putFile(bigImage);
@@ -288,6 +354,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                hidepDialog();
                 return;
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -306,6 +373,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                        hidepDialog();
                         return;
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -367,6 +435,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                    hidepDialog();
                     return;
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -382,6 +451,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                                hidepDialog();
+
                                 return;
                             }
                         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -397,6 +468,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                                         @Override
                                         public void onFailure(@NonNull Exception exception) {
                                             Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                                            hidepDialog();
+
                                             return;
                                         }
                                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -404,6 +477,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             negocioPorPublicar.setImagen_promo3( taskSnapshot.getDownloadUrl().toString());
+                                            finisData();
                                         }
                                     });
                                 }else{
@@ -423,6 +497,59 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             // proced wuth data
             finisData();
         }
+
+    }
+
+
+    private boolean datesAreComplete(){
+
+        int conunt= 0;
+        if(abre23.getCheckedRadioButtonId() == R.id.yes24){
+            return true;
+        }else if(abre23.getCheckedRadioButtonId() == R.id.no24){
+            if(lunes.getCheckedRadioButtonId() == R.id.yesL){
+                conunt++;
+            }else if(lunes.getCheckedRadioButtonId() == R.id.noL){
+
+            }
+            if(martes.getCheckedRadioButtonId() == R.id.yesMa){
+                conunt++;
+            }else if(martes.getCheckedRadioButtonId() == R.id.noMa){
+
+            }
+            if(miercoles.getCheckedRadioButtonId() == R.id.yesMi){
+                conunt++;
+            }else if(miercoles.getCheckedRadioButtonId() == R.id.noMi){
+
+            }
+            if(jueves.getCheckedRadioButtonId() == R.id.yesJ){
+                conunt++;
+            }else if(jueves.getCheckedRadioButtonId() == R.id.noJ){
+
+            }
+            if(viernes.getCheckedRadioButtonId() == R.id.yesV){
+                conunt++;
+            }else if(viernes.getCheckedRadioButtonId() == R.id.noV){
+
+            }
+            if(sabado.getCheckedRadioButtonId() == R.id.yesS){
+                conunt++;
+            }else if(sabado.getCheckedRadioButtonId() == R.id.noS){
+
+            }
+            if(domingo.getCheckedRadioButtonId() == R.id.yesD){
+                conunt++;
+            }else if(domingo.getCheckedRadioButtonId() == R.id.noD){
+
+            }
+        }
+
+        if(conunt == diasAbiertos.size()){
+            return true;
+        }else {
+            return false;
+        }
+
 
     }
 
@@ -530,6 +657,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                     Toast.makeText(PublicarNegocioActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
 
                 }
+                hidepDialog();
+
             }
         });
 
@@ -713,6 +842,106 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     }
 
 
+
+
+
+
+
+    private void updateDias(int currentId){
+        switch (currentId){
+
+            case R.id.noD:
+                tDa.setClickable(false);
+                TDc.setClickable(false);
+                diasAbiertos.remove("da");
+                diasAbiertos.remove("dc");
+                break;
+
+            case R.id.yesD:
+                tDa.setClickable(true);
+                TDc.setClickable(true);
+                break;
+
+            case R.id.noL:
+                tLa.setClickable(false);
+                tLc.setClickable(false);
+                diasAbiertos.remove("la");
+                diasAbiertos.remove("lc");
+                break;
+
+            case R.id.yesL:
+                tLa.setClickable(true);
+                tLc.setClickable(true);
+                break;
+
+            case R.id.noMa:
+                tMa.setClickable(false);
+                tMc.setClickable(false);
+                diasAbiertos.remove("ma");
+                diasAbiertos.remove("mc");
+                break;
+
+            case R.id.yesMa:
+                tMa.setClickable(true);
+                tMc.setClickable(true);
+                break;
+
+
+            case R.id.noMi:
+                tMia.setClickable(false);
+                tMic.setClickable(false);
+                diasAbiertos.remove("mia");
+                diasAbiertos.remove("mic");
+                break;
+
+            case R.id.yesMi:
+                tMia.setClickable(true);
+                tMic.setClickable(true);
+                break;
+
+
+            case R.id.noJ:
+                tJa.setClickable(false);
+                tJv.setClickable(false);
+                diasAbiertos.remove("ja");
+                diasAbiertos.remove("jc");
+                break;
+
+            case R.id.yesJ:
+                tJa.setClickable(true);
+                tJv.setClickable(true);
+                break;
+
+
+            case R.id.noV:
+                tVa.setClickable(false);
+                tVc.setClickable(false);
+                diasAbiertos.remove("va");
+                diasAbiertos.remove("vc");
+                break;
+
+            case R.id.yesV:
+                tVa.setClickable(true);
+                tVc.setClickable(true);
+                break;
+
+            case R.id.noS:
+                tSa.setClickable(false);
+                tSa.setClickable(false);
+                diasAbiertos.remove("sa");
+                diasAbiertos.remove("sc");
+                break;
+
+            case R.id.yesS:
+                tSa.setClickable(true);
+                tSa.setClickable(true);
+                break;
+
+        }
+
+    }
+
+
     public void showTimedialog(android.view.View v) {
         TimeSelectorDialog timeSelectorDialog = new TimeSelectorDialog();
         timeSelectorDialog.setOnTimeSelectedInterface(this);
@@ -788,8 +1017,9 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     }
 
     private void showpDialog() {
-        if (!pDialog.isShowing())
+        if (!pDialog.isShowing()){
             pDialog.show();
+        }
     }
 
     private void hidepDialog() {

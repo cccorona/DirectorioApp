@@ -2,10 +2,12 @@ package mx.com.cesarcorona.directorio;
 
 import android.*;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,6 +53,8 @@ public class MainActivity extends BaseAnimatedActivity
     private CardView clasificadosCard;
     private CardView closeToMeCard;
     private CardView noticiasCard;
+    private ShareActionProvider mShareActionProvider;
+
 
 
     @Override
@@ -64,8 +69,11 @@ public class MainActivity extends BaseAnimatedActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                String shareBody = "Estoy usando Ph Movil desde mi Android,http://www.phmovil.com";
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Compartir via"));
             }
         });
 
@@ -90,7 +98,7 @@ public class MainActivity extends BaseAnimatedActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
         }
     }
 
@@ -109,9 +117,7 @@ public class MainActivity extends BaseAnimatedActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -135,9 +141,14 @@ public class MainActivity extends BaseAnimatedActivity
         } else if (id == R.id.pub_clas) {
             Intent clasificadoIntent = new Intent(MainActivity.this, SubirClasificadoActivity.class);
             startActivity(clasificadoIntent);
-        } else if(id == R.id.nav_share){
+        } else if(id ==R.id.nav_about_us){
+            try {
+                Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.phmovil.com/acercade"));
+                startActivity(intent);
+            }catch (Exception e){
+                Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+            }
 
-        }else if(id ==R.id.nav_about_us){
 
         }  else if(id == R.id.nav_mis_megocios){
             if(FirebaseAuth.getInstance().getCurrentUser()== null){
@@ -158,9 +169,16 @@ public class MainActivity extends BaseAnimatedActivity
             }
 
         }else if(id ==R.id.nav_terminos){
+            try {
+                Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.phmovil.com/terminosycondiciones"));
+                startActivity(intent);
+            }catch (Exception e){
+
+            }
 
 
-        }else if(id ==R.id.nav_salir){
+
+            }else if(id ==R.id.nav_salir){
             if(FirebaseAuth.getInstance().getCurrentUser()== null){
 
             }else{

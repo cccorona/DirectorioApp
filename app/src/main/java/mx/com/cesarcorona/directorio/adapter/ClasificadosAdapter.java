@@ -48,10 +48,12 @@ public class ClasificadosAdapter extends BaseAdapter {
         TextView title = (TextView) root.findViewById(R.id.clasificado_title);
         TextView contenido = (TextView) root.findViewById(R.id.clasificado_contenido);
         TextView categoria = (TextView) root.findViewById(R.id.categoria_clasificado);
+        TextView telefono = (TextView)root.findViewById(R.id.telefono_clasificado);
 
         title.setText(clasificados.get(position).getTitulo());
         contenido.setText(clasificados.get(position).getContenido());
         categoria.setText(clasificados.get(position).getReferencia_categoria());
+        telefono.setText("Tel:"+clasificados.get(position).getTelefono());
         return root;
 
     }

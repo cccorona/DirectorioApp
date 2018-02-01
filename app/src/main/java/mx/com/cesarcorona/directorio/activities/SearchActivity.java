@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.firebase.crash.FirebaseCrash;
@@ -91,6 +92,23 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
             }
         });
 
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(SearchActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
 
 

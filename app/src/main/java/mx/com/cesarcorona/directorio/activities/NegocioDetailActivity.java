@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
@@ -99,6 +100,23 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         loadPromos();
         startListening();
         getLocation();
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NegocioDetailActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(NegocioDetailActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
 
 

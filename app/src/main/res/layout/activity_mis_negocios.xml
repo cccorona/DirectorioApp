@@ -25,20 +25,44 @@
             tools:context="mx.com.cesarcorona.directorio.activities.PublicarPromocionActivity">
 
 
-            <TextView
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:background="#BB000000"
-                android:gravity="center"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:hint="Seleccione uno de sus negocios"
-                android:textColorHint="@color/colorWhite"
-                android:padding="7dp"
+            <RelativeLayout
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:src="@drawable/ic_arrow_back_white_36dp"
+                    android:id="@+id/back_arrow_button"
+                    android:layout_margin="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+
+                <ImageView
+                    android:tint="@color/colorWhite"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_home_black_24dp"
+                    android:id="@+id/home_button"
+                    android:layout_margin="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+
+                <TextView
+                    android:layout_toRightOf="@id/back_arrow_button"
+                    android:layout_toLeftOf="@id/home_button"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/color_spash"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:text="Mis negocios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
 
 
 

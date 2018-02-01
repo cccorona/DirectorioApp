@@ -55,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -125,6 +126,24 @@ public class LoginRegisterActivity extends BaseAnimatedActivity implements Fireb
 
 
         initProviders();
+
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginRegisterActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(LoginRegisterActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
 
 

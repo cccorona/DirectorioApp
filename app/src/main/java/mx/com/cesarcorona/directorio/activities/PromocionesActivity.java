@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import java.util.LinkedList;
 import java.util.List;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.adapter.PromosAdapter;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
@@ -105,6 +107,24 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
                 promosAdapter = new PromosAdapter(PromocionesActivity.this,premiumNegocios,ADAPTER_TYPE_INFO);
                 promosAdapter.setOnPromoInterface(PromocionesActivity.this);
                 promosList.setAdapter(promosAdapter);
+            }
+        });
+
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PromocionesActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(PromocionesActivity.this, MainActivity.class);
+                startActivity(mainIntent);
             }
         });
 

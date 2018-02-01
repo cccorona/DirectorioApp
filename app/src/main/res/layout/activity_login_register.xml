@@ -11,26 +11,40 @@
 
 
     <RelativeLayout
-        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
+
+        <ImageView
+            android:src="@drawable/ic_arrow_back_white_36dp"
+            android:id="@+id/back_arrow_button"
+            android:layout_margin="15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+
+        <ImageView
+            android:tint="@color/colorWhite"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_home_black_24dp"
+            android:id="@+id/home_button"
+            android:layout_margin="15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
 
 
         <TextView
-            android:shadowRadius="4"
-            android:shadowDy="4.0"
-            android:shadowDx="4.0"
-            android:shadowColor="#000"
-            android:text="Login"
-            android:textSize="30sp"
+            android:layout_toRightOf="@id/back_arrow_button"
+            android:layout_toLeftOf="@id/home_button"
             android:textColor="@color/colorWhite"
-            android:gravity="end|bottom"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:paddingRight="20dp"
+            android:background="@color/color_spash"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="Ingresar ó registrarse"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
 
 
     </RelativeLayout>

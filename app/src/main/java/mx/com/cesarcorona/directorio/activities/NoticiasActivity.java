@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.adapter.ClasificadosAdapter;
 import mx.com.cesarcorona.directorio.adapter.NoticiasAdapter;
@@ -47,6 +50,23 @@ public class NoticiasActivity extends BaseAnimatedActivity implements NoticiasAd
         noticiasListView = (ListView) findViewById(R.id.lista_noticias);
 
         fillList();
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoticiasActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(NoticiasActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
     }
 
     private void showpDialog() {

@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.pojo.Promocion;
 
@@ -105,6 +106,23 @@ public class EditPromoActivity extends BaseAnimatedActivity {
             tags = new StringBuilder( tags.subSequence(0,tags.length()-1).toString());
             tagsText.setText(tags.toString());
         }
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditPromoActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(EditPromoActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
 
 

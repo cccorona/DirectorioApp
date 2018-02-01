@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso;
 import java.util.LinkedList;
 import java.util.Random;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.adapter.NegocioPorCategoriaAdapter;
@@ -106,6 +107,24 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
                     startActivity(detailIntent);
                 }
 
+            }
+        });
+
+
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CloseTomeActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(CloseTomeActivity.this, MainActivity.class);
+                startActivity(mainIntent);
             }
         });
 

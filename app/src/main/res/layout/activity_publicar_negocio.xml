@@ -18,6 +18,47 @@
 
 
         <RelativeLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:src="@drawable/ic_arrow_back_white_36dp"
+                android:id="@+id/back_arrow_button"
+                android:layout_margin="15dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+
+            <ImageView
+                android:tint="@color/colorWhite"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_home_black_24dp"
+                android:id="@+id/home_button"
+                android:layout_margin="15dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+
+            <TextView
+                android:layout_toRightOf="@id/back_arrow_button"
+                android:layout_toLeftOf="@id/home_button"
+                android:textColor="@color/colorWhite"
+                android:background="@color/color_spash"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="0dp"
+                android:gravity="center"
+                android:text="Publica tu negocio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
             android:visibility="visible"
             android:background="#FFF"
             android:layout_width="match_parent"
@@ -617,7 +658,7 @@
                 <TextView
                     android:gravity="center"
                     android:textSize="14sp"
-                    android:text="Web:"
+                    android:text="Correo:"
                     android:layout_marginLeft="10dp"
                     android:paddingRight="8dp"
                     android:layout_width="wrap_content"
@@ -627,6 +668,41 @@
                     android:gravity="center"
                     android:textSize="14sp"
                     android:hint="contacto@cesrcorona.com.mx"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/pagina_icon"
+                    android:id="@+id/pagina_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Web"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/pagina_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="cesarcorona.com.mx"
                     android:singleLine="true"
                     android:maxLines="1"
                     android:lines="1"

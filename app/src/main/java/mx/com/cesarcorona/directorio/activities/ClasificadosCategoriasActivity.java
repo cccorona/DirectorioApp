@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
 
+import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.adapter.ListAdapter;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
@@ -58,6 +60,22 @@ public class ClasificadosCategoriasActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         categoriaClasificadosList  = (ListView) findViewById(R.id.lista_categorias);
         fillCategorias();
+        ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClasificadosCategoriasActivity.super.onBackPressed();
+            }
+        });
+
+        ImageView homeButton=(ImageView)findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(ClasificadosCategoriasActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
 
 
