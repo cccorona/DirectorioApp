@@ -304,7 +304,7 @@
                 <TextView
                     android:gravity="center"
                     android:textSize="14sp"
-                    android:text="Web:"
+                    android:text="Correo:"
                     android:layout_marginLeft="10dp"
                     android:paddingRight="8dp"
                     android:layout_width="wrap_content"
@@ -319,6 +319,40 @@
                     android:layout_height="match_parent" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:src="@drawable/pagina_icon"
+                    android:id="@+id/pagina_action"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Pagina web:"
+                    android:layout_marginLeft="10dp"
+                    android:paddingRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <EditText
+                    android:id="@+id/pagina_value"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:hint="cesarcorona.com.mx"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
 
 
 
@@ -363,7 +397,7 @@
 
 
             <RelativeLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/ruta_negocio"
                 android:textSize="16dp"
                 android:textStyle="bold"

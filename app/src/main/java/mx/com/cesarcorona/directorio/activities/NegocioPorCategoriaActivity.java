@@ -46,6 +46,7 @@ import mx.com.cesarcorona.directorio.pojo.PremiumBanner;
 
 import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.ALL_NEGOCIO_REFERENCE;
 import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.PREMIUM_REFERENCE;
+import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.isOpenNow;
 
 public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements NegocioPorCategoriaAdapter.NegocioSelectedListener {
 
@@ -192,9 +193,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
     private void clasifyOpenOrclosed(){
         for(Negocio negocio:allNegocios){
-            String startHour = negocio.getHora_apertura();
-            String endHour = negocio.getHora_cierre();
-            if(DateUtils.isNowInInterval(startHour,endHour)){
+            if(isOpenNow(negocio)){
                 openNegocios.add(negocio);
             }else{
                 closedNegocios.add(negocio);

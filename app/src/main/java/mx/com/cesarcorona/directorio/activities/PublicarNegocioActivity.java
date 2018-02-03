@@ -117,7 +117,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     private RadioGroup abre23,tarjeta,docimilio;
     private TextView tLa,tLc,tMa,tMc,tMia,tMic,tJa,tJv,tVa,tVc,tSa,tSc,tDa,TDc;
     private Button publicarNegocioButton;
-    private EditText faceBookValue , mailValue, whtasValue, twitterValue,telefonoValue;
+    private EditText faceBookValue , mailValue, whtasValue, twitterValue,telefonoValue,paginaWebValue;
 
 
     private LinkedList<Categoria> allCategorias;
@@ -251,6 +251,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         whtasValue = (EditText) findViewById(R.id.whats_value);
         telefonoValue = (EditText) findViewById(R.id.phone_value);
         twitterValue = (EditText) findViewById(R.id.twiter_value);
+        paginaWebValue = (EditText)findViewById(R.id.pagina_value);
+
 
 
 
@@ -342,9 +344,14 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
        // private Uri fototres;
 
         negocioPorPublicar = new Negocio();
+        boolean datesComplete= datesAreComplete();
+        if(!datesComplete){
+            hidepDialog();
+            Toast.makeText(PublicarNegocioActivity.this,"Rellene los horarios de los dias que abre",Toast.LENGTH_LONG).show();
 
+        }
         if(bigImage!= null &&  bannerImage != null && nombre_negocio.getText().length()>0 && negocio_descripcion.getText().length() >0
-                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0 && datesAreComplete()){
+                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0 && datesComplete){
             showpDialog();
 
             StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bigImage.getLastPathSegment());
@@ -544,7 +551,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             }
         }
 
-        if(conunt == diasAbiertos.size()){
+        if(conunt*2 == diasAbiertos.size()){
             return true;
         }else {
             return false;
@@ -564,6 +571,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         negocioPorPublicar.setFacebook(faceBookValue.getText().toString());
         negocioPorPublicar.setUbicacion(""+placeSelected.getLatLng().latitude+","+placeSelected.getLatLng().longitude);
         negocioPorPublicar.setDiasAbiertos(diasAbiertos);
+        negocioPorPublicar.setPagina_web(paginaWebValue.getText().toString());
         if(lunes.getCheckedRadioButtonId() == R.id.yesL){
             negocioPorPublicar.setAbre_lunes("Si");
         }else if(lunes.getCheckedRadioButtonId() == R.id.noL){
@@ -1104,6 +1112,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         Calendar rightNow = Calendar.getInstance();
         Date now =Calendar.getInstance().getTime();
         int hourNow = rightNow.get(Calendar.HOUR_OF_DAY);
+
+
         boolean isPassedTime = false;
         if(hourNow>hourOfDay){
             isPassedTime = true;
@@ -1127,7 +1137,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;
-        diasAbiertos.put(currentIdDay,hourSelected);
+        diasAbiertos.put(currentIdDay,""+hourOfDay+":"+minute);
         updateLabel(hourSelected);
 
     }

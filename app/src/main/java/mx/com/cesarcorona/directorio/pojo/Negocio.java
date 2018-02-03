@@ -5,6 +5,7 @@ import android.location.Location;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -74,6 +75,7 @@ public class Negocio implements Serializable {
     private String whatsapp;
     private HashMap<String,String> diasAbiertos;
     private String userId;
+    private String pagina_web;
 
 
 
@@ -469,4 +471,63 @@ public class Negocio implements Serializable {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public String getPagina_web() {
+        return pagina_web;
+    }
+
+    public void setPagina_web(String pagina_web) {
+        this.pagina_web = pagina_web;
+    }
+
+
+
+    public boolean hoyAbre(){
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        String currentDat ="";
+        boolean abreHoy = false;
+        String negocioAbre ="";
+        switch (day) {
+            case Calendar.SUNDAY:
+                // Current day is Sunday
+                negocioAbre = getAbre_domingo();
+                break;
+
+            case Calendar.MONDAY:
+                // Current day is Monday
+                negocioAbre = getAbre_lunes();
+
+                break;
+
+            case Calendar.TUESDAY:
+                negocioAbre = getAbre_martes();
+
+                break;
+            case Calendar.THURSDAY:
+                negocioAbre = getAbre_jueves();
+
+                break;
+            case Calendar.WEDNESDAY:
+                negocioAbre = getAbre_miercoles();
+
+                break;
+            case Calendar.FRIDAY:
+                negocioAbre = getAbre_viernes();
+
+                break;
+            case Calendar.SATURDAY:
+                negocioAbre = getAbre_sabado();
+
+                break;
+            // etc.
+        }
+
+        if(negocioAbre.equals("Si")){
+            abreHoy = true;
+        }
+
+        return abreHoy;
+    }
+
 }

@@ -73,6 +73,58 @@ public class DateUtils {
     }
 
 
+    public static String[] getCurrentDatKeys(){
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        String currentDat ="";
+        String curretnKEys[] = new String[2];
+        boolean abreHoy = false;
+        String negocioAbre ="";
+        switch (day) {
+            case Calendar.SUNDAY:
+                // Current day is Sunday
+                curretnKEys[0] ="da";
+                curretnKEys[1] ="dc";
+                break;
+
+            case Calendar.MONDAY:
+                // Current day is Monday
+                curretnKEys[0] ="la";
+                curretnKEys[1] ="lc";
+
+                break;
+
+            case Calendar.TUESDAY:
+                curretnKEys[0] ="ma";
+                curretnKEys[1] ="mc";
+
+                break;
+            case Calendar.THURSDAY:
+                curretnKEys[0] ="ja";
+                curretnKEys[1] ="jc";
+
+                break;
+            case Calendar.WEDNESDAY:
+                curretnKEys[0] ="mia";
+                curretnKEys[1] ="mic";
+
+                break;
+            case Calendar.FRIDAY:
+                curretnKEys[0] ="va";
+                curretnKEys[1] ="vc";
+
+                break;
+            case Calendar.SATURDAY:
+                curretnKEys[0] ="sa";
+                curretnKEys[1] ="sc";
+
+                break;
+            // etc.
+        }
+        return curretnKEys;
+    }
+
+
     //    TEST
     public static void main (String[] args) {
         String now = DateUtils.getCurrentHour();

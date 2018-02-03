@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
+import mx.com.cesarcorona.directorio.Utils.DateUtils;
 
 /**
  * Created by ccabrera on 04/08/17.
@@ -47,6 +48,7 @@ public class SplashActivity extends BaseAnimatedActivity{
 
             Timer timer = new Timer();
             timer.schedule(task, SPLASH_SCREEN_DELAY);
+
 
 
 

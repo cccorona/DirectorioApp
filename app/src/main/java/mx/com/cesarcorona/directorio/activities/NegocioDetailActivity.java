@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 
+import static mx.com.cesarcorona.directorio.R.id.la;
 import static mx.com.cesarcorona.directorio.R.id.map;
 import static mx.com.cesarcorona.directorio.R.id.web_action;
 
@@ -59,7 +61,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
     private GoogleMap mMap;
     private ImageView negocioImagen,phoneAction,whatsAction,twitterAction,emailAction,navegarButton,faceAction;
-    private TextView nombreNegocio, horarioNegocio,descripcionNegocio,openStatus,aDocmicilio,phoneValue,whatsValue,twitterValue,emailValue,faceValue;
+    private TextView nombreNegocio, horarioNegocio,descripcionNegocio,openStatus,aDocmicilio,phoneValue,whatsValue,twitterValue,emailValue,faceValue,paginaWebValue;
     private SliderLayout promoGallery;
     private Negocio negocioSeleccionado;
     private PagerIndicator pagerIndicator;
@@ -77,6 +79,8 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         phoneAction = (ImageView) findViewById(R.id.phone_action);
         whatsAction = (ImageView) findViewById(R.id.whats_action);
         twitterAction = (ImageView) findViewById(R.id.twitter_action);
+        paginaWebValue = (EditText)findViewById(R.id.pagina_value);
+
         emailAction = (ImageView) findViewById(R.id.web_action);
         navegarButton = (ImageView) findViewById(R.id.button_navegar);
         faceAction = (ImageView) findViewById(R.id.facebook_action);
@@ -120,6 +124,8 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
 
 
+
+
     }
 
     @Override
@@ -152,12 +158,23 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
         //StringBuilder stringBuilder = new StringBuilder(negocioSeleccionado.);
         //stringBuilder.append("\n").append(negocioSeleccionado.getOpen_time()).append("-").append(negocioSeleccionado.getClose_time());
-        horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getHora_apertura(),negocioSeleccionado.getHora_cierre()));
+
+        String dateKeys[] = DateUtils.getCurrentDatKeys();
+        if(dateKeys!= null && dateKeys.length >0){
+            horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
+                    negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+
+        }else{
+            horarioNegocio.setText("Cerrado");
+        }
+
         descripcionNegocio.setText(negocioSeleccionado.getDescripcion());
         phoneValue.setText(negocioSeleccionado.getPhone());
         whatsValue.setText(negocioSeleccionado.getWhatsapp());
         emailValue.setText(negocioSeleccionado.getWeb());
         twitterValue.setText(negocioSeleccionado.getTwitter());
+        paginaWebValue.setText(negocioSeleccionado.getPagina_web());
+
         if(negocioSeleccionado.getEntrega_a_domicilio().equals("SI")){
             aDocmicilio.setVisibility(View.VISIBLE);
         }
@@ -262,6 +279,36 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
             }
         });
 
+        paginaWebValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paginaWebActio();
+            }
+        });
+
+
+
+        navegarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String latlong[] = negocioSeleccionado.getUbicacion().split(",");
+                String lat ="";
+                String lon="";
+
+                if(latlong != null && latlong.length>1){
+                    lat = latlong[0];
+                    lon = latlong[1];
+
+                }
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+lat+","+lon);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -352,12 +399,34 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         }
 
         public void webAction(){
+        try{
             String url = negocioSeleccionado.getWeb();
             if(url!=null){
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
             }
+        }catch (Exception e){
+            Toast.makeText(NegocioDetailActivity.this,"Ocurrio un error",Toast.LENGTH_LONG).show();
+
+        }
+
+
+        }
+
+
+        public void paginaWebActio(){
+            try{
+                String url = negocioSeleccionado.getPagina_web();
+                if(url!=null){
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            }catch (Exception e){
+                Toast.makeText(NegocioDetailActivity.this,"Ocurrio un error",Toast.LENGTH_LONG).show();
+            }
+
 
         }
 

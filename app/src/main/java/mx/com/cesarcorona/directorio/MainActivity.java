@@ -261,7 +261,7 @@ public class MainActivity extends BaseAnimatedActivity
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
                 if(!report.areAllPermissionsGranted()){
-                    Toast.makeText(MainActivity.this,"",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Es necesario aceptar los permisos para localizar los negocios",Toast.LENGTH_LONG).show();
                 }
 
 

@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -260,9 +261,13 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
                                 Negocio negocio = dataSnapshot.getValue(Negocio.class);
                                 negocio.setNegocioDataBaseReference(dataSnapshot.getRef().toString());
-                                allNegocios.add(negocio);
+                                if(!allNegocios.contains(negocio)){
+                                    allNegocios.add(negocio);
+                                    clasifyOpenOrclosed(negocio);
 
-                            clasifyOpenOrclosed();
+                                }
+
+
 
                         }
 
@@ -320,16 +325,14 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
         startActivity(negocioDetailIntent);
     }
 
-    private void clasifyOpenOrclosed(){
-        for(Negocio negocio:allNegocios){
-            String startHour = negocio.getHora_apertura();
-            String endHour = negocio.getHora_cierre();
-            if(DateUtils.isNowInInterval(startHour,endHour)){
+    private void clasifyOpenOrclosed(Negocio negocio){
+
+            if(isOpenNow(negocio)){
                 openNegocios.add(negocio);
             }else{
                 closedNegocios.add(negocio);
             }
-        }
+
 
         negocioPorCategoriaAdapterClosed = new NegocioPorCategoriaAdapter(closedNegocios,CloseTomeActivity.this);
         negocioPorCategoriaAdapterOpen = new NegocioPorCategoriaAdapter(openNegocios,CloseTomeActivity.this);
@@ -349,6 +352,36 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
 
     }
+
+
+
+    public static boolean isOpenNow(Negocio negocio){
+           boolean isOpenNow = false;
+           if(negocio.hoyAbre()){
+                String todayKeys[] = DateUtils.getCurrentDatKeys();
+                if(todayKeys!= null){
+                    String startHour =null;
+                    String endHour = null;
+                    if(negocio.getDiasAbiertos() != null){
+                        startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
+                        endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
+                    }
+                    if(DateUtils.isNowInInterval(startHour,endHour)){
+                        return  true;
+                    }else{
+                        return false;
+                    }
+
+                }
+           }else{
+               return  false;
+           }
+
+           return true;
+
+    }
+
+
 
 
     private void showPremiunBanner(){
