@@ -350,8 +350,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             Toast.makeText(PublicarNegocioActivity.this,"Rellene los horarios de los dias que abre",Toast.LENGTH_LONG).show();
 
         }
-        if(bigImage!= null &&  bannerImage != null && nombre_negocio.getText().length()>0 && negocio_descripcion.getText().length() >0
-                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0 && datesComplete){
+        if(bigImage!= null  && nombre_negocio.getText().length()>0 && negocio_descripcion.getText().length() >0
+                && categoriaSeleccionada != null && placeSelected != null && latitud !=0 && longitud != 0 && datesComplete && telefonoValue.getText().toString().length() >0){
             showpDialog();
 
             StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bigImage.getLastPathSegment());
@@ -373,26 +373,31 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                 negocioPorPublicar.setLogo_negocio(bigImageUrl.toString());
                 negocioPorPublicar.setUrl_logo(bigImageUrl.toString());
                 negocioPorPublicar.setFull_url_logo(bigImageUrl.toString());
-                StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bannerImage.getLastPathSegment());
-                UploadTask uploadTask = fotoref.putFile(bannerImage);
+                if(bannerImage != null){
+                    StorageReference fotoref = FirebaseStorage.getInstance().getReference(PROMOS_PHOTOS_REFRENCE+"/"+bannerImage.getLastPathSegment());
+                    UploadTask uploadTask = fotoref.putFile(bannerImage);
 
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
-                        hidepDialog();
-                        return;
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                        bannerImageUrl = taskSnapshot.getDownloadUrl();
-                        negocioPorPublicar.setBanner_premium(bannerImageUrl.toString());
-                        negocioPorPublicar.setPremiumBannerUrl(bannerImageUrl.toString());
-                        fillDataRemain();
-                    }
-                });
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(PublicarNegocioActivity.this,exception.getMessage(),Toast.LENGTH_LONG).show();
+                            hidepDialog();
+                            return;
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            bannerImageUrl = taskSnapshot.getDownloadUrl();
+                            negocioPorPublicar.setBanner_premium(bannerImageUrl.toString());
+                            negocioPorPublicar.setPremiumBannerUrl(bannerImageUrl.toString());
+                            fillDataRemain();
+                        }
+                    });
+                }else{
+                    fillDataRemain();
+                }
+
 
             }
            });
@@ -636,6 +641,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         }
         negocioPorPublicar.setPublicado("No");
         negocioPorPublicar.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        negocioPorPublicar.setDireccionName(placeSelected.getAddress().toString());
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NEGOCIOS_REFERENCE);
@@ -1134,10 +1140,21 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             currentHour = hourOfDay;
         }
 
+        String formatedCurrentHour = ""+ currentHour;
+        String formatedMinute =""+minute;
+
+        if(currentHour < 10){
+            formatedCurrentHour = "0"+currentHour;
+        }
+
+        if(minute < 10){
+            formatedMinute = "0"+minute;
+        }
+
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;
-        diasAbiertos.put(currentIdDay,""+hourOfDay+":"+minute);
+        diasAbiertos.put(currentIdDay,formatedCurrentHour+":"+formatedMinute);
         updateLabel(hourSelected);
 
     }

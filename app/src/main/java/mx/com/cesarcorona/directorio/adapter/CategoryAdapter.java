@@ -65,9 +65,6 @@ public class CategoryAdapter extends BaseAdapter {
         title.setText(allCategories.get(i).getNombre());
         if(allCategories.get(i).getImagen()!= null && !allCategories.get(i).getImagen().equals("Agregar imagen")){
             Picasso.with(context).load(allCategories.get(i).getImagen()).resize(100,100).into(categoryIcon);
-        }else{
-            Picasso.with(context).load(R.mipmap.ic_launcher).fit().fit().into(categoryIcon);
-
         }
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override

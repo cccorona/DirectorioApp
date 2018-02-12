@@ -76,6 +76,11 @@ public class Negocio implements Serializable {
     private HashMap<String,String> diasAbiertos;
     private String userId;
     private String pagina_web;
+    private String direccionName;
+
+
+    @Exclude
+    private boolean markedForRemove;
 
 
 
@@ -481,6 +486,22 @@ public class Negocio implements Serializable {
     }
 
 
+    public String getDireccionName() {
+        return direccionName;
+    }
+
+
+    public boolean isMarkedForRemove() {
+        return markedForRemove;
+    }
+
+    public void setMarkedForRemove(boolean markedForRemove) {
+        this.markedForRemove = markedForRemove;
+    }
+
+    public void setDireccionName(String direccionName) {
+        this.direccionName = direccionName;
+    }
 
     public boolean hoyAbre(){
         Calendar calendar = Calendar.getInstance();

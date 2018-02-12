@@ -40,9 +40,6 @@ public class DateUtils {
      */
     public static boolean isNowInInterval(String start, String end) {
 
-        if(start == null || end == null){
-            return false;
-        }
 
         String formatedStart[] = start.split(":");
         if(formatedStart != null && formatedStart.length >3){
@@ -52,15 +49,14 @@ public class DateUtils {
         if(formatedStart != null && formatedStart.length >3){
             end = formatedEnd[1] +":" + formatedEnd[2].substring(0,2);
         }
+
         return DateUtils.isHourInInterval
                 (DateUtils.getCurrentHour(), start, end);
     }
 
 
     public static String formatDate(String start, String end) {
-        if(start == null || end == null){
-            return new Date().toString();
-        }
+
         String formatedStart[] = start.split(":");
         if(formatedStart != null && formatedStart.length >3){
             start = formatedStart[1] +":" + formatedStart[2].substring(0,2);
@@ -81,6 +77,53 @@ public class DateUtils {
         boolean abreHoy = false;
         String negocioAbre ="";
         switch (day) {
+            case Calendar.SUNDAY:
+                // Current day is Sunday
+                curretnKEys[0] ="da";
+                curretnKEys[1] ="dc";
+                break;
+
+            case Calendar.MONDAY:
+                // Current day is Monday
+                curretnKEys[0] ="la";
+                curretnKEys[1] ="lc";
+
+                break;
+
+            case Calendar.TUESDAY:
+                curretnKEys[0] ="ma";
+                curretnKEys[1] ="mc";
+
+                break;
+            case Calendar.THURSDAY:
+                curretnKEys[0] ="ja";
+                curretnKEys[1] ="jc";
+
+                break;
+            case Calendar.WEDNESDAY:
+                curretnKEys[0] ="mia";
+                curretnKEys[1] ="mic";
+
+                break;
+            case Calendar.FRIDAY:
+                curretnKEys[0] ="va";
+                curretnKEys[1] ="vc";
+
+                break;
+            case Calendar.SATURDAY:
+                curretnKEys[0] ="sa";
+                curretnKEys[1] ="sc";
+
+                break;
+            // etc.
+        }
+        return curretnKEys;
+    }
+
+    public static String [] getKeyPerDay(int currentDay){
+
+        String curretnKEys[] = new String[2];
+        switch (currentDay) {
             case Calendar.SUNDAY:
                 // Current day is Sunday
                 curretnKEys[0] ="da";

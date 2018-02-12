@@ -164,7 +164,10 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
                 for (DataSnapshot negocioSnap : dataSnapshot.getChildren()) {
                     Negocio negocio = negocioSnap.getValue(Negocio.class);
                     negocio.setNegocioDataBaseReference(negocioSnap.getRef().toString());
-                    allNegocios.add(negocio);
+                    if(negocio != null && negocio.getPublicado()!= null && negocio.getPublicado().equals("Si")){
+                        allNegocios.add(negocio);
+
+                    }
                 }
 
 

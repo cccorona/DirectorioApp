@@ -10,8 +10,11 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,11 +41,11 @@ import java.util.List;
 import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.Utils.DateUtils;
+import mx.com.cesarcorona.directorio.dialogs.FullScreenDialog;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 
-import static mx.com.cesarcorona.directorio.R.id.la;
+
 import static mx.com.cesarcorona.directorio.R.id.map;
-import static mx.com.cesarcorona.directorio.R.id.web_action;
 
 public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMapReadyCallback,BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
@@ -54,6 +57,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     public static int GALLERY_PROMO_DURATION = 4000;
     private static final int MAX_ZOOM = 16;
     private FusedLocationProviderClient mFusedLocationClient;
+    private boolean firstTopic;
 
 
 
@@ -66,6 +70,11 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     private Negocio negocioSeleccionado;
     private PagerIndicator pagerIndicator;
     private Location lastLocation;
+    private TextView direccionName,nombreGrandeNegocio;
+    private Spinner semanaSpinner;
+    private LinkedList<String> diasSemama;
+    private String diaSeleccionado;
+    private ImageView zoomIcon;
 
 
 
@@ -74,17 +83,21 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negocio_detail);
         negocioSeleccionado = (Negocio) getIntent().getExtras().getSerializable(KEY_NEGOCIO);
+        firstTopic = true;
 
         negocioImagen = (ImageView) findViewById(R.id.negocio_imagen);
         phoneAction = (ImageView) findViewById(R.id.phone_action);
         whatsAction = (ImageView) findViewById(R.id.whats_action);
         twitterAction = (ImageView) findViewById(R.id.twitter_action);
-        paginaWebValue = (EditText)findViewById(R.id.pagina_value);
+        paginaWebValue = (TextView) findViewById(R.id.pagina_value);
+        semanaSpinner = (Spinner) findViewById(R.id.semana_spinner);
+        zoomIcon = (ImageView)findViewById(R.id.zoom_icon);
+        diasSemama = new LinkedList<>();
 
         emailAction = (ImageView) findViewById(R.id.web_action);
         navegarButton = (ImageView) findViewById(R.id.button_navegar);
         faceAction = (ImageView) findViewById(R.id.facebook_action);
-        nombreNegocio = (TextView) findViewById(R.id.nombre_negocio);
+        nombreNegocio = (TextView) findViewById(R.id.nombre_grande_negocio);
         descripcionNegocio = (TextView)findViewById(R.id.negocio_descripcion);
         horarioNegocio = (TextView) findViewById(R.id.horario_negocio);
         openStatus = (TextView) findViewById(R.id.open_status_negocio);
@@ -97,6 +110,18 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         promoGallery= (SliderLayout) findViewById(R.id.slider);
         pagerIndicator = (PagerIndicator)findViewById(R.id.custom_indicator);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        direccionName = (TextView)findViewById(R.id.direccopn_name);
+
+        zoomIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FullScreenDialog fullScreenDialog  = new FullScreenDialog();
+                Bundle extras = new Bundle();
+                extras.putString(FullScreenDialog.IMAGE_PATH,negocioSeleccionado.getLogo_negocio());
+                fullScreenDialog.setArguments(extras);
+                fullScreenDialog.show(getSupportFragmentManager(),FullScreenDialog.TAG);
+            }
+        });
 
 
         loadMapa();
@@ -104,6 +129,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         loadPromos();
         startListening();
         getLocation();
+        setWeek();
 
         ImageView back_button= (ImageView)findViewById(R.id.back_arrow_button);
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +148,28 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
             }
         });
 
+
+
+
+
+    }
+
+
+    private void setWeek(){
+        diasSemama.add("Ver dia");
+        diasSemama.add("Domingo");
+        diasSemama.add("Lunes");
+        diasSemama.add("Martes");
+        diasSemama.add("Miercoles");
+        diasSemama.add("Jueves");
+        diasSemama.add("Viernes");
+        diasSemama.add("Sabado");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(NegocioDetailActivity.this,
+                R.layout.spinner_style, diasSemama);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        semanaSpinner.setAdapter(dataAdapter);
+        semanaSpinner.setOnItemSelectedListener(new NegocioDetailActivity.mySpinnerListener());
 
 
 
@@ -155,6 +203,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     private void setValues(){
         Picasso.with(NegocioDetailActivity.this).load(negocioSeleccionado.getLogo_negocio()).resize(300,180).into(negocioImagen);
         nombreNegocio.setText(negocioSeleccionado.getNombre());
+        direccionName.setText(negocioSeleccionado.getDireccionName());
 
         //StringBuilder stringBuilder = new StringBuilder(negocioSeleccionado.);
         //stringBuilder.append("\n").append(negocioSeleccionado.getOpen_time()).append("-").append(negocioSeleccionado.getClose_time());
@@ -443,6 +492,56 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
                       }
                   });
       }
+
+
+    class mySpinnerListener implements Spinner.OnItemSelectedListener
+    {
+        @Override
+        public void onItemSelected(AdapterView parent, View v, int position,
+                                   long id) {
+
+
+            if(firstTopic){
+                firstTopic = false;
+                return;
+            }else{
+                if(position >0){
+
+                    diaSeleccionado = diasSemama.get(position);
+                    updateUI(position);
+
+
+                }else{
+                    diaSeleccionado = null;
+
+                }
+
+            }
+
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView parent) {
+            // TODO Auto-generated method stub
+            // Do nothing.
+        }
+
+    }
+
+
+    private void  updateUI(int dia){
+        String dateKeys[] = DateUtils.getKeyPerDay(dia);
+        if(dateKeys!= null && dateKeys.length >0){
+            horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
+                    negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+
+        }else{
+            horarioNegocio.setText("Cerrado");
+        }
+    }
+
+
 
 
     }

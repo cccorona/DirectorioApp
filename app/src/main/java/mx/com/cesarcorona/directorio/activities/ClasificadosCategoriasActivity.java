@@ -29,7 +29,7 @@ import mx.com.cesarcorona.directorio.pojo.CategoriaClasificado;
 
 import static mx.com.cesarcorona.directorio.activities.ClasificadosActivity.CATEGORIA_SELECCIONADA;
 
-public class ClasificadosCategoriasActivity extends AppCompatActivity {
+public class ClasificadosCategoriasActivity extends BaseAnimatedActivity {
 
 
     public static String TAG = ClasificadosCategoriasActivity.class.getSimpleName();

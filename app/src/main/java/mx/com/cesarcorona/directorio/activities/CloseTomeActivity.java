@@ -261,7 +261,7 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
                                 Negocio negocio = dataSnapshot.getValue(Negocio.class);
                                 negocio.setNegocioDataBaseReference(dataSnapshot.getRef().toString());
-                                if(!allNegocios.contains(negocio)){
+                                if(!allNegocios.contains(negocio) && negocio.getPublicado()!= null && negocio.getPublicado().equals("Si")){
                                     allNegocios.add(negocio);
                                     clasifyOpenOrclosed(negocio);
 

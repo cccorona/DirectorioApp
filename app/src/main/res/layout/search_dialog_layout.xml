@@ -117,6 +117,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:paddingLeft="15dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -183,6 +184,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:paddingLeft="15dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
