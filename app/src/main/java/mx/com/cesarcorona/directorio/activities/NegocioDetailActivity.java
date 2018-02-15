@@ -224,22 +224,16 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         twitterValue.setText(negocioSeleccionado.getTwitter());
         paginaWebValue.setText(negocioSeleccionado.getPagina_web());
 
-        if(negocioSeleccionado.getEntrega_a_domicilio().equals("SI")){
+        if(negocioSeleccionado.getEntrega_a_domicilio().equals("Si")){
             aDocmicilio.setVisibility(View.VISIBLE);
         }
 
 
-        String startHour = negocioSeleccionado.getHora_apertura();
-        String endHour = negocioSeleccionado.getHora_cierre();
-        if(DateUtils.isNowInInterval(startHour,endHour)){
-            Calendar calendar = Calendar.getInstance();
-            int day = calendar.get(Calendar.DAY_OF_WEEK);
-//                if(negocioSeleccionado.getOpen_days().get(String.valueOf(day)).equalsIgnoreCase("Y")){
-                    openStatus.setBackgroundColor(getResources().getColor(R.color.colorAbierto));
+        if(CloseTomeActivity.isOpenNow(negocioSeleccionado)){
+            openStatus.setBackgroundColor(getResources().getColor(R.color.colorAbierto));
             openStatus.setText("Abierto");
-
-  //              }
         }
+
     }
 
     private void loadPromos(){
