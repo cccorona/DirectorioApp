@@ -211,14 +211,19 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
             horarioNegocio.setText("Abierto");
 
         }else{
-            String dateKeys[] = DateUtils.getCurrentDatKeys();
-            if(dateKeys!= null && dateKeys.length >0){
-                horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
-                        negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+            if(CloseTomeActivity.isOpenNow(negocioSeleccionado)){
+                openStatus.setBackgroundColor(getResources().getColor(R.color.colorAbierto));
+                openStatus.setText("Abierto");
+                String dateKeys[] = DateUtils.getCurrentDatKeys();
+                if(dateKeys!= null && dateKeys.length >0){
+                    horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
+                            negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
 
+                }
             }else{
                 horarioNegocio.setText("Cerrado");
             }
+
         }
 
 
