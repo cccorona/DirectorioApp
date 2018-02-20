@@ -93,6 +93,26 @@
             android:layout_height="150dp" />
 
 
+        <TextView
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="0dp"
+            android:textColor="@color/colorAccent"
+            android:text="Teléfono del anunciante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:hint="Telefono"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:lines="1"
+            android:id="@+id/telefono_clasificado"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+
         <LinearLayout
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
@@ -121,24 +141,7 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_marginTop="20dp"
-            android:paddingTop="10dp"
-            android:paddingLeft="0dp"
-            android:textColor="@color/colorAccent"
-            android:text="Teléfono del anunciante"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <EditText
-            android:hint="Telefono"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:lines="1"
-            android:id="@+id/telefono_clasificado"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
 
 
         <RelativeLayout

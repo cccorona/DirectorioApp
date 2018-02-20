@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoQuery;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.crash.FirebaseCrash;
@@ -46,6 +47,7 @@ import mx.com.cesarcorona.directorio.pojo.PremiumBanner;
 
 import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.ALL_NEGOCIO_REFERENCE;
 import static mx.com.cesarcorona.directorio.activities.CategoriaActivity.PREMIUM_REFERENCE;
+import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.MY_PERMISSIONS_REQUEST_LOCATION;
 import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.isOpenNow;
 
 public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements NegocioPorCategoriaAdapter.NegocioSelectedListener {
@@ -73,14 +75,20 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
     private LinkedList<PremiumBanner> premiumNegocios;
     static Random rand = new Random();
 
+    private FusedLocationProviderClient mFusedLocationClient;
+    private double latitud;
+    private double longitud;
+    private Location currentLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negocio_por_categoria);
         initialize();
         showpDialog();
-        getNearBusiness();
-        recoveryNegocios();
+       // getNearBusiness();
+        initLocation();
+        //recoveryNegocios();
 
         categoryPromo = (CardView)findViewById(R.id.categoria_card_view);
         bannerPromo = (ImageView) findViewById(R.id.banner_promo);
@@ -117,6 +125,51 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
         });
 
     }
+
+    private void initLocation(){
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(NegocioPorCategoriaActivity.this);
+        centerMapOnCurrentLocation();
+
+
+    }
+
+
+    private void centerMapOnCurrentLocation(){
+        if (ContextCompat.checkSelfPermission(NegocioPorCategoriaActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(NegocioPorCategoriaActivity.this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+
+
+            } else {
+
+
+                ActivityCompat.requestPermissions(NegocioPorCategoriaActivity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+
+            }
+        } else {
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(NegocioPorCategoriaActivity.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                latitud = location.getLatitude();
+                                longitud = location.getLongitude();
+                                currentLocation = location;
+                                recoveryNegocios();
+
+                            }
+                        }
+                    });
+        }
+    }
+
 
 
 
@@ -205,6 +258,10 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
         negocioPorCategoriaAdapterClosed = new NegocioPorCategoriaAdapter(closedNegocios,NegocioPorCategoriaActivity.this);
         negocioPorCategoriaAdapterOpen = new NegocioPorCategoriaAdapter(openNegocios,NegocioPorCategoriaActivity.this);
+        if(currentLocation != null){
+            negocioPorCategoriaAdapterClosed.setLocation(currentLocation);
+            negocioPorCategoriaAdapterOpen.setLocation(currentLocation);
+        }
 
         negocioPorCategoriaAdapterClosed.setNegocioSelectedListener(NegocioPorCategoriaActivity.this);
         negocioPorCategoriaAdapterOpen.setNegocioSelectedListener(NegocioPorCategoriaActivity.this);

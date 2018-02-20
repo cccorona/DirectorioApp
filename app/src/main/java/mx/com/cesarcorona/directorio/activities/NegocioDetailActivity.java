@@ -207,15 +207,20 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
         //StringBuilder stringBuilder = new StringBuilder(negocioSeleccionado.);
         //stringBuilder.append("\n").append(negocioSeleccionado.getOpen_time()).append("-").append(negocioSeleccionado.getClose_time());
-
-        String dateKeys[] = DateUtils.getCurrentDatKeys();
-        if(dateKeys!= null && dateKeys.length >0){
-            horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
-                    negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+        if(negocioSeleccionado.getAbierto_24_horas()!= null && negocioSeleccionado.getAbierto_24_horas().equals("Si")){
+            horarioNegocio.setText("Abierto");
 
         }else{
-            horarioNegocio.setText("Cerrado");
+            String dateKeys[] = DateUtils.getCurrentDatKeys();
+            if(dateKeys!= null && dateKeys.length >0){
+                horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
+                        negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+
+            }else{
+                horarioNegocio.setText("Cerrado");
+            }
         }
+
 
         descripcionNegocio.setText(negocioSeleccionado.getDescripcion());
         phoneValue.setText(negocioSeleccionado.getPhone());
@@ -527,8 +532,16 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     private void  updateUI(int dia){
         String dateKeys[] = DateUtils.getKeyPerDay(dia);
         if(dateKeys!= null && dateKeys.length >0){
-            horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
-                    negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+            String startHour = negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]);
+            String endHour = negocioSeleccionado.getDiasAbiertos().get(dateKeys[1]);
+
+            if(startHour == null || endHour == null){
+                horarioNegocio.setText("Cerrado");
+
+            }else{
+                horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
+                        negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+            }
 
         }else{
             horarioNegocio.setText("Cerrado");

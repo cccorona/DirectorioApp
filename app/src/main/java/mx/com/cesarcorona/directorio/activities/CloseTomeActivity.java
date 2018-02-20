@@ -1,6 +1,7 @@
 package mx.com.cesarcorona.directorio.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -203,6 +204,7 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
 
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -336,6 +338,8 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
         negocioPorCategoriaAdapterClosed = new NegocioPorCategoriaAdapter(closedNegocios,CloseTomeActivity.this);
         negocioPorCategoriaAdapterOpen = new NegocioPorCategoriaAdapter(openNegocios,CloseTomeActivity.this);
+        negocioPorCategoriaAdapterClosed.setLocation(currentLocation);
+        negocioPorCategoriaAdapterOpen.setLocation(currentLocation);
 
         negocioPorCategoriaAdapterClosed.setNegocioSelectedListener(CloseTomeActivity.this);
         negocioPorCategoriaAdapterOpen.setNegocioSelectedListener(CloseTomeActivity.this);
