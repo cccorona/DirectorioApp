@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -78,6 +79,8 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicar_promocion);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         negocioSpinner = (Spinner) findViewById(R.id.negocioSpinner);
         misPromocionesList = (ListView)findViewById(R.id.mis_prommociones_list);
         attache = (ImageView)findViewById(R.id.attach_banner);

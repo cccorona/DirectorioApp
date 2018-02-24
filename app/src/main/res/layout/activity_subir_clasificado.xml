@@ -87,9 +87,9 @@
         <EditText
             android:hint="Max 700 caracteres"
             android:imeOptions="actionNext"
-            android:lines="10"
+            android:scrollHorizontally="false"
             android:id="@+id/descripcion_clasificado"
-            android:inputType="textMultiLine"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="150dp" />
 

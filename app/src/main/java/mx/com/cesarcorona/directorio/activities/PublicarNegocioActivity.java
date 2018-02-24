@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -148,6 +149,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicar_negocio);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         bigFoto = (ImageView) findViewById(R.id.attach_big);
         bannerFoto = (ImageView) findViewById(R.id.attach_banner);
         fotoUno = (ImageView) findViewById(R.id.imagen_uno_up);
@@ -941,14 +944,14 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
             case R.id.noS:
                 tSa.setClickable(false);
-                tSa.setClickable(false);
+                tSc.setClickable(false);
                 diasAbiertos.remove("sa");
                 diasAbiertos.remove("sc");
                 break;
 
             case R.id.yesS:
                 tSa.setClickable(true);
-                tSa.setClickable(true);
+                tSc.setClickable(true);
                 break;
 
         }

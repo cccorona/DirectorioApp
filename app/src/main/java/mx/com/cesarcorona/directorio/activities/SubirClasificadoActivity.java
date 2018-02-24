@@ -91,6 +91,8 @@ public class SubirClasificadoActivity extends BaseAnimatedActivity {
             }
         });
 
+        contenido.setHorizontallyScrolling(false);
+        contenido.setLines(10);
 
 
     }

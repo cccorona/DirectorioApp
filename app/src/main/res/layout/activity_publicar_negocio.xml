@@ -87,6 +87,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:imeOptions="actionDone"
                     android:id="@+id/nombre_negocio"
                     android:textSize="16dp"
                     android:textStyle="bold"
@@ -371,12 +372,16 @@
                 <EditText
                     android:id="@+id/negocio_descripcion"
                     android:textAlignment="center"
-                    android:padding="3dp"
-                    android:inputType="textMultiLine"
+                    android:padding="0dp"
+                    android:background="@color/colorWhite"
+                    android:imeOptions="actionDone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:inputType="text"
+                    android:singleLine="false"
+                    android:scrollHorizontally="false"
                     android:layout_gravity="center_horizontal"
-                    android:text="Introduzca descripción de su negocio"
-                    android:lines="2"
-                    style="@style/MainTextStyleOption"
+                    android:hint="Introduzca descripción de su negocio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

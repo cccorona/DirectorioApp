@@ -1,6 +1,7 @@
 package mx.com.cesarcorona.directorio.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.Normalizer;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Timer;
@@ -128,7 +130,7 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
         geoFire = new GeoFire(databaseReference);
         //  recoveryNegocios();
         initLocation();
-        recoveryNegocios();
+        //recoveryNegocios();
 
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -403,15 +405,32 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
     private void serachByEntrytext() {
         if (textSearch.getText().toString().length() > 0) {
             textNegocios = new LinkedList<>();
-            final DatabaseReference allnegocios = FirebaseDatabase.getInstance().getReference(ALL_NEGOCIOS_REFERENCE);
-            Query query = allnegocios.orderByChild("nombre").startAt(textSearch.getText().toString());
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+            final DatabaseReference allnegociosReference = FirebaseDatabase.getInstance().getReference(ALL_NEGOCIOS_REFERENCE);
+            allnegociosReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot negocioSnap : dataSnapshot.getChildren()) {
                         Negocio negocio = negocioSnap.getValue(Negocio.class);
-                        negocio.setNegocioDataBaseReference(negocioSnap.getKey());
-                        textNegocios.add(negocio);
+                        if(negocio!= null){
+                            negocio.setNegocioDataBaseReference(negocioSnap.getKey());
+
+                            try {
+                                String nombreNormalizado= Normalizer.normalize(negocio.getNombre(), Normalizer.Form.NFD);
+                                String contenidoNormalizado= Normalizer.normalize(negocio.getDescripcion(), Normalizer.Form.NFD);
+                                contenidoNormalizado = contenidoNormalizado.replaceAll("[^\\p{ASCII}]", "");
+                                nombreNormalizado = nombreNormalizado.replaceAll("[^\\p{ASCII}]", "");
+                                if(nombreNormalizado.toLowerCase().contains(textSearch.getText().toString()) ||
+                                        contenidoNormalizado.toLowerCase().contains(textSearch.getText().toString())){
+                                    textNegocios.add(negocio);
+                                }
+
+                            }catch (Exception e){
+
+                            }
+
+
+                        }
+
                     }
 
                     //Continue
@@ -632,11 +651,11 @@ private void mergeClosest(){
 
     private void centerMapOnCurrentLocation(){
         if (ContextCompat.checkSelfPermission(SearchActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(SearchActivity.this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
 
@@ -645,7 +664,7 @@ private void mergeClosest(){
 
 
                 ActivityCompat.requestPermissions(SearchActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
 
             }
@@ -667,6 +686,7 @@ private void mergeClosest(){
     }
 
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
