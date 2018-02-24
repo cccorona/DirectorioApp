@@ -136,11 +136,11 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
     private void centerMapOnCurrentLocation(){
         if (ContextCompat.checkSelfPermission(NegocioPorCategoriaActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(NegocioPorCategoriaActivity.this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
 
@@ -149,7 +149,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
 
                 ActivityCompat.requestPermissions(NegocioPorCategoriaActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
 
             }
@@ -177,6 +177,41 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
         DatabaseReference geofireReference = FirebaseDatabase.getInstance().getReference(GEO_REFERENCE);
         GeoFire geoFire = new GeoFire(geofireReference);
     }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+                        centerMapOnCurrentLocation();
+
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }
+
 
 
 

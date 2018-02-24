@@ -1,5 +1,6 @@
 package mx.com.cesarcorona.directorio.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -75,6 +76,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     private LinkedList<String> diasSemama;
     private String diaSeleccionado;
     private ImageView zoomIcon;
+    private TextView dia_text;
 
 
 
@@ -92,6 +94,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         paginaWebValue = (TextView) findViewById(R.id.pagina_value);
         semanaSpinner = (Spinner) findViewById(R.id.semana_spinner);
         zoomIcon = (ImageView)findViewById(R.id.zoom_icon);
+        dia_text = (TextView)findViewById(R.id.dia_text);
         diasSemama = new LinkedList<>();
 
         emailAction = (ImageView) findViewById(R.id.web_action);
@@ -167,9 +170,16 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(NegocioDetailActivity.this,
                 R.layout.spinner_style, diasSemama);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_center_item);
         semanaSpinner.setAdapter(dataAdapter);
         semanaSpinner.setOnItemSelectedListener(new NegocioDetailActivity.mySpinnerListener());
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        semanaSpinner.setSelection(day);
+        if(negocioSeleccionado.getAbierto_24_horas().equals("Si")){
+            semanaSpinner.setEnabled(false);
+            semanaSpinner.setClickable(false);
+        }
+        updateUI(day);
 
 
 
@@ -214,12 +224,19 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
             if(CloseTomeActivity.isOpenNow(negocioSeleccionado)){
                 openStatus.setBackgroundColor(getResources().getColor(R.color.colorAbierto));
                 openStatus.setText("Abierto");
-                String dateKeys[] = DateUtils.getCurrentDatKeys();
-                if(dateKeys!= null && dateKeys.length >0){
-                    horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
-                            negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+                if(negocioSeleccionado.getAbierto_24_horas().equals("Si")){
+                    horarioNegocio.setText("Abierdo 24 horas");
 
+                }else{
+                    String dateKeys[] = DateUtils.getCurrentDatKeys();
+                    if(dateKeys!= null && dateKeys.length >0){
+                        horarioNegocio.setText(DateUtils.formatDate(negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]),
+                                negocioSeleccionado.getDiasAbiertos().get(dateKeys[1])));
+
+                    }
                 }
+
+
             }else{
                 horarioNegocio.setText("Cerrado");
             }
@@ -366,6 +383,13 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
+       String bigPicture =  slider.getBundle().getString("extra");
+        FullScreenDialog fullScreenDialog  = new FullScreenDialog();
+        Bundle extras = new Bundle();
+        extras.putString(FullScreenDialog.IMAGE_PATH,bigPicture);
+        fullScreenDialog.setArguments(extras);
+        fullScreenDialog.show(getSupportFragmentManager(),FullScreenDialog.TAG);
+
 
     }
 
@@ -484,6 +508,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         }
 
 
+      @SuppressLint("MissingPermission")
       public void getLocation(){
           mFusedLocationClient.getLastLocation()
                   .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -507,6 +532,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
             if(firstTopic){
                 firstTopic = false;
+
                 return;
             }else{
                 if(position >0){
@@ -535,6 +561,52 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
 
     private void  updateUI(int dia){
+
+
+          if(negocioSeleccionado.getAbierto_24_horas().equals("Si")){
+              return;
+          }
+
+        switch (dia) {
+            case Calendar.SUNDAY:
+                // Current day is Sunday
+                dia_text.setText("Domingo");
+                break;
+
+            case Calendar.MONDAY:
+                dia_text.setText("Lunes");
+
+
+                break;
+
+            case Calendar.TUESDAY:
+                dia_text.setText("Martes");
+
+
+                break;
+            case Calendar.THURSDAY:
+                dia_text.setText("Miercoles");
+
+                break;
+            case Calendar.WEDNESDAY:
+                dia_text.setText("Jueves");
+
+
+                break;
+            case Calendar.FRIDAY:
+                dia_text.setText("Viernes");
+
+
+                break;
+            case Calendar.SATURDAY:
+                dia_text.setText("Sabado");
+
+                break;
+            // etc.
+        }
+
+
+
         String dateKeys[] = DateUtils.getKeyPerDay(dia);
         if(dateKeys!= null && dateKeys.length >0){
             String startHour = negocioSeleccionado.getDiasAbiertos().get(dateKeys[0]);

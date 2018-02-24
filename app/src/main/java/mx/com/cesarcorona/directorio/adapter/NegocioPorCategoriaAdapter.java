@@ -75,10 +75,10 @@ public class NegocioPorCategoriaAdapter  extends BaseAdapter {
         if(location != null){
             String ubicacion[] = allNegocios.get(i).getUbicacion().split(",");
             if(ubicacion != null && ubicacion.length == 2){
-                Location negocioLocation = new Location("Dummy");
-                negocioLocation.setLongitude(Double.parseDouble(ubicacion[0]));
-                negocioLocation.setLongitude(Double.parseDouble(ubicacion[1]));
-                String ditanciaEnMEtros = getDistanceInKm(location,negocioLocation);
+                //Location negocioLocation = new Location("Dummy");
+                //negocioLocation.setLatitude(Double.parseDouble(ubicacion[0]));
+                //negocioLocation.setLongitude(Double.parseDouble(ubicacion[1]));
+                String ditanciaEnMEtros = getDistance(ubicacion[0],ubicacion[1]);
                 distancia.setText(ditanciaEnMEtros);
 
             }
@@ -116,6 +116,37 @@ public class NegocioPorCategoriaAdapter  extends BaseAdapter {
         return distanciaMEtros;
 
     }
+
+
+    private String getDistance(String lat, String lon){
+        Location locationA = new Location("point A");
+
+        locationA.setLatitude(Double.valueOf(lat));
+        locationA.setLongitude(Double.valueOf(lon));
+        float []results = new float[3];
+        float metrosGo = 0;
+        Location.distanceBetween(Double.parseDouble(lat),Double.parseDouble(lon),location.getLatitude(),location.getLongitude(),results);
+        if(results != null && results.length>=1){
+            metrosGo = results[0];
+        }
+        //double metros = locationA.dist(userCurrentLocation);
+        String distanciaMEtros = "0m";
+
+        if (metrosGo < 1000) {
+            double roundm = Math.round(metrosGo * 100.0) / 100.0;
+            distanciaMEtros = "" + roundm + "m";
+        } else if (metrosGo >= 1000) {
+            double kilometros = metrosGo / 1000;
+            kilometros = Math.round(kilometros * 100.0) / 100.0;
+
+            distanciaMEtros = "" + kilometros + "km";
+        }
+
+
+        return distanciaMEtros;
+
+    }
+
 
 
 }

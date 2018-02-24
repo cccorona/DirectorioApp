@@ -361,27 +361,66 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
     public static boolean isOpenNow(Negocio negocio){
            boolean isOpenNow = false;
-           if(negocio.hoyAbre()){
-                String todayKeys[] = DateUtils.getCurrentDatKeys();
-                if(todayKeys!= null){
-                    String startHour =null;
-                    String endHour = null;
-                    if(negocio.getDiasAbiertos() != null){
-                        startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
-                        endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
-                    }
-                    if(DateUtils.isNowInInterval(startHour,endHour)){
-                        return  true;
-                    }else{
-                        return false;
+        if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
+            return  true;
+        }else{
+            if(negocio.hoyAbre()){
+                    String todayKeys[] = DateUtils.getCurrentDatKeys();
+                    if(todayKeys!= null){
+                        String startHour =null;
+                        String endHour = null;
+                        if(negocio.getDiasAbiertos() != null){
+                            startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
+                            endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
+                            if(DateUtils.isNowInInterval(startHour,endHour)){
+                                return  true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return  false;
+                        }
+
+
                     }
 
-                }
+
+            }else{
+                return  false;
+            }
+        }
+
+
+
+        /*   if(negocio.hoyAbre()){
+                  if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
+                      return  true;
+                  }else{
+                      String todayKeys[] = DateUtils.getCurrentDatKeys();
+                      if(todayKeys!= null){
+                          String startHour =null;
+                          String endHour = null;
+                          if(negocio.getDiasAbiertos() != null){
+                              startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
+                              endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
+                              if(DateUtils.isNowInInterval(startHour,endHour)){
+                                  return  true;
+                              }else{
+                                  return false;
+                              }
+                          }else{
+                              return  false;
+                          }
+
+
+                      }
+                  }
+
            }else{
                return  false;
-           }
+           }*/
 
-           return true;
+           return isOpenNow;
 
     }
 

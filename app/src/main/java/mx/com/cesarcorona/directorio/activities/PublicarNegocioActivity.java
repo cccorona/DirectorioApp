@@ -1143,7 +1143,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         String formatedCurrentHour = ""+ hourOfDay;
         String formatedMinute =""+minute;
 
-        if(currentHour < 10){
+        if(hourOfDay < 10){
             formatedCurrentHour = "0"+hourOfDay;
         }
 
