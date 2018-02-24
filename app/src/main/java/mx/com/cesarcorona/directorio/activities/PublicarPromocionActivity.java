@@ -171,6 +171,7 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
 
     public void publicarPromocion(){
         if(tagsText.getText().length() >0 && bannerImageUrl != null){
+            showpDialog();
             final Promocion promocion = new Promocion();
             String tags[] = tagsText.getText().toString().split(",");
             if(tags != null && tags.length >0){
@@ -205,6 +206,7 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
                         if(task.isSuccessful()){
                             Toast.makeText(PublicarPromocionActivity.this,"Promocion publicada ",Toast.LENGTH_LONG).show();
                             reloadPromociones();
+                            hidepDialog();
 
                         }else {
                             Toast.makeText(PublicarPromocionActivity.this,"No se pudo publicar la promoción, intente despues",Toast.LENGTH_LONG).show();

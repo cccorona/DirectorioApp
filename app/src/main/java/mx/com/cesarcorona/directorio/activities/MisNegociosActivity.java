@@ -164,6 +164,9 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         pDialog.setMessage("Por favor espere");
         pDialog.setCancelable(false);
 
+
+        initUI();
+
         fillNegocios();
 
 
@@ -193,7 +196,6 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         });
 
 
-        initUI();
 
 
     }
@@ -212,7 +214,7 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
 
     private void fillNegocios() {
-        showpDialog();
+        //showpDialog();
         misNegocios = new LinkedList<>();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/allnegocios");
 
@@ -227,6 +229,8 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                hidepDialog();
+
 
                 for (DataSnapshot negocioSnap : dataSnapshot.getChildren()) {
                     Negocio negocio = negocioSnap.getValue(Negocio.class);
@@ -246,7 +250,6 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 negocioSpinner.setAdapter(dataAdapter);
 
-                hidepDialog();
                 if(misNegocios.size()==1){
                     Toast.makeText(MisNegociosActivity.this,"No has publicado negocios, o se encuentran" +
                             " en espera de publicación por parte del administrador",Toast.LENGTH_LONG).show();
@@ -987,7 +990,7 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
 
     private void fillCategorias() {
-        showpDialog();
+      //  showpDialog();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/categorias");
         Categoria selectATopi = new Categoria();
         selectATopi.setNombre("Seleccione una categoria");
@@ -1012,7 +1015,7 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 categorySpinner.setAdapter(dataAdapter);
 
-                hidepDialog();
+           //     hidepDialog();
 
             }
 

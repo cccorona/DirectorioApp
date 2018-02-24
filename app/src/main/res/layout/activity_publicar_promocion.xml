@@ -182,7 +182,7 @@
                         android:id="@+id/negocio_tags"
                         android:textAlignment="center"
                         android:padding="3dp"
-                        android:inputType="text"
+                        android:inputType="textImeMultiLine"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:text=""
