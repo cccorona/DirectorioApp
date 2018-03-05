@@ -142,7 +142,9 @@
                 android:padding="10dp"
                 android:scrollbars="none"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp"></mx.com.cesarcorona.directorio.custom.ExpandableGridView>
+                android:verticalSpacing="10dp">
+
+            </mx.com.cesarcorona.directorio.custom.ExpandableGridView>
 
 
 

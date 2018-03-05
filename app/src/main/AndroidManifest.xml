@@ -23,17 +23,31 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SplashActivity">
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CategoriaActivity" />
-        <activity android:name=".activities.NegocioPorCategoriaActivity" />
-        <activity android:name=".activities.NegocioDetailActivity" />
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.CategoriaActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.NegocioPorCategoriaActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.NegocioDetailActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".activities.SearchActivity"
             android:windowSoftInputMode="stateHidden" />
 
@@ -42,23 +56,74 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.PromocionesActivity" />
-        <activity android:name=".activities.CloseTomeActivity" />
-        <activity android:name=".activities.SubirClasificadoActivity"
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.PromocionesActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.CloseTomeActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.SubirClasificadoActivity"
             android:windowSoftInputMode="adjustResize"
             />
-        <activity android:name=".activities.ClasificadosActivity" />
-        <activity android:name=".activities.NoticiasActivity" />
-        <activity android:name=".activities.NoticiaDetailActivity" />
-        <activity android:name=".activities.ClasificadosCategoriasActivity" />
-        <activity android:name=".activities.PublicarNegocioActivity" />
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.ClasificadosActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.NoticiasActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.NoticiaDetailActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.ClasificadosCategoriasActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.PublicarNegocioActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".activities.LoginRegisterActivity"
             android:label="@string/title_activity_login_register" />
-        <activity android:name=".activities.SendPassActivity" />
-        <activity android:name=".activities.PublicarPromocionActivity" />
-        <activity android:name=".activities.EditPromoActivity" />
-        <activity android:name=".activities.MisNegociosActivity"></activity>
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.SendPassActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.PublicarPromocionActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.EditPromoActivity" />
+        <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:name=".activities.MisNegociosActivity"></activity>
+
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

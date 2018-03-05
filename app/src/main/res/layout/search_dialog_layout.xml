@@ -199,7 +199,94 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
+
+        <ScrollView
+            android:layout_weight="65"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#009900"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Abiertos"
+                    android:textColor="#FFF"
+                    android:textSize="18dp" />
+
+
+                <mx.com.cesarcorona.directorio.custom.ExpandableGridView
+                    android:visibility="visible"
+                    android:id="@+id/opened_negocios_grid_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:minHeight="150dp"
+                    android:horizontalSpacing="10dp"
+                    android:isScrollContainer="false"
+                    android:numColumns="3"
+                    android:padding="10dp"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp">
+
+                </mx.com.cesarcorona.directorio.custom.ExpandableGridView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#CE081C"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Cerrados"
+                    android:textColor="#FFF"
+                    android:textSize="18dp" />
+
+
+                <mx.com.cesarcorona.directorio.custom.ExpandableGridView
+                    android:id="@+id/close_negocios_grid_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="50dp"
+                    android:minHeight="150dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:isScrollContainer="false"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="3"
+                    android:padding="10dp"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp">
+
+                </mx.com.cesarcorona.directorio.custom.ExpandableGridView>
+
+
+
+            </LinearLayout>
+
+
+
+        </ScrollView>
+
         <GridView
+            android:visibility="gone"
             android:numColumns="2"
             android:id="@+id/result_grid"
             android:layout_weight="65"

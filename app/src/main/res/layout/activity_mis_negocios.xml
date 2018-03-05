@@ -9,16 +9,10 @@
     android:fillViewport="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:card_view="http://schemas.android.com/tools"
-
-    >
+    xmlns:card_view="http://schemas.android.com/tools">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent"
@@ -116,6 +110,7 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:imeOptions="actionDone"
                             android:id="@+id/nombre_negocio"
                             android:textSize="16dp"
                             android:textStyle="bold"
@@ -400,12 +395,16 @@
                         <EditText
                             android:id="@+id/negocio_descripcion"
                             android:textAlignment="center"
-                            android:padding="3dp"
-                            android:inputType="textMultiLine"
+                            android:padding="0dp"
+                            android:background="@color/colorWhite"
+                            android:imeOptions="actionDone"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:inputType="text"
+                            android:singleLine="false"
+                            android:scrollHorizontally="false"
                             android:layout_gravity="center_horizontal"
-                            android:text="Introduzca descripción de su negocio"
-                            android:lines="2"
-                            style="@style/MainTextStyleOption"
+                            android:hint="Introduzca descripción de su negocio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -563,7 +562,7 @@
                             android:maxLines="1"
                             android:lines="1"
                             android:inputType="phone"
-                            android:hint="556810-1453"
+                            android:hint=""
                             android:paddingRight="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -593,7 +592,7 @@
                             android:id="@+id/whats_value"
                             android:gravity="center"
                             android:textSize="14sp"
-                            android:hint="556810-1453"
+                            android:hint=""
                             android:singleLine="true"
                             android:maxLines="1"
                             android:inputType="phone"
@@ -629,7 +628,7 @@
                             android:gravity="center"
                             android:textSize="14sp"
                             android:text=""
-                            android:hint="twitter user"
+                            android:hint=""
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
@@ -662,7 +661,7 @@
                             android:id="@+id/facebook_value"
                             android:gravity="center"
                             android:textSize="14sp"
-                            android:hint="cesar.corona"
+                            android:hint=""
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
@@ -687,7 +686,7 @@
                         <TextView
                             android:gravity="center"
                             android:textSize="14sp"
-                            android:text="Web:"
+                            android:text="Correo:"
                             android:layout_marginLeft="10dp"
                             android:paddingRight="8dp"
                             android:layout_width="wrap_content"
@@ -696,7 +695,7 @@
                             android:id="@+id/web_value"
                             android:gravity="center"
                             android:textSize="14sp"
-                            android:hint="contacto@cesrcorona.com.mx"
+                            android:hint=""
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
@@ -705,7 +704,6 @@
                             android:layout_height="match_parent" />
 
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -723,7 +721,7 @@
                         <TextView
                             android:gravity="center"
                             android:textSize="14sp"
-                            android:text="Pagina web:"
+                            android:text="Web"
                             android:layout_marginLeft="10dp"
                             android:paddingRight="8dp"
                             android:layout_width="wrap_content"
@@ -732,7 +730,7 @@
                             android:id="@+id/pagina_value"
                             android:gravity="center"
                             android:textSize="14sp"
-                            android:hint="cesarcorona.com.mx"
+                            android:hint=""
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
@@ -1363,6 +1361,27 @@
                 </LinearLayout>
 
 
+                <Button
+                    android:layout_marginTop="30dp"
+                    android:textSize="22sp"
+                    android:textColor="#FFF"
+                    android:textAllCaps="true"
+                    android:text="Publicar"
+                    android:background="@color/colorPrimary"
+                    android:layout_weight="1"
+                    android:id="@+id/publicar_button_negocio"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+
+
+
+
+
+
+
+
+
+
                 <com.daimajia.slider.library.SliderLayout
                     android:layout_gravity="center"
                     android:visibility="gone"
@@ -1403,23 +1422,11 @@
 
         </LinearLayout>
 
-        <Button
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="30dp"
-            android:textSize="14sp"
-            android:textColor="#FFF"
-            android:textAllCaps="true"
-            android:text="Agregar promocion"
-            android:background="@color/colorPrimary"
-            android:id="@+id/publicar_button_negocio"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
 
 
 
 
-    </RelativeLayout>
+
 
 
 

@@ -167,11 +167,11 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
     private void centerMapOnCurrentLocation(){
         if (ContextCompat.checkSelfPermission(CloseTomeActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(CloseTomeActivity.this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
 
@@ -180,7 +180,7 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
 
                 ActivityCompat.requestPermissions(CloseTomeActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
 
             }

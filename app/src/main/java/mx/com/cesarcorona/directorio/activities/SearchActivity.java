@@ -49,10 +49,13 @@ import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
 import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.adapter.NegocioPorCategoriaAdapter;
+import mx.com.cesarcorona.directorio.custom.ExpandableGridView;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 
 import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.ALL_NEGOCIOS_RFERENCE;
+import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.ELEMENT_SIZE;
 import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.GEO_REFERENCE;
+import static mx.com.cesarcorona.directorio.activities.CloseTomeActivity.isOpenNow;
 import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.NEGOCIOS_REFERENCE;
 
 /**
@@ -95,6 +98,16 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
     private LinkedList<Negocio> textNegocios;
     private LinkedList<Negocio> todosLosFiltros;
     private LinkedList<String> negocioCercanoREference;
+
+
+    private LinkedList<Negocio> openNegocios,closedNegocios;
+    private ExpandableGridView openNegociosGrid,closedNegociosGrid;
+    private NegocioPorCategoriaAdapter negocioPorCategoriaAdapterClosed,negocioPorCategoriaAdapterOpen;
+
+
+
+
+
 
 
 
@@ -160,6 +173,13 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
         });
 
 
+        openNegociosGrid = (ExpandableGridView) findViewById(R.id.opened_negocios_grid_view);
+        closedNegociosGrid = (ExpandableGridView) findViewById(R.id.close_negocios_grid_view);
+        allNegocios = new LinkedList<>();
+        openNegocios = new LinkedList<>();
+        closedNegocios = new LinkedList<>();
+
+
     } // Fin onCreate()
 
 
@@ -219,7 +239,7 @@ public class SearchActivity extends BaseAnimatedActivity  implements NegocioPorC
                     for (DataSnapshot negocioSnap : dataSnapshot.getChildren()) {
                         Negocio negocio = negocioSnap.getValue(Negocio.class);
                         negocio.setNegocioDataBaseReference(negocioSnap.getKey());
-                        if (CloseTomeActivity.isOpenNow(negocio)) {
+                        if (isOpenNow(negocio)) {
                             abiertosNegocios.add(negocio);
                         }
                     }
@@ -494,9 +514,21 @@ private void mergeClosest(){
             }
         }*/
 
-        NegocioPorCategoriaAdapter negocioPorCategoriaAdapter = new NegocioPorCategoriaAdapter(filteredNegocios,SearchActivity.this);
-        negocioPorCategoriaAdapter.setNegocioSelectedListener(SearchActivity.this);
-        resultGrid.setAdapter(negocioPorCategoriaAdapter);
+
+        LinkedList<Negocio> publicados = new LinkedList<>();
+        for(Negocio negocioPublicado:filteredNegocios){
+            if(negocioPublicado.getPublicado() != null && negocioPublicado.getPublicado().equals("Si")){
+                publicados.add(negocioPublicado);
+            }
+        }
+
+
+        filteredNegocios = publicados;
+
+        //NegocioPorCategoriaAdapter negocioPorCategoriaAdapter = new NegocioPorCategoriaAdapter(filteredNegocios,SearchActivity.this);
+        //negocioPorCategoriaAdapter.setNegocioSelectedListener(SearchActivity.this);
+        //resultGrid.setAdapter(negocioPorCategoriaAdapter);
+        clasifyOpenOrclosed();
         hidepDialog();
 
 
@@ -721,5 +753,43 @@ private void mergeClosest(){
 
         }
     }
+
+    private void clasifyOpenOrclosed(){
+        openNegocios = new LinkedList<>();
+        closedNegocios = new LinkedList<>();
+        for(Negocio negocio:filteredNegocios){
+            if(isOpenNow(negocio)){
+                openNegocios.add(negocio);
+            }else{
+                closedNegocios.add(negocio);
+            }
+        }
+
+        negocioPorCategoriaAdapterClosed = new NegocioPorCategoriaAdapter(closedNegocios,SearchActivity.this);
+        negocioPorCategoriaAdapterOpen = new NegocioPorCategoriaAdapter(openNegocios,SearchActivity.this);
+        if(currentLocation != null){
+            negocioPorCategoriaAdapterClosed.setLocation(currentLocation);
+            negocioPorCategoriaAdapterOpen.setLocation(currentLocation);
+        }
+
+        negocioPorCategoriaAdapterClosed.setNegocioSelectedListener(SearchActivity.this);
+        negocioPorCategoriaAdapterOpen.setNegocioSelectedListener(SearchActivity.this);
+        openNegociosGrid.setAdapter(negocioPorCategoriaAdapterOpen);
+        openNegociosGrid.setExpanded(true);
+        openNegociosGrid.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, openNegocios.size() * ELEMENT_SIZE));
+        //openNegociosGrid.setMinimumHeight(allNegocios.size() * ELEMENT_SIZE);
+        closedNegociosGrid.setAdapter(negocioPorCategoriaAdapterClosed);
+        closedNegociosGrid.setExpanded(true);
+        // closedNegociosGrid.setMinimumHeight(allNegocios.size() * ELEMENT_SIZE);
+        closedNegociosGrid.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, closedNegocios.size() * ELEMENT_SIZE));
+
+
+
+        //  showPremiunBanner();
+
+
+    }
+
+
 
 }

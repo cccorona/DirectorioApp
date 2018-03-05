@@ -551,4 +551,10 @@ public class Negocio implements Serializable {
         return abreHoy;
     }
 
+
+
+    public void updateData(Negocio oldData){
+
+    }
+
 }

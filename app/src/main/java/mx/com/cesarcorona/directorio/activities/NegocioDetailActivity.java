@@ -245,7 +245,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
 
         descripcionNegocio.setText(negocioSeleccionado.getDescripcion());
-        phoneValue.setText(negocioSeleccionado.getPhone());
+        phoneValue.setText(negocioSeleccionado.getTelefono());
         whatsValue.setText(negocioSeleccionado.getWhatsapp());
         emailValue.setText(negocioSeleccionado.getWeb());
         twitterValue.setText(negocioSeleccionado.getTwitter());

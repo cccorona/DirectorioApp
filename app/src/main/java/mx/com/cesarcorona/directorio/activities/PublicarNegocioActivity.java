@@ -574,8 +574,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         negocioPorPublicar.setCategoria(categoriaSeleccionada.getDataBaseReference());
         negocioPorPublicar.setWeb(mailValue.getText().toString());
         negocioPorPublicar.setTwitter(twitterValue.getText().toString());
-        negocioPorPublicar.setTelefono(telefonoValue.getText().toString());
-        negocioPorPublicar.setWhatsapp(whtasValue.getText().toString());
+        negocioPorPublicar.setTelefono(""+telefonoValue.getText().toString());
+        negocioPorPublicar.setWhatsapp(""+whtasValue.getText().toString());
         negocioPorPublicar.setFacebook(faceBookValue.getText().toString());
         negocioPorPublicar.setUbicacion(""+placeSelected.getLatLng().latitude+","+placeSelected.getLatLng().longitude);
         negocioPorPublicar.setDiasAbiertos(diasAbiertos);
@@ -749,11 +749,11 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
     private void centerMapOnCurrentLocation(){
         if (ContextCompat.checkSelfPermission(PublicarNegocioActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(PublicarNegocioActivity.this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an expanation to the user *asynchronously* -- don't block
 
@@ -762,7 +762,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
 
                 ActivityCompat.requestPermissions(PublicarNegocioActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
 
             }
@@ -1157,7 +1157,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;
-        diasAbiertos.put(currentIdDay,formatedCurrentHour+":"+formatedMinute);
+        diasAbiertos.put(currentIdDay,hourOfDay+":"+minute);
         updateLabel(hourSelected);
 
     }

@@ -2,11 +2,16 @@ package mx.com.cesarcorona.directorio.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -41,6 +46,7 @@ import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.adapter.CategoryAdapter;
 import mx.com.cesarcorona.directorio.adapter.NegocioPorCategoriaAdapter;
 import mx.com.cesarcorona.directorio.custom.ExpandableGridView;
+import mx.com.cesarcorona.directorio.pojo.BannerCategoria;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 import mx.com.cesarcorona.directorio.pojo.PremiumBanner;
@@ -79,6 +85,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
     private double latitud;
     private double longitud;
     private Location currentLocation;
+    private Negocio negocio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
         initialize();
         showpDialog();
        // getNearBusiness();
+        checkGPS();
         initLocation();
         //recoveryNegocios();
 
@@ -311,10 +319,67 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
 
 
-        showPremiunBanner();
+      //  showPremiunBanner();
+
+        showBAnnerCategoriaPremium();
 
     }
 
+
+    private void showBAnnerCategoriaPremium(){
+        DatabaseReference bannerReference = FirebaseDatabase.getInstance()
+                .getReference("Example/"+"premium_por_categoria")
+                .child("premium_por_categoria"+categoriaSelected.getDataBaseReference());
+
+        bannerReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                BannerCategoria bannerCategoria = dataSnapshot.getValue(BannerCategoria.class);
+                if(bannerCategoria != null){
+                    searchNegocio(bannerCategoria.getNombre_del_negocio());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+    private void searchNegocio(String nombrenegocio){
+        DatabaseReference negociosReference = FirebaseDatabase.getInstance().getReference("Example/allnegocios");
+        Query query = negociosReference.orderByChild("nombre").equalTo(nombrenegocio);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot negocioSnap:dataSnapshot.getChildren()){
+                    negocio = negocioSnap.getValue(Negocio.class);
+                }
+
+                if(negocio.getBanner_premium() == null){
+
+                    FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
+                    //show default banner
+                    Picasso.with(NegocioPorCategoriaActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
+                    hidepDialog();
+
+                }else{
+                    Picasso.with(NegocioPorCategoriaActivity.this).load(negocio.getBanner_premium()).fit().into(bannerPromo);
+                    hidepDialog();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     private void showPremiunBanner(){
@@ -384,6 +449,45 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
         }
         catch (Throwable e){
             return null;
+        }
+    }
+
+
+    public  void checkGPS(){
+        LocationManager lm = (LocationManager)NegocioPorCategoriaActivity.this.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            AlertDialog.Builder dialog = new AlertDialog.Builder(NegocioPorCategoriaActivity.this);
+            dialog.setMessage("Su GPS o servicios de localización no estan encendidos, son necesarios para mostrar las distancias.");
+            dialog.setPositiveButton("Abrir configuraciones", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+                    //get gps
+                }
+            });
+            dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+            dialog.show();
         }
     }
 

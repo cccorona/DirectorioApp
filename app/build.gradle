@@ -7,8 +7,8 @@ android {
         applicationId "mx.com.cesarcorona.directorio"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 9
-        versionName "0.99"
+        versionCode 10
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,6 +42,8 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.0.4'
     compile 'com.google.android.gms:play-services-places:11.0.4'
     compile 'com.google.firebase:firebase-storage:11.0.4'
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
+
 
 
 
