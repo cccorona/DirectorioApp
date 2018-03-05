@@ -61,6 +61,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 import mx.com.cesarcorona.directorio.MainActivity;
@@ -366,53 +367,113 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
             mailValue.setText(""+negocioSeleccionado.getMail());
             paginaWebValue.setText(""+negocioSeleccionado.getPagina_web());
 
+            if(negocioSeleccionado.getAbierto_24_horas()!= null && negocioSeleccionado.getAbierto_24_horas().equals("Si")){
+                abre23.check(R.id.yes24);
+                diasAbiertos = new LinkedHashMap<>();
+
+            }else{
+                abre23.check(R.id.no24);
+                diasAbiertos = negocioSeleccionado.getDiasAbiertos();
+                if(diasAbiertos == null){
+                    diasAbiertos = new LinkedHashMap<>();
+                }
+
+            }
+
+
             if(negocioSeleccionado.getAbre_lunes()!= null && negocioSeleccionado.getAbre_lunes().equals("Si")){
                 lunes.check(R.id.yesL);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.la;
+                    updateLabel(diasAbiertos.get("la"));
+                    currentIdView =R.id.lc;
+                    updateLabel(diasAbiertos.get("lc"));
+                }
+
+
             }else{
                 lunes.check(R.id.noL);
             }
 
             if(negocioSeleccionado.getAbre_martes()!= null && negocioSeleccionado.getAbre_martes().equals("Si")){
                 martes.check(R.id.yesMa);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.ma;
+                    updateLabel(diasAbiertos.get("ma"));
+                    currentIdView =R.id.mc;
+                    updateLabel(diasAbiertos.get("mc"));
+                }
+
             }else{
                 martes.check(R.id.noMa);
             }
 
             if(negocioSeleccionado.getAbre_miercoles()!= null && negocioSeleccionado.getAbre_miercoles().equals("Si")){
                 miercoles.check(R.id.yesMi);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.mia;
+                    updateLabel(diasAbiertos.get("mia"));
+                    currentIdView =R.id.mic;
+                    updateLabel(diasAbiertos.get("mic"));
+                }
+
             }else{
                 miercoles.check(R.id.noMi);
             }
 
             if(negocioSeleccionado.getAbre_jueves()!= null && negocioSeleccionado.getAbre_jueves().equals("Si")){
                 jueves.check(R.id.yesJ);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.ja;
+                    updateLabel(diasAbiertos.get("ja"));
+                    currentIdView =R.id.jc;
+                    updateLabel(diasAbiertos.get("jc"));
+                }
+
             }else{
                 jueves.check(R.id.noJ);
             }
 
             if(negocioSeleccionado.getAbre_viernes()!= null && negocioSeleccionado.getAbre_viernes().equals("Si")){
                 viernes.check(R.id.yesV);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.va;
+                    updateLabel(diasAbiertos.get("va"));
+                    currentIdView =R.id.vc;
+                    updateLabel(diasAbiertos.get("vc"));
+                }
+
             }else{
                 viernes.check(R.id.noV);
             }
 
             if(negocioSeleccionado.getAbre_sabado()!= null && negocioSeleccionado.getAbre_sabado().equals("Si")){
                 sabado.check(R.id.yesS);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.sa;
+                    updateLabel(diasAbiertos.get("sa"));
+                    currentIdView =R.id.sc;
+                    updateLabel(diasAbiertos.get("sc"));
+                }
+
             }else{
                 sabado.check(R.id.noS);
             }
 
             if(negocioSeleccionado.getAbre_domingo()!= null && negocioSeleccionado.getAbre_domingo().equals("Si")){
                 domingo.check(R.id.yesD);
+                if(negocioSeleccionado.getAbierto_24_horas() != null && negocioSeleccionado.getAbierto_24_horas().equals("No")){
+                    currentIdView =R.id.la;
+                    updateLabel(diasAbiertos.get("da"));
+                    currentIdView =R.id.lc;
+                    updateLabel(diasAbiertos.get("dc"));
+                }
+
             }else{
                 domingo.check(R.id.noD);
             }
 
-            if(negocioSeleccionado.getAbierto_24_horas()!= null && negocioSeleccionado.getAbierto_24_horas().equals("Si")){
-                abre23.check(R.id.yes24);
-            }else{
-                abre23.check(R.id.no24);
-            }
+
             if(negocioSeleccionado.getEntrega_a_domicilio()!= null && negocioSeleccionado.getEntrega_a_domicilio().equals("Si")){
                 docimilio.check(R.id.yesdomi);
             }else{
@@ -425,7 +486,6 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
             }
 
 
-            diasAbiertos = negocioSeleccionado.getDiasAbiertos();
             if(negocioSeleccionado.getLogo_negocio() != null){
                 bigImage = Uri.parse(negocioSeleccionado.getLogo_negocio());
 
@@ -435,6 +495,9 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
                 bannerImage = Uri.parse(negocioSeleccionado.getBanner_premium());
 
             }
+
+
+
 
 
 

@@ -1154,6 +1154,10 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             formatedMinute = "0"+minute;
         }
 
+        if(hourOfDay == 0){
+            hourOfDay = 24;
+        }
+
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;
