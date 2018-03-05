@@ -364,7 +364,7 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
             whtasValue.setText(""+negocioSeleccionado.getWhatsapp());
             twitterValue.setText(""+negocioSeleccionado.getTwitter());
             faceBookValue.setText(""+negocioSeleccionado.getFacebook());
-            mailValue.setText(""+negocioSeleccionado.getMail());
+            mailValue.setText(""+negocioSeleccionado.getWeb());
             paginaWebValue.setText(""+negocioSeleccionado.getPagina_web());
 
             if(negocioSeleccionado.getAbierto_24_horas()!= null && negocioSeleccionado.getAbierto_24_horas().equals("Si")){
@@ -899,6 +899,10 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
             currentHour = hourOfDay;
         }
 
+        if(hourOfDay == 0){
+            hourOfDay = 24;
+        }
+
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;
@@ -1207,6 +1211,11 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
                                 }
                             });
+
+                    Intent mainInten = new Intent(MisNegociosActivity.this,MainActivity.class);
+                    startActivity(mainInten);
+                    finish();
+
                 }else{
                     Toast.makeText(MisNegociosActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
 
