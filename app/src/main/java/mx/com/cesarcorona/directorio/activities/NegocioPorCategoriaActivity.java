@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoQuery;
@@ -103,12 +104,15 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
         categoryPromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(negocionOnMainBanner != null){
+                if(negocio != null){
                     Intent detailIntent = new Intent(NegocioPorCategoriaActivity.this,NegocioDetailActivity.class);
                     Bundle extras = new Bundle();
-                    extras.putSerializable(NegocioDetailActivity.KEY_NEGOCIO,negocionOnMainBanner);
+                    extras.putSerializable(NegocioDetailActivity.KEY_NEGOCIO,negocio);
                     detailIntent.putExtras(extras);
                     startActivity(detailIntent);
+                }else{
+                    Toast.makeText(NegocioPorCategoriaActivity.this,"PH MOVIL, anunciate con nosotros",Toast.LENGTH_LONG).show();
+
                 }
 
             }

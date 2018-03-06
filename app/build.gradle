@@ -7,7 +7,7 @@ android {
         applicationId "mx.com.cesarcorona.directorio"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 10
+        versionCode 11
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

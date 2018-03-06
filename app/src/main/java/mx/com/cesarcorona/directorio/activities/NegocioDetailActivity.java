@@ -33,6 +33,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.Exclude;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -47,6 +48,7 @@ import mx.com.cesarcorona.directorio.pojo.Negocio;
 
 
 import static mx.com.cesarcorona.directorio.R.id.map;
+import static mx.com.cesarcorona.directorio.R.id.transition_current_scene;
 
 public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMapReadyCallback,BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
@@ -77,6 +79,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
     private String diaSeleccionado;
     private ImageView zoomIcon;
     private TextView dia_text;
+    private View bigPhoneAction, bigWahtsAction,bigTwitterAction,bigEmailAction,bigFaceAction,bigWebPageAction;
 
 
 
@@ -114,6 +117,105 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         pagerIndicator = (PagerIndicator)findViewById(R.id.custom_indicator);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         direccionName = (TextView)findViewById(R.id.direccopn_name);
+
+        bigPhoneAction =findViewById(R.id.big_click_phone);
+        bigWahtsAction = findViewById(R.id.big_click_whats);
+        bigTwitterAction = findViewById(R.id.big_click_twitter);
+        bigEmailAction = findViewById(R.id.big_click_correo);
+        bigFaceAction =  findViewById(R.id.big_click_facebook);
+        bigWebPageAction = findViewById(R.id.big_click_web_page);
+
+
+
+        bigPhoneAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(negocioSeleccionado.getTelefono() == null || negocioSeleccionado.getTelefono().equals("")){
+                    Toast.makeText(NegocioDetailActivity.this,"El negocio no cuenta con ningun teléfono",Toast.LENGTH_LONG).show();
+                }else{
+                    try{
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        if(negocioSeleccionado.getTelefono()!=null){
+                            String stringPhone = negocioSeleccionado.getTelefono().replace("-","");
+                            intent.setData(Uri.parse("tel:" + stringPhone));
+                        }
+                        startActivity(intent);
+                    }catch (Exception e){
+                        Toast.makeText(NegocioDetailActivity.this,"Su teléfono no cuenta con niguna aplicación para realizar esta acción",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+
+
+            }
+        });
+
+
+        bigWahtsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickWhatsApp();
+
+            }
+        });
+
+        bigTwitterAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTwitterClick();
+            }
+        });
+
+        bigEmailAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(negocioSeleccionado.getWeb()== null || negocioSeleccionado.getWeb().equals("")){
+                    Toast.makeText(NegocioDetailActivity.this,"El negocio no cuenta con un correo para contacto",Toast.LENGTH_LONG).show();
+
+                }else{
+                    try{
+                        String addresses[] ={negocioSeleccionado.getWeb()};
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto");
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(NegocioDetailActivity.this,"Tu teléfono no cuenta con ninguna aplicacón para mandara correos",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+
+
+            }
+        });
+
+
+
+        bigFaceAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFacebookClicked();
+            }
+        });
+
+
+        bigWebPageAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paginaWebActio();
+
+            }
+        });
+
+
+
+
 
         zoomIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,11 +412,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         phoneAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
-                if(negocioSeleccionado.getTelefono()!=null){
-                    String stringPhone = negocioSeleccionado.getTelefono().replace("-","");
-                    intent.setData(Uri.parse("tel:" + stringPhone));
-                }
+
 
               //  startActivity(intent);//check permissions
             }
@@ -323,28 +421,24 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         whatsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickWhatsApp();
             }
         });
 
         twitterAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              onTwitterClick();
             }
         });
 
         faceAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onFacebookClicked();
             }
         });
 
         emailAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webAction();
 
             }
         });
@@ -352,7 +446,6 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         paginaWebValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paginaWebActio();
             }
         });
 
@@ -411,98 +504,126 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
 
     public void onClickWhatsApp() {
 
-        PackageManager pm=getPackageManager();
-        try {
+        if(negocioSeleccionado.getWhatsapp() == null || negocioSeleccionado.getWhatsapp().equals("")){
+            Toast.makeText(this, "El negocio no proporciono este metodo de contacto", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            PackageManager pm=getPackageManager();
+            try {
 
-            Intent waIntent = new Intent(Intent.ACTION_SEND);
-            waIntent.setType("text/plain");
-            String text = "YOUR TEXT HERE";
+                Intent waIntent = new Intent(Intent.ACTION_SEND);
+                waIntent.setType("text/plain");
+                String text = "YOUR TEXT HERE";
 
-            PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-            waIntent.setPackage("com.whatsapp");
+                PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                waIntent.setPackage("com.whatsapp");
 
-            waIntent.putExtra(Intent.EXTRA_TEXT, text);
-            startActivity(Intent.createChooser(waIntent, "Enviar mensaje a"));
+                waIntent.putExtra(Intent.EXTRA_TEXT, text);
+                startActivity(Intent.createChooser(waIntent, "Enviar mensaje a"));
 
-        } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(this, "WhatsApp no se encuentra instalado en tu telefono", Toast.LENGTH_SHORT)
-                    .show();
+            } catch (PackageManager.NameNotFoundException e) {
+                Toast.makeText(this, "WhatsApp no se encuentra instalado en tu telefono", Toast.LENGTH_SHORT).show();
+            }
         }
+
+
 
     }
 
     public void onTwitterClick(){
-        Intent tweetIntent = new Intent(Intent.ACTION_SEND);
-        tweetIntent.putExtra(Intent.EXTRA_TEXT, "This is a Test.");
-        tweetIntent.setType("text/plain");
 
-        PackageManager packManager = getPackageManager();
-        List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(tweetIntent,  PackageManager.MATCH_DEFAULT_ONLY);
-
-        boolean resolved = false;
-        for(ResolveInfo resolveInfo: resolvedInfoList){
-            if(resolveInfo.activityInfo.packageName.startsWith("com.twitter.android")){
-                tweetIntent.setClassName(
-                        resolveInfo.activityInfo.packageName,
-                        resolveInfo.activityInfo.name );
-                resolved = true;
-                break;
-            }
-        }
-        if(resolved){
-            startActivity(tweetIntent);
+        if(negocioSeleccionado.getTwitter() == null || negocioSeleccionado.getTwitter().equals("")){
+            Toast.makeText(this, "El negocio no proporciono este metodo de contacto", Toast.LENGTH_SHORT).show();
+            return;
         }else{
-            Toast.makeText(this, "Twitter no se encontro en tu dispositivo", Toast.LENGTH_LONG).show();
+            try{
+                Intent tweetIntent = new Intent(Intent.ACTION_SEND);
+                tweetIntent.putExtra(Intent.EXTRA_TEXT, "This is a Test.");
+                tweetIntent.setType("text/plain");
+
+                PackageManager packManager = getPackageManager();
+                List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(tweetIntent,  PackageManager.MATCH_DEFAULT_ONLY);
+
+                boolean resolved = false;
+                for(ResolveInfo resolveInfo: resolvedInfoList){
+                    if(resolveInfo.activityInfo.packageName.startsWith("com.twitter.android")){
+                        tweetIntent.setClassName(
+                                resolveInfo.activityInfo.packageName,
+                                resolveInfo.activityInfo.name );
+                        resolved = true;
+                        break;
+                    }
+                }
+                if(resolved){
+                    startActivity(tweetIntent);
+                }else{
+                    Toast.makeText(this, "Twitter no se encontro en tu dispositivo", Toast.LENGTH_LONG).show();
+                }
+
+            }catch (Exception e){
+                Toast.makeText(this, "Twitter no se encontro en tu dispositivo", Toast.LENGTH_LONG).show();
+
+            }
+
+
         }
+
+
     }
 
 
     public void onFacebookClicked() {
 
-            PackageManager pm = getPackageManager();
-            Uri uri = Uri.parse(negocioSeleccionado.getFacebook());
+          if(negocioSeleccionado.getFacebook() == null || negocioSeleccionado.getFacebook().equals("")){
+              Toast.makeText(this, "El negocio no proporciono se Facebook", Toast.LENGTH_LONG).show();
+               return;
+          }else{
+              PackageManager pm = getPackageManager();
+              Uri uri = Uri.parse(negocioSeleccionado.getFacebook());
 
-            try {
-                ApplicationInfo applicationInfo = pm.getApplicationInfo("com.facebook.katana", 0);
-                if (applicationInfo.enabled) {
-                    uri = Uri.parse("fb://facewebmodal/f?href=" + negocioSeleccionado.getFacebook());
-                }
-            }
+              try {
+                  ApplicationInfo applicationInfo = pm.getApplicationInfo("com.facebook.katana", 0);
+                  if (applicationInfo.enabled) {
+                      uri = Uri.parse("fb://facewebmodal/f?href=" + negocioSeleccionado.getFacebook());
+                  }
+                  startActivity(new Intent(Intent.ACTION_VIEW, uri));
 
-            catch (PackageManager.NameNotFoundException ignored) {
-            }
+              }
 
-            startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        }
+              catch (Exception e) {
+                  Toast.makeText(this, "No nay aplicaciones  en tu dispositivo para continuar con la acción", Toast.LENGTH_LONG).show();
 
-        public void webAction(){
-        try{
-            String url = negocioSeleccionado.getWeb();
-            if(url!=null){
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        }catch (Exception e){
-            Toast.makeText(NegocioDetailActivity.this,"Ocurrio un error",Toast.LENGTH_LONG).show();
+              }
 
-        }
+          }
 
 
         }
+
+
 
 
         public void paginaWebActio(){
+
+        if(negocioSeleccionado.getPagina_web() == null || negocioSeleccionado.getPagina_web().equals("")){
+            Toast.makeText(this, "El negocio no proporciono una pagina web", Toast.LENGTH_LONG).show();
+            return;
+        }else{
             try{
                 String url = negocioSeleccionado.getPagina_web();
                 if(url!=null){
+                    if (!url.startsWith("http://") && !url.startsWith("https://"))
+                        url = "http://" + url;
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);
                 }
             }catch (Exception e){
-                Toast.makeText(NegocioDetailActivity.this,"Ocurrio un error",Toast.LENGTH_LONG).show();
+                Toast.makeText(NegocioDetailActivity.this,"No existen aplicaciones  en tu teléfono para manejar esta acción ",Toast.LENGTH_LONG).show();
             }
+        }
+
+
 
 
         }

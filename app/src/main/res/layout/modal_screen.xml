@@ -6,12 +6,20 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:scaleType="centerCrop"
         android:id="@+id/dialog_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         />
+
+
+    <ImageView
+        android:id="@+id/back_arrow_dialog"
+        android:tint="#000"
+        android:src="@drawable/ic_arrow_back_white_36dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
 </FrameLayout>

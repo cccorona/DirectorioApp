@@ -163,10 +163,10 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
                     for(DataSnapshot promoStap:dataSnapshot.getChildren()){
                         Promocion promocion = promoStap.getValue(Promocion.class);
                         promocion.setDataBasereference(promoStap.getKey());
-                        promosAdapter.addPromocion(promocion);
-                        if(!premiumNegocios.contains(promocion)){
-                            premiumNegocios.add(promocion);
-                        }
+
+                        searchRelatedNegocio(promocion);
+
+
                     }
                     hidepDialog();
                 }
@@ -178,6 +178,30 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
             });
 
 
+    }
+
+
+    private void searchRelatedNegocio(final Promocion promocion){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/allnegocios")
+                .child(promocion.getNegocioId());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Negocio negocio = dataSnapshot.getValue(Negocio.class);
+                if(negocio != null && negocio.getPublicado() != null && negocio.getPublicado().equals("Si")){
+                    promosAdapter.addPromocion(promocion);
+                    if(!premiumNegocios.contains(promocion)){
+                        premiumNegocios.add(promocion);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

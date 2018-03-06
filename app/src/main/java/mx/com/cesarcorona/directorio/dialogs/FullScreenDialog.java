@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -60,6 +61,14 @@ public class FullScreenDialog extends DialogFragment {
         Dialog fulldialog = new Dialog(getContext(), R.style.FullScreenDialog);
         fulldialog.setContentView(R.layout.modal_screen);
         ImageView imageDialog = (ImageView)fulldialog.findViewById(R.id.dialog_image);
+        ImageView back_arrow_dialog = (ImageView)fulldialog.findViewById(R.id.back_arrow_dialog);
+        back_arrow_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         int width = ViewGroup.LayoutParams.MATCH_PARENT;
         int height = ViewGroup.LayoutParams.MATCH_PARENT;
         fulldialog.getWindow().setLayout(width, height);

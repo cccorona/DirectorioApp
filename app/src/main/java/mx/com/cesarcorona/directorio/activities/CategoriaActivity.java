@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +67,8 @@ public class CategoriaActivity extends BaseAnimatedActivity implements CategoryA
                     extras.putSerializable(NegocioDetailActivity.KEY_NEGOCIO,negocionOnMainBanner);
                     detailIntent.putExtras(extras);
                     startActivity(detailIntent);
+                }else{
+                    Toast.makeText(CategoriaActivity.this,"PH MOVIL, anunciate con nosotros",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -171,15 +174,15 @@ public class CategoriaActivity extends BaseAnimatedActivity implements CategoryA
                          @Override
                          public void onDataChange(DataSnapshot dataSnapshot) {
                              negocionOnMainBanner = dataSnapshot.getValue(Negocio.class);
-                             if(negocionOnMainBanner.getBanner_premium() == null){
+                             if(negocionOnMainBanner != null && negocionOnMainBanner.getBanner_premium() != null){
 
-                                 FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
-                                 //show default banner
-                                 Picasso.with(CategoriaActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
+                                 Picasso.with(CategoriaActivity.this).load(negocionOnMainBanner.getBanner_premium()).fit().into(bannerPromo);
                                  hidepDialog();
 
                              }else{
-                                 Picasso.with(CategoriaActivity.this).load(negocionOnMainBanner.getBanner_premium()).fit().into(bannerPromo);
+                                 FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
+                                 //show default banner
+                                 Picasso.with(CategoriaActivity.this).load(R.drawable.hi_res_logo).fit().into(bannerPromo);
                                  hidepDialog();
 
                              }
