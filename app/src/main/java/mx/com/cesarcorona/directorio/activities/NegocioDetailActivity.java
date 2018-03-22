@@ -352,6 +352,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
         emailValue.setText(negocioSeleccionado.getWeb());
         twitterValue.setText(negocioSeleccionado.getTwitter());
         paginaWebValue.setText(negocioSeleccionado.getPagina_web());
+        faceValue.setText(negocioSeleccionado.getFacebook());
 
         if(negocioSeleccionado.getEntrega_a_domicilio().equals("Si")){
             aDocmicilio.setVisibility(View.VISIBLE);

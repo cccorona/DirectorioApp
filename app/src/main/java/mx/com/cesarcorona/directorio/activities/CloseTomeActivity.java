@@ -34,7 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -44,6 +46,7 @@ import mx.com.cesarcorona.directorio.Utils.DateUtils;
 import mx.com.cesarcorona.directorio.adapter.NegocioPorCategoriaAdapter;
 import mx.com.cesarcorona.directorio.custom.ExpandableGridView;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
+import mx.com.cesarcorona.directorio.pojo.FechaEspecial;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 import mx.com.cesarcorona.directorio.pojo.PremiumBanner;
 
@@ -361,10 +364,16 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
 
     public static boolean isOpenNow(Negocio negocio){
            boolean isOpenNow = false;
-        if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
-            return  true;
+
+
+
+        if(negocio.getFechasEspeciales() != null && todayisSpecialDate(negocio)){
+                  return isOpenFechaESpecial(negocio);
         }else{
-            if(negocio.hoyAbre()){
+            if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
+                return  true;
+            }else{
+                if(negocio.hoyAbre()){
                     String todayKeys[] = DateUtils.getCurrentDatKeys();
                     if(todayKeys!= null){
                         String startHour =null;
@@ -385,45 +394,57 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
                     }
 
 
-            }else{
-                return  false;
+                }else{
+                    return  false;
+                }
             }
         }
 
 
 
-        /*   if(negocio.hoyAbre()){
-                  if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
-                      return  true;
-                  }else{
-                      String todayKeys[] = DateUtils.getCurrentDatKeys();
-                      if(todayKeys!= null){
-                          String startHour =null;
-                          String endHour = null;
-                          if(negocio.getDiasAbiertos() != null){
-                              startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
-                              endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
-                              if(DateUtils.isNowInInterval(startHour,endHour)){
-                                  return  true;
-                              }else{
-                                  return false;
-                              }
-                          }else{
-                              return  false;
-                          }
-
-
-                      }
-                  }
-
-           }else{
-               return  false;
-           }*/
-
            return isOpenNow;
 
     }
 
+
+    private static boolean isOpenFechaESpecial(Negocio negocio){
+        boolean isOpen = false ;
+
+        String today = getDate (new Date().getTime());
+        for(String timeString:negocio.getFechasEspeciales().keySet()){
+            String dateEspecial = getDate(Long.valueOf(timeString));
+            if(today.equals(dateEspecial)){
+                FechaEspecial fechaEspecial = negocio.getFechasEspeciales().get(timeString);
+                if(!fechaEspecial.isAbierto()){
+                    isOpen = false;
+                }else{
+                   String  startHour = fechaEspecial.getHoraApertura();
+                   String  endHour = fechaEspecial.getHoraCierre();
+                    if(DateUtils.isNowInInterval(startHour,endHour)){
+                        isOpen = true;
+                    }else{
+                        isOpen = false;
+                    }
+                }
+            }
+        }
+        return isOpen;
+    }
+
+
+    private static boolean todayisSpecialDate(Negocio negocio){
+        boolean loContiene = false ;
+        String today = getDate (new Date().getTime());
+        for(String timeString:negocio.getFechasEspeciales().keySet()){
+            String dateEspecial = getDate(Long.valueOf(timeString));
+            if(today.equals(dateEspecial)){
+                loContiene = true;
+                break;
+            }
+        }
+
+        return  loContiene;
+    }
 
 
 
@@ -494,6 +515,20 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
         }
         catch (Throwable e){
             return null;
+        }
+    }
+
+
+    private static String getDate(double timestapm){
+        Date hora = new Date((long)timestapm);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+        String date = simpleDateFormat.format(hora);
+        String parst[] = date.split(" ");
+        if(parst!= null && parst.length >3){
+            return parst[0] +" " + parst[1] + " " +parst[2];
+
+        }else{
+            return  date;
         }
     }
     

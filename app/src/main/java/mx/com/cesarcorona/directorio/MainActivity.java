@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -27,6 +29,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.util.Date;
 import java.util.List;
 
 import mx.com.cesarcorona.directorio.activities.BaseAnimatedActivity;
@@ -243,8 +246,35 @@ public class MainActivity extends BaseAnimatedActivity
         noticiasCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent noticiasIntent = new Intent(MainActivity.this, NoticiasActivity.class);
-                startActivity(noticiasIntent);
+              /*  Intent noticiasIntent = new Intent(MainActivity.this, NoticiasActivity.class);
+                startActivity(noticiasIntent);*/
+
+                new SingleDateAndTimePickerDialog.Builder(MainActivity.this)
+                        .mustBeOnFuture()
+                        //.bottomSheet()
+                        //.curved()
+                        //.minutesStep(15)
+
+                        //.displayHours(false)
+                        //.displayMinutes(false)
+
+                        //.todayText("aujourd'hui")
+
+                        .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
+                            @Override
+                            public void onDisplayed(SingleDateAndTimePicker picker) {
+                                //retrieve the SingleDateAndTimePicker
+                            }
+                        })
+
+                        .title("Seleccione dia y hora")
+                        .listener(new SingleDateAndTimePickerDialog.Listener() {
+                            @Override
+                            public void onDateSelected(Date date) {
+                                Toast.makeText(MainActivity.this,date.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }).display();
+
             }
         });
 

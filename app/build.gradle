@@ -7,7 +7,7 @@ android {
         applicationId "mx.com.cesarcorona.directorio"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 11
+        versionCode 13
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -51,6 +51,8 @@ dependencies {
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'com.karumi:dexter:4.1.0'
     compile 'com.firebase:geofire-android:2.2.0'
+    compile 'com.github.sundeepk:compact-calendar-view:2.0.2.2'
+    compile 'com.github.florent37:singledateandtimepicker:1.2.2'
 
 
 

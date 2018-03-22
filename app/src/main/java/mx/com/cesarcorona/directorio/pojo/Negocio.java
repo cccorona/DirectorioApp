@@ -77,6 +77,7 @@ public class Negocio implements Serializable {
     private String userId;
     private String pagina_web;
     private String direccionName;
+    private HashMap<String,FechaEspecial> fechasEspeciales;
 
 
     @Exclude
@@ -552,6 +553,13 @@ public class Negocio implements Serializable {
     }
 
 
+    public HashMap<String, FechaEspecial> getFechasEspeciales() {
+        return fechasEspeciales;
+    }
+
+    public void setFechasEspeciales(HashMap<String, FechaEspecial> fechasEspeciales) {
+        this.fechasEspeciales = fechasEspeciales;
+    }
 
     public void updateData(Negocio oldData){
 

@@ -22,7 +22,7 @@
             <item
                 android:id="@+id/nav_promociones"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Publicar promocion" />
+                android:title="Publicar promoción" />
 
             <item
                 android:id="@+id/nav_about_us"
@@ -32,7 +32,7 @@
             <item
                 android:id="@+id/nav_terminos"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Terminos y condiciones" />
+                android:title="Términos y condiciones" />
             <item
                 android:id="@+id/nav_salir"
                 android:icon="@drawable/ic_menu_send"

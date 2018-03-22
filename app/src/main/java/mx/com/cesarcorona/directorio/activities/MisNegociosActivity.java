@@ -15,6 +15,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,18 +69,22 @@ import java.util.LinkedList;
 
 import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
+import mx.com.cesarcorona.directorio.adapter.DiasEspecialesAdapter;
 import mx.com.cesarcorona.directorio.adapter.PromosAdapter;
+import mx.com.cesarcorona.directorio.dialogs.SpecialDayDialog;
 import mx.com.cesarcorona.directorio.dialogs.TimeSelectorDialog;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
+import mx.com.cesarcorona.directorio.pojo.FechaEspecial;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 import mx.com.cesarcorona.directorio.pojo.Promocion;
 
 import static mx.com.cesarcorona.directorio.Utils.DataLoader.PROMOS_PHOTOS_REFRENCE;
 import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.GEO_REFERENCE;
 import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.NEGOCIOS_REFERENCE;
+import static mx.com.cesarcorona.directorio.activities.PublicarNegocioActivity.sizeOfFileSelectedIsBigger;
 import static mx.com.cesarcorona.directorio.adapter.PromosAdapter.ADAPTER_TYPE_EDIT;
 
-public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapReadyCallback, TimeSelectorDialog.OnTimeSelectedInterface  {
+public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapReadyCallback, TimeSelectorDialog.OnTimeSelectedInterface , SpecialDayDialog.OnUpdateESpecialDayInterfac, DiasEspecialesAdapter.OnServicioSelected  {
 
 
 
@@ -155,6 +162,15 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
     private  boolean bigImageChange;
     private boolean promoChange;
     private boolean fotoUnoChange,fotodosChange,fototresChange;
+
+
+
+    private RecyclerView diasList;
+    private TextView plusDiaText;
+    private DiasEspecialesAdapter diasEspecialesAdapter;
+    private LinkedList<FechaEspecial> fechaEspeciales;
+
+
 
 
 
@@ -497,8 +513,18 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
             }
 
 
+           if(negocioSeleccionado.getFechasEspeciales() != null){
+               LinkedList<FechaEspecial> fechaEspecialList = new LinkedList<>();
 
+               for(String key:negocioSeleccionado.getFechasEspeciales().keySet()){
+                   fechaEspecialList.add(negocioSeleccionado.getFechasEspeciales().get(key));
+                }
 
+               diasEspecialesAdapter = new DiasEspecialesAdapter(MisNegociosActivity.this,fechaEspecialList);
+               fechaEspeciales = fechaEspecialList;
+               diasList.setAdapter(diasEspecialesAdapter);
+
+           }
 
 
 
@@ -543,6 +569,18 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         abre23 = (RadioGroup)findViewById(R.id.myRadioGroup24);
         docimilio = (RadioGroup)findViewById(R.id.myRadioGroupdomi);
         tarjeta = (RadioGroup)findViewById(R.id.myRadioGrouptarjeta);
+
+
+        plusDiaText = (TextView) findViewById(R.id.plus_dia_especial);
+        fechaEspeciales = new LinkedList<>();
+
+        diasList = (RecyclerView)findViewById(R.id.dias_especiales_list);
+        diasList.setLayoutManager( new LinearLayoutManager(MisNegociosActivity.this,LinearLayoutManager.VERTICAL,false));
+        diasList.setItemAnimator( new DefaultItemAnimator());
+        diasEspecialesAdapter = new DiasEspecialesAdapter(MisNegociosActivity.this,fechaEspeciales);
+        diasEspecialesAdapter.setOnServicioSelected(MisNegociosActivity.this);
+        diasList.setAdapter(diasEspecialesAdapter);
+
 
 
         domingo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -1658,8 +1696,15 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
                     cursor.close();
-                    negocio_imagen.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    bigImageChange = true;
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        bigImage = null;
+                        Toast.makeText(MisNegociosActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        negocio_imagen.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        bigImageChange = true;
+                    }
+
 
 
                     break;
@@ -1672,8 +1717,15 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
                     cursor.close();
-                    banner_image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    promoChange = true;
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        bannerImage = null;
+                        Toast.makeText(MisNegociosActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        banner_image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        promoChange = true;
+                    }
+
 
                     break;
                 case FOTOUNO:
@@ -1684,8 +1736,16 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
-                    rect_uno.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    fotoUnoChange = true;
+                    cursor.close();
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        fotouno = null;
+                        Toast.makeText(MisNegociosActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        rect_uno.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        fotoUnoChange = true;
+                    }
+
 
                     break;
                 case FOTODOS:
@@ -1696,8 +1756,16 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
-                    rect_dos.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    fotodosChange = true;
+                    cursor.close();
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        fotodos = null;
+                        Toast.makeText(MisNegociosActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        rect_dos.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        fotodosChange = true;
+                    }
+
 
                     break;
                 case FOTOTRES:
@@ -1708,14 +1776,40 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
-                    rect_tres.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    fototresChange = true;
+                    cursor.close();
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        fototres = null;
+                        Toast.makeText(MisNegociosActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        rect_tres.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        fototresChange = true;
+                    }
+
 
                     break;
             }
 
 
         }
+
+    }
+
+
+    @Override
+    public void OnAddEspecialDay(FechaEspecial fechaEspecial) {
+
+        if(diasEspecialesAdapter.containsFEcha(fechaEspecial)){
+            Toast.makeText(MisNegociosActivity.this,"La fecha ya esta en los dias especiales",Toast.LENGTH_LONG).show();
+        }else{
+            diasEspecialesAdapter.addDiaEspecial(fechaEspecial);
+
+        }
+
+    }
+
+    @Override
+    public void ONDeleteServicio(FechaEspecial diaEspecial) {
 
     }
 

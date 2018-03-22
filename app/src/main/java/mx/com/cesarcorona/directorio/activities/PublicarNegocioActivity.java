@@ -16,6 +16,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -60,6 +63,7 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -71,15 +75,18 @@ import java.util.TimerTask;
 
 import mx.com.cesarcorona.directorio.MainActivity;
 import mx.com.cesarcorona.directorio.R;
+import mx.com.cesarcorona.directorio.adapter.DiasEspecialesAdapter;
+import mx.com.cesarcorona.directorio.dialogs.SpecialDayDialog;
 import mx.com.cesarcorona.directorio.dialogs.TimeSelectorDialog;
 import mx.com.cesarcorona.directorio.pojo.Categoria;
+import mx.com.cesarcorona.directorio.pojo.FechaEspecial;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 
 import static mx.com.cesarcorona.directorio.Utils.DataLoader.PROMOS_PHOTOS_REFRENCE;
 import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.GEO_REFERENCE;
 import static mx.com.cesarcorona.directorio.activities.NegocioPorCategoriaActivity.NEGOCIOS_REFERENCE;
 
-public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnMapReadyCallback, TimeSelectorDialog.OnTimeSelectedInterface {
+public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnMapReadyCallback, TimeSelectorDialog.OnTimeSelectedInterface, SpecialDayDialog.OnUpdateESpecialDayInterfac, DiasEspecialesAdapter.OnServicioSelected {
 
 
     private Uri bigImage;
@@ -133,11 +140,17 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
     private SupportMapFragment mapFragment;
     private FusedLocationProviderClient mFusedLocationClient;
     private HashMap<String,String> diasAbiertos;
-    private HashMap<String,String> fechasEspeciales;
+    private LinkedList<FechaEspecial> fechaEspeciales;
     private String currentIdDay;
     private int currentIdView;
 
     private Negocio negocioPorPublicar;
+
+
+
+    private RecyclerView diasList;
+    private TextView plusDiaText;
+    private DiasEspecialesAdapter diasEspecialesAdapter;
 
 
 
@@ -185,6 +198,27 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         abre23 = (RadioGroup)findViewById(R.id.myRadioGroup24);
         docimilio = (RadioGroup)findViewById(R.id.myRadioGroupdomi);
         tarjeta = (RadioGroup)findViewById(R.id.myRadioGrouptarjeta);
+
+
+        plusDiaText = (TextView) findViewById(R.id.plus_dia_especial);
+        fechaEspeciales = new LinkedList<>();
+
+        diasList = (RecyclerView)findViewById(R.id.dias_especiales_list);
+        diasList.setLayoutManager( new LinearLayoutManager(PublicarNegocioActivity.this,LinearLayoutManager.VERTICAL,false));
+        diasList.setItemAnimator( new DefaultItemAnimator());
+        diasEspecialesAdapter = new DiasEspecialesAdapter(PublicarNegocioActivity.this,fechaEspeciales);
+        diasEspecialesAdapter.setOnServicioSelected(PublicarNegocioActivity.this);
+        diasList.setAdapter(diasEspecialesAdapter);
+
+
+        plusDiaText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SpecialDayDialog specialDayDialog = new SpecialDayDialog();
+                specialDayDialog.setOnUpdateESpecialDayInterfac(PublicarNegocioActivity.this);
+                specialDayDialog.show(getSupportFragmentManager(),SpecialDayDialog.TAG);
+            }
+        });
 
 
         domingo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -645,6 +679,16 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         negocioPorPublicar.setPublicado("No");
         negocioPorPublicar.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         negocioPorPublicar.setDireccionName(placeSelected.getAddress().toString());
+        LinkedHashMap<String,FechaEspecial> diasEspeciales = new LinkedHashMap<>();
+        if(diasEspecialesAdapter != null && diasEspecialesAdapter.getItemCount() > 0){
+            for(FechaEspecial diaEspecial:diasEspecialesAdapter.getDiasEspeciales()){
+                diasEspeciales.put(""+diaEspecial.getFecha(),diaEspecial);
+            }
+            negocioPorPublicar.setFechasEspeciales(diasEspeciales);
+        }
+
+
+
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(NEGOCIOS_REFERENCE);
@@ -688,7 +732,7 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         showpDialog();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Example/categorias");
         Categoria selectATopi = new Categoria();
-        selectATopi.setNombre("Seleccione una categoria");
+        selectATopi.setNombre("Seleccione una categoría");
         allCategorias.add(selectATopi);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -802,7 +846,15 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
                     cursor.close();
-                    negocio_imagen.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        bigImage = null;
+                        Toast.makeText(PublicarNegocioActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        negocio_imagen.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                    }
+
 
 
                     break;
@@ -815,7 +867,14 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
                      columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                      picturePath = cursor.getString(columnIndex);
                     cursor.close();
-                    banner_image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        bannerImage = null;
+                        Toast.makeText(PublicarNegocioActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        banner_image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                    }
 
                     break;
                 case FOTOUNO:
@@ -826,7 +885,15 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
-                    rect_uno.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    cursor.close();
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        fotouno = null;
+                        Toast.makeText(PublicarNegocioActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        rect_uno.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                    }
 
                     break;
                 case FOTODOS:
@@ -837,7 +904,15 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
-                    rect_dos.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    cursor.close();
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        fotodos = null;
+                        Toast.makeText(PublicarNegocioActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        rect_dos.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                    }
 
                     break;
                 case FOTOTRES:
@@ -848,7 +923,15 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
                     columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     picturePath = cursor.getString(columnIndex);
-                    rect_tres.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                    cursor.close();
+                    if(sizeOfFileSelectedIsBigger(picturePath)){
+                        fototres = null;
+                        Toast.makeText(PublicarNegocioActivity.this,"El tamaño maximo " +
+                                "por foto es de 512kb",Toast.LENGTH_LONG).show();
+                    }else{
+                        rect_tres.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                    }
 
                     break;
             }
@@ -856,6 +939,29 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
         }
 
+    }
+
+
+
+    public static boolean sizeOfFileSelectedIsBigger(String path){
+        boolean fileIsBigger= false;
+        File file = null;
+        try {
+                file = new File(path);
+                double bytes = file.length();
+                double kilobytes = (bytes/1024);
+                if(kilobytes> 513 ){
+                    fileIsBigger = true;
+                }else{
+                    fileIsBigger = false;
+                }
+            }catch (Exception e){
+                fileIsBigger = true;
+            }finally {
+
+        }
+
+        return  fileIsBigger ;
     }
 
 
@@ -1155,13 +1261,13 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
         }
 
         if(hourOfDay == 0){
-            hourOfDay = 24;
+            formatedCurrentHour = ""+24;
         }
 
 
         String hourSelected = String.valueOf(currentHour)
                 + " : " + String.valueOf(minute) + " " + aMpM;
-        diasAbiertos.put(currentIdDay,hourOfDay+":"+minute);
+        diasAbiertos.put(currentIdDay,formatedCurrentHour+":"+formatedMinute);
         updateLabel(hourSelected);
 
     }
@@ -1225,6 +1331,23 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
 
                 break;
         }
+
+    }
+
+    @Override
+    public void OnAddEspecialDay(FechaEspecial fechaEspecial) {
+
+        if(diasEspecialesAdapter.containsFEcha(fechaEspecial)){
+            Toast.makeText(PublicarNegocioActivity.this,"La fecha ya esta en los dias especiales",Toast.LENGTH_LONG).show();
+        }else{
+            diasEspecialesAdapter.addDiaEspecial(fechaEspecial);
+
+        }
+
+    }
+
+    @Override
+    public void ONDeleteServicio(FechaEspecial diaEspecial) {
 
     }
 

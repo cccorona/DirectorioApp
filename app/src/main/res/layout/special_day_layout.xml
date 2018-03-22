@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+
+        <TextView
+            android:layout_toRightOf="@id/back_arrow_button"
+            android:layout_toLeftOf="@id/home_button"
+            android:textColor="@color/colorWhite"
+            android:background="@color/color_spash"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="Fechas especiales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
+
+    <TextView
+        android:paddingRight="0dp"
+        android:gravity="center"
+        android:text="Calendario"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="#000"
+
+        android:id="@+id/current_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        android:layout_marginTop="20dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="fill_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="250dp"
+        app:compactCalendarCurrentDayIndicatorStyle="fill_large_indicator"
+        app:compactCalendarCurrentSelectedDayIndicatorStyle="fill_large_indicator"
+        app:compactCalendarEventIndicatorStyle="fill_large_indicator"
+        app:compactCalendarOtherMonthDaysTextColor="#000"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarCurrentSelectedDayTextColor="@color/colorWhite"
+        app:compactCalendarBackgroundColor="@color/colorWhite"
+        app:compactCalendarTextColor="#000"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorPrimary"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        />
+
+
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:gravity="center"
+            android:textSize="14sp"
+            android:text="Abierto este dia"
+            android:layout_marginLeft="10dp"
+            android:paddingRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/text"
+            android:id="@+id/myRadioGroup24"
+            android:checkedButton="@+id/yes24" >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/yes24"
+                android:text="Si" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/no24"
+                android:text="No" />
+
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:gravity="center"
+            android:text="Hora apertura"
+            android:layout_weight="1"
+            android:id="@+id/la"
+            android:layout_width="0dp"
+            android:onClick="showTimedialog"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/lc"
+            android:gravity="center"
+            android:text="Hora del cierre"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:onClick="showTimedialog"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+
+        <Button
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:textColor="#FFF"
+            android:textAllCaps="true"
+            android:text="Cancelar"
+            android:background="@color/colorPrimary"
+            android:id="@+id/cancelar_buttpm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_height="match_parent" />
+
+
+        <Button
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:textColor="#FFF"
+            android:textAllCaps="true"
+            android:text="Agregar dia especial"
+            android:background="@color/colorPrimary"
+            android:id="@+id/publicar_button_negocio"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
