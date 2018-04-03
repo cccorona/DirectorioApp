@@ -331,6 +331,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
 
 
     private void showBAnnerCategoriaPremium(){
+        hidepDialog();
         DatabaseReference bannerReference = FirebaseDatabase.getInstance()
                 .getReference("Example/"+"premium_por_categoria")
                 .child("premium_por_categoria"+categoriaSelected.getDataBaseReference());

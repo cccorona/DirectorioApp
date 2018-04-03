@@ -108,7 +108,8 @@ public class CategoriaActivity extends BaseAnimatedActivity implements CategoryA
                 for (DataSnapshot categoriaSnap : dataSnapshot.getChildren()) {
                     Categoria categoria = categoriaSnap.getValue(Categoria.class);
                     categoria.setDataBaseReference(categoriaSnap.getKey());
-                    if(categoria!= null && !categoria.getNombre().equals("Agregar titulo")){
+                    if(categoria!= null && !categoria.getNombre().equals("Agregar titulo") &&
+                            !categoria.getNombre().equals("cattest")){
                         allCategories.add(categoria);
 
                     }
