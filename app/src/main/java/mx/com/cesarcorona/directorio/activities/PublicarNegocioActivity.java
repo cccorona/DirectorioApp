@@ -687,6 +687,8 @@ public class PublicarNegocioActivity extends BaseAnimatedActivity implements OnM
             negocioPorPublicar.setFechasEspeciales(diasEspeciales);
         }
 
+        negocioPorPublicar.setOpenNow(true);
+
 
 
 

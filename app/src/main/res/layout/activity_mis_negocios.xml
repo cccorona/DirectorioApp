@@ -5,11 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/tools">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
 
 
         <LinearLayout
@@ -42,6 +52,7 @@
                     android:layout_height="30dp" />
 
 
+
                 <TextView
                     android:layout_toRightOf="@id/back_arrow_button"
                     android:layout_toLeftOf="@id/home_button"
@@ -52,24 +63,51 @@
                     android:padding="10dp"
                     android:gravity="center"
                     android:text="Mis negocios"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+
+
 
 
             </RelativeLayout>
 
 
 
-            <Spinner
-                style="@style/spinner_style"
-                android:layout_alignParentLeft="true"
-                android:id="@+id/negocioSpinner"
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:minWidth="150dp"
-                android:layout_height="40dp">
+            <LinearLayout
 
-            </Spinner>
+
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/ic_lock_white_24dp"
+                    />
+
+
+                <Spinner
+                    style="@style/spinner_style"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/negocioSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:minWidth="150dp"
+                    android:layout_height="40dp">
+
+                </Spinner>
+
+
+
+            </LinearLayout>
+
+
+
 
 
 
@@ -1474,7 +1512,25 @@
 
 
 
+
+
+
         </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
 
 
 

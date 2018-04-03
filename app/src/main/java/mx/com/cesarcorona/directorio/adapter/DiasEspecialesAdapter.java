@@ -134,7 +134,7 @@ public class DiasEspecialesAdapter extends RecyclerView.Adapter<DiasEspecialesAd
 
         boolean loContiene = false;
         for(FechaEspecial fechaEnLista:diasEspeciales){
-            if(fechaEnLista.getFecha() == fechaEnLista.getFecha()){
+            if(fechaEnLista.getFecha() == fechaEspecial.getFecha()){
                 loContiene = true;
                 break;
             }

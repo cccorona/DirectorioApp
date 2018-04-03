@@ -366,41 +366,42 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
            boolean isOpenNow = false;
 
 
-
-        if(negocio.getFechasEspeciales() != null && todayisSpecialDate(negocio)){
-                  return isOpenFechaESpecial(negocio);
-        }else{
-            if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
-                return  true;
+        if(negocio.isOpenNow()){
+            if(negocio.getFechasEspeciales() != null && todayisSpecialDate(negocio)){
+                return isOpenFechaESpecial(negocio);
             }else{
-                if(negocio.hoyAbre()){
-                    String todayKeys[] = DateUtils.getCurrentDatKeys();
-                    if(todayKeys!= null){
-                        String startHour =null;
-                        String endHour = null;
-                        if(negocio.getDiasAbiertos() != null){
-                            startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
-                            endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
-                            if(DateUtils.isNowInInterval(startHour,endHour)){
-                                return  true;
+                if(negocio.getAbierto_24_horas()!= null && negocio.getAbierto_24_horas().equals("Si")){
+                    return  true;
+                }else{
+                    if(negocio.hoyAbre()){
+                        String todayKeys[] = DateUtils.getCurrentDatKeys();
+                        if(todayKeys!= null){
+                            String startHour =null;
+                            String endHour = null;
+                            if(negocio.getDiasAbiertos() != null){
+                                startHour = negocio.getDiasAbiertos().get(todayKeys[0]);
+                                endHour = negocio.getDiasAbiertos().get(todayKeys[1]);
+                                if(DateUtils.isNowInInterval(startHour,endHour)){
+                                    return  true;
+                                }else{
+                                    return false;
+                                }
                             }else{
-                                return false;
+                                return  false;
                             }
-                        }else{
-                            return  false;
+
+
                         }
 
 
+                    }else{
+                        return  false;
                     }
-
-
-                }else{
-                    return  false;
                 }
             }
+        }else{
+            return  false;
         }
-
-
 
            return isOpenNow;
 
@@ -457,13 +458,13 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
                 premiumNegocios.add(premiumBanner);
 
                 if(premiumNegocios.size()>0){
-                    DatabaseReference choosedPremiumNegocioReference =FirebaseDatabase.getInstance().getReference("Example"+"/"+ALL_NEGOCIO_REFERENCE +"/" +
+                    DatabaseReference choosedPremiumNegocioReference =FirebaseDatabase.getInstance().getReference(
                             premiumNegocios.get(0).getId_negocio());
                     choosedPremiumNegocioReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             negocionOnMainBanner = dataSnapshot.getValue(Negocio.class);
-                            if(negocionOnMainBanner.getBanner_premium() == null){
+                            if(negocionOnMainBanner == null || negocionOnMainBanner.getBanner_premium() == null){
 
                                 FirebaseCrash.log(TAG+": No hay banner en negocio premium" );
                                 //show default banner

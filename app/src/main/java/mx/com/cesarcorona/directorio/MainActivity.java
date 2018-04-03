@@ -17,7 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ShareActionProvider;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
@@ -58,6 +60,11 @@ public class MainActivity extends BaseAnimatedActivity
     private CardView noticiasCard;
     private ShareActionProvider mShareActionProvider;
 
+    private boolean showLogout;
+    private int toucheNumber;
+
+    private NavigationView navigationView;
+
 
 
     @Override
@@ -67,6 +74,7 @@ public class MainActivity extends BaseAnimatedActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        showLogout = false;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +94,30 @@ public class MainActivity extends BaseAnimatedActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        ImageView logoPHMOVIL = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        hideItem();
+
+        logoPHMOVIL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(toucheNumber < 7){
+                    toucheNumber++;
+                }else{
+                    Toast.makeText(MainActivity.this,"Salir habilitado",Toast.LENGTH_LONG).show();
+                    showItem();
+                }
+            }
+        });
+
 
         initViewsAndStartLisening();
 
         checkPermissions();
+
+
+
 
     }
 
@@ -185,7 +211,8 @@ public class MainActivity extends BaseAnimatedActivity
             if(FirebaseAuth.getInstance().getCurrentUser()== null){
 
             }else{
-
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(MainActivity.this,"Usuario deslogeado",Toast.LENGTH_LONG).show();
             }
 
         }
@@ -302,5 +329,17 @@ public class MainActivity extends BaseAnimatedActivity
 
             }
         }).check();
+    }
+
+
+    private void hideItem()
+    {
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_salir).setVisible(false);
+    }
+
+    private void showItem(){
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_salir).setVisible(true);
     }
 }

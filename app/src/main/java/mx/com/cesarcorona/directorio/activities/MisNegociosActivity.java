@@ -11,6 +11,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -169,6 +170,7 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
     private TextView plusDiaText;
     private DiasEspecialesAdapter diasEspecialesAdapter;
     private LinkedList<FechaEspecial> fechaEspeciales;
+    private FloatingActionButton fab;
 
 
 
@@ -186,6 +188,7 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_negocios);
         negocioSpinner = (Spinner) findViewById(R.id.negocioSpinner);
+        fab =(FloatingActionButton)findViewById(R.id.fab);
 
         pDialog = new ProgressDialog(MisNegociosActivity.this);
         pDialog.setMessage("Por favor espere");
@@ -202,6 +205,22 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         fillNegocios();
        // fillCategorias();
         piblishInCurse = false;
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(negocioSeleccionado == null){
+                    Toast.makeText(MisNegociosActivity.this,"Seleccione primero un negocio",Toast.LENGTH_LONG).show();
+                }else{
+                    if(negocioSeleccionado.isOpenNow()){
+                        cerrarNegocio();
+                    }else{
+                        abrirNegocio();
+                    }
+                }
+            }
+        });
 
 
 
@@ -227,6 +246,53 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
 
 
+    }
+
+    private void cerrarNegocio(){
+        fab.setEnabled(false);
+
+        FirebaseDatabase.getInstance().getReference("Example/allnegocios")
+                .child(negocioSeleccionado.getNegocioDataBaseReference())
+                .child("openNow").setValue(false)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                       fab.setEnabled(true);
+                       if(task.isSuccessful()){
+                           Toast.makeText(MisNegociosActivity.this,"Negocio Cerrado",
+                                   Toast.LENGTH_LONG).show();
+                           fab.setImageResource(R.drawable.ic_lock_white_24dp);
+                       }else{
+                           Toast.makeText(MisNegociosActivity.this,
+                                   "No se pudo completar la operación",Toast.LENGTH_LONG).show();
+                       }
+                    }
+                });
+
+
+    }
+
+    private void abrirNegocio(){
+
+        fab.setEnabled(false);
+
+        FirebaseDatabase.getInstance().getReference("Example/allnegocios")
+                .child(negocioSeleccionado.getNegocioDataBaseReference())
+                .child("openNow").setValue(true)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        fab.setEnabled(true);
+                        if(task.isSuccessful()){
+                            Toast.makeText(MisNegociosActivity.this,"Negocio Abierto",
+                                    Toast.LENGTH_LONG).show();
+                            fab.setImageResource(R.drawable.ic_lock_open_white_24dp);
+                        }else{
+                            Toast.makeText(MisNegociosActivity.this,
+                                    "No se pudo completar la operación",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
 
@@ -580,6 +646,16 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         diasEspecialesAdapter = new DiasEspecialesAdapter(MisNegociosActivity.this,fechaEspeciales);
         diasEspecialesAdapter.setOnServicioSelected(MisNegociosActivity.this);
         diasList.setAdapter(diasEspecialesAdapter);
+
+
+        plusDiaText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SpecialDayDialog specialDayDialog = new SpecialDayDialog();
+                specialDayDialog.setOnUpdateESpecialDayInterfac(MisNegociosActivity.this);
+                specialDayDialog.show(getSupportFragmentManager(),SpecialDayDialog.TAG);
+            }
+        });
 
 
 
@@ -1222,6 +1298,14 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
         }
         if(!fototresChange){
             negocioPorPublicar.setImagen_promo1(negocioSeleccionado.getImagen_promo3());
+        }
+
+        LinkedHashMap<String,FechaEspecial> diasEspeciales = new LinkedHashMap<>();
+        if(diasEspecialesAdapter != null && diasEspecialesAdapter.getItemCount() > 0){
+            for(FechaEspecial diaEspecial:diasEspecialesAdapter.getDiasEspeciales()){
+                diasEspeciales.put(""+diaEspecial.getFecha(),diaEspecial);
+            }
+            negocioPorPublicar.setFechasEspeciales(diasEspeciales);
         }
 
 

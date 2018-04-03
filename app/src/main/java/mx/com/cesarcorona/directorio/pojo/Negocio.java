@@ -80,6 +80,9 @@ public class Negocio implements Serializable {
     private HashMap<String,FechaEspecial> fechasEspeciales;
 
 
+    private boolean openNow;
+
+
     @Exclude
     private boolean markedForRemove;
 
@@ -565,4 +568,12 @@ public class Negocio implements Serializable {
 
     }
 
+
+    public boolean isOpenNow() {
+        return openNow;
+    }
+
+    public void setOpenNow(boolean openNow) {
+        this.openNow = openNow;
+    }
 }

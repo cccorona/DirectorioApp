@@ -45,6 +45,7 @@ import mx.com.cesarcorona.directorio.pojo.Categoria;
 import mx.com.cesarcorona.directorio.pojo.Negocio;
 import mx.com.cesarcorona.directorio.pojo.Promocion;
 
+import static mx.com.cesarcorona.directorio.activities.PublicarNegocioActivity.sizeOfFileSelectedIsBigger;
 import static mx.com.cesarcorona.directorio.adapter.PromosAdapter.ADAPTER_TYPE_EDIT;
 
 public class PublicarPromocionActivity extends BaseAnimatedActivity  implements PromosAdapter.OnPromoInterface{
@@ -115,7 +116,12 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
          publicarButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 publicarPromocion();
+                 if(negocioSeleccionado == null){
+                     Toast.makeText(PublicarPromocionActivity.this,"Selecciona un negocio para la promoción",Toast.LENGTH_LONG).show();
+                 }else{
+                     publicarPromocion();
+
+                 }
              }
          });
 
@@ -156,7 +162,14 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
-            banner_image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+            if(sizeOfFileSelectedIsBigger(picturePath)){
+                Toast.makeText(PublicarPromocionActivity.this,"El tamaño maximo " +
+                        "por foto es de 512kb",Toast.LENGTH_LONG).show();
+            }else{
+                banner_image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+            }
 
 
         }
@@ -170,6 +183,12 @@ public class PublicarPromocionActivity extends BaseAnimatedActivity  implements 
 
 
     public void publicarPromocion(){
+
+        if(promosAdapter.getCount()==1){
+            Toast.makeText(PublicarPromocionActivity.this,"Solo es posible publicar una promoción por negocio",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if(tagsText.getText().length() >0 && bannerImageUrl != null){
             showpDialog();
             final Promocion promocion = new Promocion();
