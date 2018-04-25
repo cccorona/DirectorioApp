@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "mx.com.cesarcorona.directorio"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 16
+        versionCode 17
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

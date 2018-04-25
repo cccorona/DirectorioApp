@@ -594,6 +594,9 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
 
 
 
+
+
+
         }
 
     }
@@ -1306,6 +1309,14 @@ public class MisNegociosActivity extends BaseAnimatedActivity implements OnMapRe
                 diasEspeciales.put(""+diaEspecial.getFecha(),diaEspecial);
             }
             negocioPorPublicar.setFechasEspeciales(diasEspeciales);
+        }
+
+
+        if(negocioSeleccionado.isOpenNow()){
+            negocioPorPublicar.setOpenNow(true);
+
+        }else{
+            negocioPorPublicar.setOpenNow(false);
         }
 
 

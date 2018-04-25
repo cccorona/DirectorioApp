@@ -264,6 +264,8 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
+                            hidepDialog();
+                            if(dataSnapshot.exists()){
                                 Negocio negocio = dataSnapshot.getValue(Negocio.class);
                                 negocio.setNegocioDataBaseReference(dataSnapshot.getRef().toString());
                                 if(!allNegocios.contains(negocio) && negocio.getPublicado()!= null && negocio.getPublicado().equals("Si")){
@@ -271,6 +273,11 @@ public class CloseTomeActivity extends BaseAnimatedActivity implements NegocioPo
                                     clasifyOpenOrclosed(negocio);
 
                                 }
+                            }else{
+
+                            }
+
+
 
 
 
