@@ -273,34 +273,10 @@ public class MainActivity extends BaseAnimatedActivity
         noticiasCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Intent noticiasIntent = new Intent(MainActivity.this, NoticiasActivity.class);
-                startActivity(noticiasIntent);*/
+                Intent noticiasIntent = new Intent(MainActivity.this, NoticiasActivity.class);
+                startActivity(noticiasIntent);
 
-                new SingleDateAndTimePickerDialog.Builder(MainActivity.this)
-                        .mustBeOnFuture()
-                        //.bottomSheet()
-                        //.curved()
-                        //.minutesStep(15)
 
-                        //.displayHours(false)
-                        //.displayMinutes(false)
-
-                        //.todayText("aujourd'hui")
-
-                        .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
-                            @Override
-                            public void onDisplayed(SingleDateAndTimePicker picker) {
-                                //retrieve the SingleDateAndTimePicker
-                            }
-                        })
-
-                        .title("Seleccione dia y hora")
-                        .listener(new SingleDateAndTimePickerDialog.Listener() {
-                            @Override
-                            public void onDateSelected(Date date) {
-                                Toast.makeText(MainActivity.this,date.toString(),Toast.LENGTH_LONG).show();
-                            }
-                        }).display();
 
             }
         });

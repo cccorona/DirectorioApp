@@ -145,7 +145,7 @@ public class PromocionesActivity extends BaseAnimatedActivity implements PromosA
             }
             hidepDialog();
         }else{
-            Toast.makeText(PromocionesActivity.this,"Introudce una palabra clave",Toast.LENGTH_LONG).show();
+            Toast.makeText(PromocionesActivity.this,"Introduce una palabra clave",Toast.LENGTH_LONG).show();
         }
 
 

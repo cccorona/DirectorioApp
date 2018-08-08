@@ -327,7 +327,7 @@ public class NegocioDetailActivity extends BaseAnimatedActivity  implements OnMa
                 openStatus.setBackgroundColor(getResources().getColor(R.color.colorAbierto));
                 openStatus.setText("Abierto");
                 if(negocioSeleccionado.getAbierto_24_horas().equals("Si")){
-                    horarioNegocio.setText("Abierdo 24 horas");
+                    horarioNegocio.setText("Abierto 24 horas");
 
                 }else{
                     String dateKeys[] = DateUtils.getCurrentDatKeys();
