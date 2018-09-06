@@ -23,4 +23,8 @@
     <string name="correo_electronico">Correo electronico</string>
     <string name="correo_valido_error">Introduzca un correo valido</string>
     <string name="credinciales_faltantes">Rellene ambos campos</string>
+    <string name="contacto_correo">contacto@phmovil.com</string>
+    <string name="acerca_de_url">http://www.phmovil.com/acercade</string>
+    <string name="terminos_y_condiciones_url">http://www.phmovil.com/terminosycondiciones</string>
+    <string name="desde_web_movil">desde mi Android,+http://www.phmovil.com</string>
 </resources>

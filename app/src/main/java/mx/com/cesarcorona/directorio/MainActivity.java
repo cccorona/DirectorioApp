@@ -81,7 +81,7 @@ public class MainActivity extends BaseAnimatedActivity
             @Override
             public void onClick(View view) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                String shareBody = "Estoy usando Ph Movil desde mi Android,http://www.phmovil.com";
+                String shareBody = "Estoy usando " +getString(R.string.app_name) +" "+ getString(R.string.desde_web_movil);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Compartir via"));
@@ -172,7 +172,7 @@ public class MainActivity extends BaseAnimatedActivity
             startActivity(clasificadoIntent);
         } else if(id ==R.id.nav_about_us){
             try {
-                Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.phmovil.com/acercade"));
+                Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.acerca_de_url)));
                 startActivity(intent);
             }catch (Exception e){
                 Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
@@ -199,7 +199,7 @@ public class MainActivity extends BaseAnimatedActivity
 
         }else if(id ==R.id.nav_terminos){
             try {
-                Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.phmovil.com/terminosycondiciones"));
+                Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.terminos_y_condiciones_url)));
                 startActivity(intent);
             }catch (Exception e){
 

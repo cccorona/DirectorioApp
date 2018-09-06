@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ventura movil</string>
+    <string name="contacto_correo">contacto@venturamovil.com</string>
+    <string name="acerca_de_url">http://www.venturamovil.com/acercade</string>
+    <string name="terminos_y_condiciones_url">http://www.venturamovil.com/terminosycondiciones</string>
+    <string name="desde_web_movil">desde mi Android,http://www.venturamovil.com</string>
+</resources>

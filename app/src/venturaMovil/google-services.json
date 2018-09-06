@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "119773142145",
+    "firebase_url": "https://ventura-movil.firebaseio.com",
+    "project_id": "ventura-movil",
+    "storage_bucket": "ventura-movil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119773142145:android:b09fa29dc4eae5a0",
+        "android_client_info": {
+          "package_name": "mx.com.cesarcorona.directorio.venturamovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119773142145-6ve3qfu4nenvnmvk9todehqh128j2iro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvw0q5JldHtgIupkuRJS7-wPPcfcCeRqw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

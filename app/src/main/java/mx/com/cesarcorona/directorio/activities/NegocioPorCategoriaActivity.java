@@ -111,7 +111,7 @@ public class NegocioPorCategoriaActivity extends BaseAnimatedActivity implements
                     detailIntent.putExtras(extras);
                     startActivity(detailIntent);
                 }else{
-                    Toast.makeText(NegocioPorCategoriaActivity.this,"PH MOVIL, anunciate con nosotros",Toast.LENGTH_LONG).show();
+                    Toast.makeText(NegocioPorCategoriaActivity.this,getResources().getString(R.string.app_name) +" anunciate con nosotros",Toast.LENGTH_LONG).show();
 
                 }
 

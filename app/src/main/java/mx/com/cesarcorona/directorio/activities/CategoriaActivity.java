@@ -68,7 +68,7 @@ public class CategoriaActivity extends BaseAnimatedActivity implements CategoryA
                     detailIntent.putExtras(extras);
                     startActivity(detailIntent);
                 }else{
-                    Toast.makeText(CategoriaActivity.this,"PH MOVIL, anunciate con nosotros",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CategoriaActivity.this,getResources().getString(R.string.app_name)+", anunciate con nosotros",Toast.LENGTH_LONG).show();
                 }
 
             }
