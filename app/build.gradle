@@ -31,6 +31,14 @@ android {
 
         }
 
+        riosMovil{
+            applicationIdSuffix ".riosmovil"
+            versionName "Rios Movil"
+            versionCode 1
+            targetSdkVersion 27
+
+        }
+
         phmovil{
 
         }

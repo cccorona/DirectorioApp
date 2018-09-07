@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "799377139084",
+    "firebase_url": "https://rios-movil.firebaseio.com",
+    "project_id": "rios-movil",
+    "storage_bucket": "rios-movil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799377139084:android:2597a9da1d3c2d1d",
+        "android_client_info": {
+          "package_name": "mx.com.cesarcorona.directorio.riosmovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799377139084-q2qvuoldtoif88trnulftb33op5ji61i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfsvZWPFFs6VgXwtdHDUFBdhKRC48NcDA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Rios Movil</string>
+    <string name="contacto_correo">contacto@2riosmovil.com</string>
+    <string name="acerca_de_url">http://www.2riosmovil.com.com/acercade</string>
+    <string name="terminos_y_condiciones_url">http://www.2riosmovil.com.com/terminosycondiciones</string>
+    <string name="desde_web_movil">desde mi Android,http://www.2riosmovil.com.com</string>
+</resources>
